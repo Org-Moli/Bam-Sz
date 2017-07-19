@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>AdminLTE 2 | Data Tables</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/css/font-awesome.min.css"/>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/css/ionicons.min.css"/>
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/plugins/datatables/dataTables.bootstrap.css"/>
+    <link rel="stylesheet" href="/plugins/uploadifive/uploadifive.css"/>
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/css/AdminLTE.min.css"/>
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="/css/skins/_all-skins.min.css"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <header th:include="/bam/head"></header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <html th:include="/bam/menu"></html>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                客户列表
+                <small>advanced tables</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li><a href="#">客户列表</a></li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <!--<div class="box-header">
+                            <h3 class="box-title">客户列表</h3>
+                        </div>-->
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <button class="btn btn-primary" style="float: right" data-toggle="modal" data-target="#addModal">新增</button>
+                            <table id="example1" class="table table-bordered table-hover" style="text-align: center">
+                                <thead>
+                                <tr>
+                                    <th>名称</th>
+                                    <th>图标</th>
+                                    <th>链接</th>
+                                    <th>日期</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!--defalut modal-->
+        <div class="modal" id="addModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">新增客户</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="box box-primary">
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <form role="form" id="clientForm">
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="name">名称</label>
+                                        <input type="email" class="form-control" id="name" placeholder="请输入客户名称"/>
+                                    </div>
+                                    <div id="queue_papersImg"></div>
+                                    <div class="form-group">
+                                        <label for="file_logo">图标</label>
+                                        <input id="file_logo" name="file" type="file" multiple="false"/>
+                                        <p class="help-block">请上传客户Logo.</p>
+                                    </div>
+                                    <div id="img_papersImg" style="padding: 5px;">
+                                        <img src='http://imgs.jqueryfuns.com/2016/6/6/87f90ec1ca2a46301c8507dc03a7985d50146.jpg ' style='width:150px;'/>
+                                        <i class="fa fa-close" onclick="$('#picUrl').val('');$('#img_papersImg').html('');"></i>
+                                    </div>
+                                    <input type="hidden" id="picUrl" name="picUrl" value="" />
+                                    <div class="form-group">
+                                        <label for="bindUrl">链接</label>
+                                        <input type="text" class="form-control" id="bindUrl" placeholder="客户官网地址"/>
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" onclick="saveClient();">保存</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+    <!--defalut modal-->
+
+    <!-- /.content-wrapper -->
+    <footer th:include="/bam/foot"></footer>
+
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.2.3 -->
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="/scripts/moment.js"></script>
+<script src="/scripts/datatable-datetime.js"></script>
+<!-- FastClick -->
+<script src="/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="/scripts/app.min.js"></script>
+<!-- page script -->
+<script src="/plugins/uploadifive/jquery.uploadifive.min.js"></script>
+<script src="/scripts/toast.js"></script>
+<script>
+    var table;
+    $(function () {
+        table = $('#example1').DataTable({
+            //开启服务器模式
+            serverSide: true,
+            ajax:'/bam/sysClientsAjax/listSysClients',
+            columns: [
+                { data: "picUrl" },
+                { data: "bindUrl" },
+                { data: "createTime",type: "date" }
+            ],
+            columnDefs: [ {
+                targets: 2,
+                type:"datetime",
+                render: $.fn.dataTable.render.moment.unit( 'YYYY-MM-DD' )
+            },
+            {
+                targets: 3,
+                render: function (data, type, row) {
+                    return '<button class="btn btn-primary" onclick="deleteById(' + row.id + ');">删除</button>';
+                }
+            }],
+            language: {
+                url: "/plugins/datatables/cn.json"
+            },
+            paging: true,
+            lengthChange: false,
+            searching: false,
+            ordering: false,
+            info: true,
+            autoWidth: false,
+            paging: false
+        });
+
+        $('#file_logo').uploadifive({
+            'auto': true,
+            'multi': false,
+            'width': '100%',
+            'height': '35',
+            'fileObjName': 'file',
+            'buttonText': '上传LoGo',
+            'fileType': 'image/jpg,image/jpeg,image/png',
+            'fileSizeLimit': 1024,
+            'queueSizeLimit': 1,
+            'formData': {},
+            'queueID': 'queue_papersImg',
+            'uploadScript': '/bam/upload',
+            'onUploadComplete': function (file, data) {
+                data = JSON.parse(data);
+                if (data.success) {
+                    Toast.success("上传成功");
+                    var _html = '<img src="' + data.url + '" style="width:150px;"/>';
+                    _html += '<i class="fa fa-close" onclick="clearPapersImgFile();"></i>';
+                    $("#img_papersImg").html(_html);
+                    $("#queue_papersImg").html("");
+                    $("#picUrl").val(data.url);
+                } else {
+                    clearPapersImgFile();
+                    Toast.error("上传失败");
+                }
+            },
+            'onDrop': function (file, fileDropCount) {
+                clearPapersImgFile();
+            },
+            'onClearQueue': function (queue) {
+                clearPapersImgFile();
+            },
+            'onCancel': function () {
+                //clearPapersImgFile();
+            }
+        });
+    });
+    
+    function deleteById(id) {
+        $.ajax({
+            url: "/bam/sysClientsAjax/deleteById",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data:{
+                id:id
+            },
+            dataType: "json",
+            type: "POST",
+            success : function(data)
+            {
+                if(data.success)
+                {
+                    table.ajax.reload();
+                }
+            }
+        });
+    }
+
+    function clearPapersImgFile() {
+        $("#img_papersImg").html("");
+        $("#queue_papersImg").html("");
+        $("#picUrl").val("");
+    }
+    
+    function saveClient() {
+        if($("#name").val().trim().length == 0)
+        {
+            Toast.error("请填写客户名称");
+            return;
+        }
+        if($("#picUrl").val().trim().length == 0)
+        {
+            Toast.error("请上传logo");
+            return;
+        }
+        $.ajax({
+            url: "/bam/sysClientsAjax/saveSysClient",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data:{
+                name:$("#name").val().trim(),
+                picUrl:$("#picUrl").val().trim(),
+                bindUrl:$("#bindUrl").val().trim()
+            },
+            dataType: "json",
+            type: "POST",
+            success : function(data)
+            {
+                if(data.success)
+                {
+                    table.ajax.reload();
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>
