@@ -63,10 +63,11 @@
                         </div>-->
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <button class="btn btn-primary" style="float: right" data-toggle="modal" data-target="#addModal">新增</button>
+                            <button class="btn btn-primary" style="float: right" data-toggle="modal" data-target="#addModal">订单导入</button>
                             <table id="example1" class="table table-bordered table-hover" style="text-align: center">
                                 <thead>
                                 <tr>
+                                    <th><input type="checkbox" id="checkAll"/></th>
                                     <th>#</th>
                                     <th>订单编号</th>
                                     <th>下单时间</th>
@@ -215,6 +216,7 @@
             serverSide: true,
             ajax:'/bam/order/orderListSearch',
             columns: [
+				{ data:""},
                 { data: "id" },      
                 { data: "orderNum" },
                 { data: "create_date" },
@@ -225,7 +227,28 @@
             ],
             columnDefs: [   
             {
-                targets: 7,
+                targets: 0,
+                render: function (data, type, row) {
+                    return  '<input type="checkbox" value="' + row.id + '" name="idChk"/>';
+                }
+            },
+            {
+                targets: 3,
+                type:"datetime",
+                render: $.fn.dataTable.render.moment.unit( 'YYYY-MM-DD HH:mm:ss' )
+            },
+            {
+                targets: 4,
+                render: function(data, type, row){
+                	 if(row.audit_status==0){
+                		 return '<font color="red">未审核</font>';
+                	 }else{
+                		 return '<font color="green">已审核</font>';
+                	 }
+                }
+            },
+            {
+                targets: 8,
                 render: function (data, type, row) {
                 	if(row.audit_status==0){
                 		return '<button class="btn btn-primary" onclick="selectById(' + row.id + ');">编辑</button>';
@@ -233,21 +256,6 @@
                 		return '<button class="btn btn-primary" onclick="fshById(' + row.id + ');">反审核</button>';
                 	}
                     
-                }
-            },
-            {
-                targets: 2,
-                type:"datetime",
-                render: $.fn.dataTable.render.moment.unit( 'YYYY-MM-DD HH:mm:ss' )
-            },
-            {
-                targets: 3,
-                render: function(data, type, row){
-                	 if(row.audit_status==0){
-                		 return '<font color="red">未审核</font>';
-                	 }else{
-                		 return '<font color="green">已审核</font>';
-                	 }
                 }
             }
             ],
@@ -262,6 +270,18 @@
             autoWidth: false,
             paging: true
         });
+    });
+    
+    
+    $("#checkAll").click(function(){
+    	 if($(this).is(":checked"))
+         {    
+    		 $("input[type='checkbox'][name='idChk']").prop("checked",true);
+         }
+         else
+         {
+        	 $("input[type='checkbox'][name='idChk']").prop("checked",false);
+         }
     });
     
     
