@@ -68,10 +68,23 @@
                         </div>-->
                         <!-- /.box-header -->
                         <div class="box-body">
+                        <form class="form-inline">
                         	<button type="button" class="btn btn-info" id="showNumBtn">0</button>
                         	<button type="button" class="btn btn-default" onclick="chenckById()">审核订单</button>
                         	<button type="button" class="btn btn-danger" onclick="deleteById()">删除订单</button>
-                            <button class="btn btn-primary" style="float: right" data-toggle="modal" data-target="#addModal">订单导入</button>
+                            <select class="input-md form-control" style="width: 100px" name="search_status">
+                               <option value="">全部</option>
+                               <option value="0">未审核</option>
+                               <option value="1">已审核</option>
+                            </select>
+                            <select class="input-md form-control" style="width: 100px" name="search_status">
+                               <option value="">全部</option>
+                               <option value="0">订单编号</option>
+                               <option value="1">收货人</option>
+                            </select>
+                            <input type="text" class="form-control" placeholder="查询关键字"/>
+                        </form>
+                        	
                             <table id="example1" class="table table-bordered table-hover" style="text-align: center">
                                 <thead>
                                 <tr>
@@ -219,6 +232,8 @@
 <script>
     var table;
     $(function () {
+    	
+    	
         table = $('#example1').DataTable({
             //开启服务器模式
             serverSide: true,
