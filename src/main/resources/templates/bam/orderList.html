@@ -377,7 +377,10 @@
                 if(data.success)
                 {   
                 	Toast.success("反审核成功",'提示',null);
-                    table.ajax.reload();
+                	setTimeout(function () { 
+                		table.ajax.reload();
+                    }, 1000);
+                    
                 }else{
                 	 Toast.error("反审核失败");
                 }
@@ -392,16 +395,20 @@
     		return;
     	}
     	var ids=[];
+    	var d_flag=false;
     	$("input[type='checkbox'][name='idChk']:checked").each(function(){
     		var obj=$(this);
     		if(obj.attr("data-status")==1){
     			Toast.error("已审核订单不能删除");
+    			d_flag=true;
     			return;
     		}
     		ids.push(obj.val());
     	});
-    	var ids=ids.join(",");
-    	var statu = confirm('确认删除['+ids+']吗?');
+    	if(d_flag){
+    		return ;
+    	}
+    	var statu = confirm('确认删除['+ids.join(",")+']吗?');
     	if(!statu){
     	   return false;
     	  }
@@ -409,14 +416,18 @@
             url: "/bam/order/deleteById",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             data:{
-            	ids:ids
+            	idList:ids
             },
             dataType: "json",
             type: "POST",
             success : function(data)
             {
                 if(data.success)
-                {     
+                {    
+                	 Toast.success("删除成功",'提示',null);
+                	 setTimeout(function () { 
+                 		table.ajax.reload();
+                     }, 1000);
                      table.ajax.reload();
                 }else{
                 	 Toast.error("删除失败");

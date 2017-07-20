@@ -69,6 +69,15 @@ public class OrderService {
 	       return orderMapper.fshById(id);
 	   }
 	   
+	   /**
+	    * 删除
+	    * @param ids
+	    * @return
+	    */
+	   public int deleteById(List<Integer> idList){
+		   return orderMapper.deleteById(idList);
+	   }
+	   
     
 //
 //    /**

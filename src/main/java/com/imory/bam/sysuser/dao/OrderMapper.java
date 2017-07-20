@@ -3,6 +3,7 @@ package com.imory.bam.sysuser.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Lang;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -11,6 +12,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.imory.bam.sysuser.bean.SysOrder;
 import com.imory.bam.sysuser.bean.SysOrigin;
+import com.imory.bam.utils.SimpleInLangDriver;
 
 /**
  * 
@@ -88,4 +90,13 @@ public interface OrderMapper {
         "where id = #{id,jdbcType=INTEGER} and  audit_status=1"
     })
     int fshById(Integer id);
+    
+    @Update({
+        "update sys_order",
+        "set del_flag = 1 ",
+        "where id in (#{list}) and del_flag=0 "
+    })
+    @Lang(SimpleInLangDriver.class) 
+    int deleteById(List<Integer> list);
+
 }

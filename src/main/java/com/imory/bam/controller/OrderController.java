@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
@@ -97,6 +98,19 @@ public class OrderController {
     {    
     	 Map<String, Object> resultMap = new HashMap<>();
     	 if(orderService.fshById(id)>0){
+    		 resultMap.put("success", true);
+    	 }else{
+    		 resultMap.put("success",false);
+    	 }
+         return resultMap;
+    }
+    
+    @RequestMapping("/deleteById")
+    @ResponseBody
+    public Map<String, Object> deleteById(@RequestParam("idList[]") List<Integer> idList)
+    {    
+    	 Map<String, Object> resultMap = new HashMap<>();
+    	 if(orderService.deleteById(idList)>0){
     		 resultMap.put("success", true);
     	 }else{
     		 resultMap.put("success",false);
