@@ -69,7 +69,7 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                         	<button type="button" class="btn btn-info" id="showNumBtn">0</button>
-                        	<button type="button" class="btn btn-default">审核订单</button>
+                        	<button type="button" class="btn btn-default" onclick="chenckById()">审核订单</button>
                         	<button type="button" class="btn btn-danger" onclick="deleteById()">删除订单</button>
                             <button class="btn btn-primary" style="float: right" data-toggle="modal" data-target="#addModal">订单导入</button>
                             <table id="example1" class="table table-bordered table-hover" style="text-align: center">
@@ -436,47 +436,54 @@
         });
     }
     
-    function saveOrigin() {
-        if($("#area").val().length == 0)
-        {
-            Toast.error("请填写国家/地区");
-            return;
-        }
-        if($("#acronym").val().length == 0)
-        {
-            Toast.error("请填写缩写");
-            return;
-        }
-        if($("#code").val().length == 0)
-        {
-            Toast.error("请填写代码");
-            return;
-        }
-        $.ajax({
-            url: "/bam/sysOriginAjax/saveOrUpdate",
+    
+    function chenckById(){
+    	var num=$("input[type='checkbox'][name='idChk']:checked").length;
+    	if(num==0){
+    		Toast.error("请选择一项数据再进行操作");
+    		return;
+    	}
+    	var ids=[];
+    	var d_flag=false;
+    	$("input[type='checkbox'][name='idChk']:checked").each(function(){
+    		var obj=$(this);
+    		if(obj.attr("data-status")==1){
+    			Toast.error("已审核订单不能再审核");
+    			d_flag=true;
+    			return;
+    		}
+    		ids.push(obj.val());
+    	});
+    	if(d_flag){
+    		return ;
+    	}
+    	return;
+    	//获取关检名称，物流名称，支付方式
+    	$.ajax({
+            url: "/bam/order/chenckById",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             data:{
-                area:$("#area").val(),
-                acronym:$("#acronym").val(),
-                code:$("#code").val(),
-                id:$("#editId").val()
+            	idList:ids
             },
             dataType: "json",
             type: "POST",
             success : function(data)
             {
                 if(data.success)
-                {
-                    $("#addModal").modal("hide");
-                    table.ajax.reload();
-                }
-                else
-                {
-                    Toast.error("保存失败");
+                {    
+                	 Toast.success("审核成功",'提示',null);
+                	 setTimeout(function () { 
+                 		table.ajax.reload();
+                     }, 1000);
+                     table.ajax.reload();
+                }else{
+                	 Toast.error("审核失败");
                 }
             }
         });
     }
+    
+
 </script>
 </body>
 </html>
