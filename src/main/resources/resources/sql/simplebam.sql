@@ -128,3 +128,68 @@ CREATE TABLE `sys_order` (
 -- Records of order
 -- ----------------------------
 INSERT INTO `sys_order` VALUES ('1', '10000', '10', '2017-07-20 14:19:20', '0', '小蒋', '1', '431333199903332455', '18620000000', '小蒋地址', '省', '省code', '市', '市code', '县', '县code', '镇', '镇code', '0', '小蒋支付人', 'zf4312222152415456', '18600000000', '8.00', '2.00', '8.00', '0.00', '200000');
+
+commit;
+
+DROP TABLE IF EXISTS `sys_amountUnit`;
+
+CREATE TABLE `sys_amountUnit` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL COMMENT '名称',
+  `code` varchar(50) DEFAULT NULL COMMENT '代码',
+  `createTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `sys_amountUnit` (`id`, `name`, `code`, `createTime`)
+VALUES
+  (1,'台1','0012','2017-07-20 16:47:11'),
+  (2,'做','002','2017-07-20 16:48:35'),
+  (3,'个','003','2017-07-20 16:48:42'),
+  (4,'你','004','2017-07-20 16:48:47'),
+  (5,'我','005','2017-07-20 16:48:52'),
+  (6,'他','006','2017-07-20 16:48:56');
+
+DROP TABLE IF EXISTS `sys_currencyUnit`;
+
+CREATE TABLE `sys_currencyUnit` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL COMMENT '名称',
+  `code` varchar(50) DEFAULT NULL COMMENT '代码',
+  `createTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `sys_currencyUnit` (`id`, `name`, `code`, `createTime`)
+VALUES
+  (1,'人民币','RMB','2017-07-20 17:18:24'),
+  (2,'美元','MY','2017-07-20 17:18:32'),
+  (3,'泰铢','ts','2017-07-20 17:18:39'),
+  (5,'23','23','2017-07-20 17:18:45'),
+  (6,'3','3','2017-07-20 17:18:48'),
+  (7,'4','4','2017-07-20 17:18:51'),
+  (8,'5','5','2017-07-20 17:18:53'),
+  (9,'6','6','2017-07-20 17:18:57'),
+  (12,'33','33','2017-07-20 17:19:07');
+
+DROP TABLE IF EXISTS `Sys_origin`;
+
+CREATE TABLE `Sys_origin` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `area` varchar(100) DEFAULT NULL COMMENT '国家/地区',
+  `acronym` varchar(50) DEFAULT NULL COMMENT '缩写',
+  `code` varchar(50) DEFAULT NULL COMMENT '代码',
+  `createTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `Sys_origin` (`id`, `area`, `acronym`, `code`, `createTime`)
+VALUES
+  (3,'中国','CN','001','2017-07-20 10:51:58'),
+  (4,'美国','USA','002','2017-07-20 10:52:44'),
+  (9,'2','23','34','2017-07-20 10:53:02'),
+  (12,'2','23','34','2017-07-20 10:53:06'),
+  (13,'2','23','34','2017-07-20 10:53:08'),
+  (14,'2','23','34','2017-07-20 10:53:12'),
+  (15,'2','3','1','2017-07-20 10:53:46');
+COMMIT;
