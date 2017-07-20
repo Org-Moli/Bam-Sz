@@ -64,9 +64,9 @@ public class OrderService {
 	    * @param sysOrigin
 	    * @return
 	    */
-	   public int deleteById(Integer id)
+	   public int fshById(Integer id)
 	   {
-	       return orderMapper.deleteById(id);
+	       return orderMapper.fshById(id);
 	   }
 	   
     

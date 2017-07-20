@@ -91,12 +91,12 @@ public class OrderController {
         return resultMap;
     }
     
-    @RequestMapping("/deleteById")
+    @RequestMapping("/fshById")
     @ResponseBody
-    public Map<String, Object> deleteById(Integer id)
+    public Map<String, Object> fshById(Integer id)
     {    
     	 Map<String, Object> resultMap = new HashMap<>();
-    	 if(orderService.deleteById(id)>0){
+    	 if(orderService.fshById(id)>0){
     		 resultMap.put("success", true);
     	 }else{
     		 resultMap.put("success",false);

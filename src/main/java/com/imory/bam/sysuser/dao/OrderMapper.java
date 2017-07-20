@@ -87,5 +87,5 @@ public interface OrderMapper {
         "set audit_status = 0 ",
         "where id = #{id,jdbcType=INTEGER} and  audit_status=1"
     })
-    int deleteById(Integer id);
+    int fshById(Integer id);
 }

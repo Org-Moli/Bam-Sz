@@ -230,7 +230,7 @@
                 	if(row.audit_status==0){
                 		return '<button class="btn btn-primary" onclick="selectById(' + row.id + ');">编辑</button>';
                 	}else{
-                		return '<button class="btn btn-primary" onclick="deleteById(' + row.id + ');">反审核</button>';
+                		return '<button class="btn btn-primary" onclick="fshById(' + row.id + ');">反审核</button>';
                 	}
                     
                 }
@@ -329,9 +329,9 @@
 
     
     
-    function deleteById(id) {
+    function fshById(id) {
         $.ajax({
-            url: "/bam/order/deleteById",
+            url: "/bam/order/fshById",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             data:{
                 id:id
@@ -341,7 +341,8 @@
             success : function(data)
             {
                 if(data.success)
-                {
+                {   
+                	Toast.success("反审核成功",'提示',null);
                     table.ajax.reload();
                 }else{
                 	 Toast.error("反审核失败");
