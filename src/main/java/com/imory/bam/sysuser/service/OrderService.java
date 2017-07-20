@@ -34,6 +34,30 @@ public class OrderService {
     }
     
     
+    /**
+	  * 查询
+	  * @param id
+	  * @return
+	  */
+	 public SysOrder getById(Integer id)
+	 {
+	     return orderMapper.getById(id);
+	 }
+	 
+	 
+	 
+	   /**
+	    * 更新
+	    *
+	    * @param sysOrigin
+	    * @return
+	    */
+	   public int updateById(SysOrder sysOrder)
+	   {
+	       return orderMapper.updateById(sysOrder);
+	   }
+    
+    
     
 //
 //    /**
@@ -47,24 +71,6 @@ public class OrderService {
 //        return OrderMapper.insert(sysOrigin);
 //    }
 //
-//    /**
-//     * 查询
-//     * @param id
-//     * @return
-//     */
-//    public SysOrigin getById(Integer id)
-//    {
-//        return OrderMapper.getById(id);
-//    }
-//
-//    /**
-//     * 更新
-//     *
-//     * @param sysOrigin
-//     * @return
-//     */
-//    public int updateById(SysOrigin sysOrigin)
-//    {
-//        return OrderMapper.updateById(sysOrigin);
-//    }
+
+
 }

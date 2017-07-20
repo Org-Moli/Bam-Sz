@@ -56,16 +56,28 @@ public interface OrderMapper {
     
 
     @Select({
-            "select * from sys_origin where id = #{id}"
+            "select * from sys_order where id = #{id}"
     })
-    SysOrigin getById(Integer id);
+    SysOrder getById(Integer id);
 
     @Update({
-            "update sys_origin",
-            "set area = #{area,jdbcType=VARCHAR},",
-            "acronym = #{acronym,jdbcType=VARCHAR},",
-            "code = #{code,jdbcType=VARCHAR}",
+            "update  sys_order",
+            "set orderNum = #{orderNum,jdbcType=VARCHAR},",
+            "trans_user_name = #{trans_user_name,jdbcType=VARCHAR},",
+            "trans_user_id_num = #{trans_user_id_num,jdbcType=VARCHAR},",
+            "trans_user_phone = #{trans_user_phone,jdbcType=VARCHAR},",
+            "trans_user_address = #{trans_user_address,jdbcType=VARCHAR},",
+            "payer_name = #{payer_name,jdbcType=VARCHAR},",
+            "payer_id_num = #{payer_id_num,jdbcType=VARCHAR},",
+            "payer_phone = #{payer_phone,jdbcType=VARCHAR},",
+            "order_amount = #{order_amount,jdbcType=DOUBLE},",
+            "payer_amount = #{payer_amount,jdbcType=DOUBLE},",
+            "trans_amount = #{trans_amount,jdbcType=DOUBLE},",
+            "delevery_order = #{delevery_order,jdbcType=VARCHAR},",
+            "prd_amount = #{prd_amount,jdbcType=DOUBLE},",
+            "tax_amount = #{tax_amount,jdbcType=DOUBLE},",
+            "postal_code = #{postal_code,jdbcType=VARCHAR}",
             "where id = #{id,jdbcType=INTEGER}"
     })
-    int updateById(SysOrigin sysOrigin);
+    int updateById(SysOrder sysOrder);
 }

@@ -1,6 +1,8 @@
 package com.imory.bam.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +16,9 @@ import com.imory.bam.sysuser.bean.SysOrder;
 import com.imory.bam.sysuser.service.OrderService;
 
 /**
- * <p>名称</p>
- * <p/>
- * <p>wikiURL</p>
+ * 
+ * @author hushun
  *
- * @author zb.jiang
- * @version 1.0
- * @Date 2017/7/20
  */
 @Controller
 @RequestMapping("/bam/order")
@@ -51,6 +49,46 @@ public class OrderController {
         jsonObject.put("recordsTotal", orderList.size());
         jsonObject.put("recordsFiltered", orderService.countOrder());
         return jsonObject.toJSONString();
+    }
+    
+    /**
+     * 查询所有产地
+     *
+     * @return
+     */
+    @RequestMapping("/getById")
+    @ResponseBody
+    public SysOrder getById(Integer id)
+    {
+    	SysOrder sysOrder = orderService.getById(id);
+    	if(sysOrder==null){
+    		return null;
+    	}
+        return sysOrder;
+    }
+    
+    
+    @RequestMapping("/updateOrder")
+    @ResponseBody
+    public Map<String, Object> updateOrder(SysOrder sysOrder)
+    {    
+    	 Map<String, Object> resultMap = new HashMap<>();
+    	if(sysOrder==null){
+    		 resultMap.put("success", false);
+    	}else{
+    		 if(null==sysOrder.getId()){
+    			 resultMap.put("success", false);
+    			 resultMap.put("errorMsg","ID值为空，修改失败");
+    		 }else{
+    			  if(orderService.updateById(sysOrder)>0){
+    				  resultMap.put("success", true);
+    			  }else{
+    				  resultMap.put("success", false);
+    				  resultMap.put("errorMsg","编辑失败");
+    			  }
+    		 }
+    	}
+        return resultMap;
     }
 
 }
