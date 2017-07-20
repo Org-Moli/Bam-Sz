@@ -36,6 +36,7 @@ public class SysOrder {
     private Double prd_amount;                  //'商品金额' ,
     private Double tax_amount;                  //'税款金额' ,
     private String postal_code;                 //'邮政编号' 
+    private String delevery_order;              //运单号
     
 	public Integer getId() {
 		return id;
@@ -199,15 +200,33 @@ public class SysOrder {
 	public void setPostal_code(String postal_code) {
 		this.postal_code = postal_code;
 	}
-
-	
-	
-    
-    
-    
-
-
-    
-
+	public String getDelevery_order() {
+		return delevery_order;
+	}
+	public void setDelevery_order(String delevery_order) {
+		this.delevery_order = delevery_order;
+	}
+	@Override
+	public String toString() {
+		return "SysOrder [id=" + id + ", orderNum=" + orderNum
+				+ ", order_amount=" + order_amount + ", create_date="
+				+ create_date + ", audit_status=" + audit_status
+				+ ", trans_user_name=" + trans_user_name + ", trans_user_id="
+				+ trans_user_id + ", trans_user_id_num=" + trans_user_id_num
+				+ ", trans_user_phone=" + trans_user_phone
+				+ ", trans_user_address=" + trans_user_address
+				+ ", trans_province=" + trans_province
+				+ ", trans_province_code=" + trans_province_code
+				+ ", trans_city=" + trans_city + ", trans_city_code="
+				+ trans_city_code + ", trans_area=" + trans_area
+				+ ", trans_area_code=" + trans_area_code + ", trans_town="
+				+ trans_town + ", trans_town_code=" + trans_town_code
+				+ ", del_flag=" + del_flag + ", payer_name=" + payer_name
+				+ ", payer_id_num=" + payer_id_num + ", payer_phone="
+				+ payer_phone + ", payer_amount=" + payer_amount
+				+ ", trans_amount=" + trans_amount + ", prd_amount="
+				+ prd_amount + ", tax_amount=" + tax_amount + ", postal_code="
+				+ postal_code + ", delevery_order=" + delevery_order + "]";
+	}
     
 }
