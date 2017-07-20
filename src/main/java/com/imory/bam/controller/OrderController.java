@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -40,6 +41,7 @@ public class OrderController {
      * @return
      */
     @RequestMapping("/orderListSearch")
+    @ResponseBody
     public String listSysOrigin(@Param("draw") int draw, @Param("start") int start ,@Param("length") int length)
     {
         List<SysOrder> orderList = orderService.orderListSearch(start, length);
