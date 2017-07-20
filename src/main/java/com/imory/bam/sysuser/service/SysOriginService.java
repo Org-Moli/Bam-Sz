@@ -5,7 +5,9 @@ import com.imory.bam.sysuser.dao.SysOriginMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>名称</p>
@@ -45,6 +47,7 @@ public class SysOriginService {
 
     /**
      * 查询
+     *
      * @param id
      * @return
      */
@@ -62,5 +65,27 @@ public class SysOriginService {
     public int updateById(SysOrigin sysOrigin)
     {
         return sysOriginMapper.updateById(sysOrigin);
+    }
+
+    /**
+     * 删除
+     *
+     * @param id
+     */
+    public void deleteById(Integer id)
+    {
+        sysOriginMapper.deleteById(id);
+    }
+
+    /**
+     * 删除
+     *
+     * @param ids
+     */
+    public void deleteByIds(Integer[] ids)
+    {
+        Map<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("ids", ids);
+        sysOriginMapper.deleteByIds(paramsMap);
     }
 }

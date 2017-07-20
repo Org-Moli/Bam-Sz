@@ -4,6 +4,7 @@ import com.imory.bam.sysuser.bean.SysOrigin;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>名称</p>
@@ -49,4 +50,12 @@ public interface SysOriginMapper {
             "where id = #{id,jdbcType=INTEGER}"
     })
     int updateById(SysOrigin sysOrigin);
+
+    @Delete({
+            "delete from sys_origin where id = #{id}"
+    })
+    void deleteById(@Param("id") Integer id);
+
+    @DeleteProvider(type = SysOriginSqlProvider.class, method = "deleteByIds")
+    void deleteByIds(Map<String, Object> paramsMap);
 }
