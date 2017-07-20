@@ -121,14 +121,14 @@ CREATE TABLE `sys_order` (
   `prd_amount` double(20,2) DEFAULT '0.00' COMMENT '商品金额',
   `tax_amount` double(20,2) DEFAULT '0.00' COMMENT '税款金额',
   `postal_code` varchar(10) DEFAULT NULL COMMENT '邮政编号',
+  `delevery_order` varchar(30) DEFAULT NULL COMMENT '运单号',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of order
+-- Records of sys_order
 -- ----------------------------
-INSERT INTO `sys_order` VALUES ('1', '10000', '10', '2017-07-20 14:19:20', '0', '小蒋', '1', '431333199903332455', '18620000000', '小蒋地址', '省', '省code', '市', '市code', '县', '县code', '镇', '镇code', '0', '小蒋支付人', 'zf4312222152415456', '18600000000', '8.00', '2.00', '8.00', '0.00', '200000');
-
+INSERT INTO `sys_order` VALUES ('1', '10000', '10', '2017-07-20 14:19:20', '0', '小蒋', '1', '431333199903332455', '18620000000', '小蒋地址', '省', '省code', '市', '市code', '县', '县code', '镇', '镇code', '0', '小蒋支付人', 'zf4312222152415456', '18600000000', '8.00', '2.00', '8.00', '0.00', '200000', '333333333333');
 commit;
 
 DROP TABLE IF EXISTS `sys_amountUnit`;
