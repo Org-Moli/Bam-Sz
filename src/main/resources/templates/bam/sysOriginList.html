@@ -69,8 +69,14 @@
                         </div>-->
                         <!-- /.box-header -->
                         <div class="box-body">
-                            <button class="btn btn-danger" style="float: right;" onclick="deleteByIds();">删除</button>
-                            <button class="btn btn-primary" style="float: right;margin-right: 20px;" data-toggle="modal" data-target="#addModal">新增</button>
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label>模糊查询:</label>
+                                    <input type="text" class="form-control" id="search_area" placeholder="国家/地区|缩写|代码"/>
+                                </div>
+                                <button class="btn btn-danger" style="float: right;" onclick="deleteByIds();">删除</button>
+                                <button class="btn btn-primary" style="float: right;margin-right: 20px;" data-toggle="modal" data-target="#addModal">新增</button>
+                            </form>
                             <table id="example1" class="table table-bordered table-hover" style="text-align: center">
                                 <thead>
                                 <tr>
@@ -171,7 +177,12 @@
         table = $('#example1').DataTable({
             //开启服务器模式
             serverSide: true,
-            ajax:'/bam/sysOriginAjax/listSysOrigin',
+            ajax:{
+                url:'/bam/sysOriginAjax/listSysOrigin',
+                data:function (d) {
+                    d.qryVal = $("#search_area").val()
+                }
+            },
             columns: [
                 {data:"id"},
                 { data: "area" },
@@ -219,6 +230,10 @@
             {
                 $("input[type='checkbox'][name='idChk']").iCheck('uncheck');
             }
+        });
+
+        $("#search_area").on('keyup', function () {
+            table.ajax.reload();
         });
     });
 

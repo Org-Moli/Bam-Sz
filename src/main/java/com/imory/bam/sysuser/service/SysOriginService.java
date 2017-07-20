@@ -24,14 +24,20 @@ public class SysOriginService {
     @Autowired
     private SysOriginMapper sysOriginMapper;
 
-    public List<SysOrigin> listSysOrigin(Integer startPos, Integer maxRows)
+    public List<SysOrigin> listSysOrigin(Integer startPos, Integer maxRows, String qryVal)
     {
-        return sysOriginMapper.listSysOrigin(startPos, maxRows);
+        Map<String,Object> paramsMap = new HashMap<>();
+        paramsMap.put("startPos",startPos);
+        paramsMap.put("maxRows",maxRows);
+        paramsMap.put("qryVal",qryVal);
+        return sysOriginMapper.listSysOrigin(paramsMap);
     }
 
-    public int countSysOrigin()
+    public int countSysOrigin(String qryVal)
     {
-        return sysOriginMapper.countSysOrigin();
+        Map<String,Object> paramsMap = new HashMap<>();
+        paramsMap.put("qryVal",qryVal);
+        return sysOriginMapper.countSysOrigin(paramsMap);
     }
 
     /**

@@ -35,14 +35,14 @@ public class SysOriginAjaxController {
      * @return
      */
     @RequestMapping("/listSysOrigin")
-    public String listSysOrigin(@Param("draw") int draw, @Param("start") int start, @Param("length") int length)
+    public String listSysOrigin(@Param("draw") int draw, @Param("start") int start, @Param("length") int length, @Param("qryVal") String qryVal)
     {
-        List<SysOrigin> sysOriginList = sysOriginService.listSysOrigin(start, length);
+        List<SysOrigin> sysOriginList = sysOriginService.listSysOrigin(start, length,qryVal);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", JSON.toJSON(sysOriginList));
         jsonObject.put("draw", draw);
-        jsonObject.put("recordsTotal", sysOriginList.size());
-        jsonObject.put("recordsFiltered", sysOriginService.countSysOrigin());
+        jsonObject.put("recordsTotal", sysOriginService.countSysOrigin(qryVal)); //:总记录数
+        jsonObject.put("recordsFiltered", sysOriginService.countSysOrigin(qryVal)); //过滤后的总记录数
         return jsonObject.toJSONString();
     }
 
