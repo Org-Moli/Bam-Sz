@@ -5,7 +5,9 @@ import com.imory.bam.sysuser.dao.SysOriginMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>名称</p>
@@ -22,14 +24,20 @@ public class SysOriginService {
     @Autowired
     private SysOriginMapper sysOriginMapper;
 
-    public List<SysOrigin> listSysOrigin(Integer startPos, Integer maxRows)
+    public List<SysOrigin> listSysOrigin(Integer startPos, Integer maxRows, String qryVal)
     {
-        return sysOriginMapper.listSysOrigin(startPos, maxRows);
+        Map<String,Object> paramsMap = new HashMap<>();
+        paramsMap.put("startPos",startPos);
+        paramsMap.put("maxRows",maxRows);
+        paramsMap.put("qryVal",qryVal);
+        return sysOriginMapper.listSysOrigin(paramsMap);
     }
 
-    public int countSysOrigin()
+    public int countSysOrigin(String qryVal)
     {
-        return sysOriginMapper.countSysOrigin();
+        Map<String,Object> paramsMap = new HashMap<>();
+        paramsMap.put("qryVal",qryVal);
+        return sysOriginMapper.countSysOrigin(paramsMap);
     }
 
     /**
@@ -45,6 +53,7 @@ public class SysOriginService {
 
     /**
      * 查询
+     *
      * @param id
      * @return
      */
@@ -62,5 +71,27 @@ public class SysOriginService {
     public int updateById(SysOrigin sysOrigin)
     {
         return sysOriginMapper.updateById(sysOrigin);
+    }
+
+    /**
+     * 删除
+     *
+     * @param id
+     */
+    public void deleteById(Integer id)
+    {
+        sysOriginMapper.deleteById(id);
+    }
+
+    /**
+     * 删除
+     *
+     * @param ids
+     */
+    public void deleteByIds(Integer[] ids)
+    {
+        Map<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("ids", ids);
+        sysOriginMapper.deleteByIds(paramsMap);
     }
 }

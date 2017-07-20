@@ -4,6 +4,7 @@ import com.imory.bam.sysuser.bean.SysOrigin;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>名称</p>
@@ -26,15 +27,11 @@ public interface SysOriginMapper {
     @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", before = false, resultType = Integer.class)
     int insert(SysOrigin sysOrigin);
 
-    @Select({
-            "select * from sys_origin limit #{startPos},#{maxRows}"
-    })
-    List<SysOrigin> listSysOrigin(@Param("startPos") Integer startPos, @Param("maxRows") Integer maxRows);
+    @SelectProvider(type = SysOriginSqlProvider.class,method = "listSysOrigin")
+    List<SysOrigin> listSysOrigin(Map<String,Object> paramsMap);
 
-    @Select({
-            "select count(*) from sys_origin"
-    })
-    int countSysOrigin();
+    @SelectProvider(type = SysOriginSqlProvider.class,method = "countSysOrigin")
+    int countSysOrigin(Map<String,Object> paramsMap);
 
     @Select({
             "select * from sys_origin where id = #{id}"
@@ -49,4 +46,12 @@ public interface SysOriginMapper {
             "where id = #{id,jdbcType=INTEGER}"
     })
     int updateById(SysOrigin sysOrigin);
+
+    @Delete({
+            "delete from sys_origin where id = #{id}"
+    })
+    void deleteById(@Param("id") Integer id);
+
+    @DeleteProvider(type = SysOriginSqlProvider.class, method = "deleteByIds")
+    void deleteByIds(Map<String, Object> paramsMap);
 }
