@@ -27,6 +27,11 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>
+    .table>thead:first-child>tr:first-child>th{
+        text-align:center;
+    }
+	</style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -63,6 +68,9 @@
                         </div>-->
                         <!-- /.box-header -->
                         <div class="box-body">
+                        	<button type="button" class="btn btn-info" id="showNumBtn">0</button>
+                        	<button type="button" class="btn btn-default">审核订单</button>
+                        	<button type="button" class="btn btn-danger" onclick="deleteById()">删除订单</button>
                             <button class="btn btn-primary" style="float: right" data-toggle="modal" data-target="#addModal">订单导入</button>
                             <table id="example1" class="table table-bordered table-hover" style="text-align: center">
                                 <thead>
@@ -229,7 +237,7 @@
             {
                 targets: 0,
                 render: function (data, type, row) {
-                    return  '<input type="checkbox" value="' + row.id + '" name="idChk"/>';
+                    return  '<input type="checkbox" value="' + row.id + '" name="idChk" onclick="numSet()" data-status="'+row.audit_status+'" />';
                 }
             },
             {
@@ -282,7 +290,13 @@
          {
         	 $("input[type='checkbox'][name='idChk']").prop("checked",false);
          }
+    	 numSet();
     });
+    
+    function numSet(){
+    	$("#showNumBtn").text($("input[type='checkbox'][name='idChk']:checked").length);
+    	
+    }
     
     
     function selectById(id){
@@ -370,7 +384,47 @@
             }
         });
     }
-
+    
+    function deleteById(){
+    	var num=$("input[type='checkbox'][name='idChk']:checked").length;
+    	if(num==0){
+    		Toast.error("请选择一项数据再进行操作");
+    		return;
+    	}
+    	var ids=[];
+    	$("input[type='checkbox'][name='idChk']:checked").each(function(){
+    		var obj=$(this);
+    		if(obj.attr("data-status")==1){
+    			Toast.error("已审核订单不能删除");
+    			return;
+    		}
+    		ids.push(obj.val());
+    	});
+    	var ids=ids.join(",");
+    	var statu = confirm('确认删除['+ids+']吗?');
+    	if(!statu){
+    	   return false;
+    	  }
+    	$.ajax({
+            url: "/bam/order/deleteById",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data:{
+            	ids:ids
+            },
+            dataType: "json",
+            type: "POST",
+            success : function(data)
+            {
+                if(data.success)
+                {     
+                     table.ajax.reload();
+                }else{
+                	 Toast.error("删除失败");
+                }
+            }
+        });
+    }
+    
     function saveOrigin() {
         if($("#area").val().length == 0)
         {
