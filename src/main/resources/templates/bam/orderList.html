@@ -97,26 +97,74 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">新增客户</h4>
+                        <h4 class="modal-title">设置订单信息</h4>
                     </div>
                     <div class="modal-body">
                         <div class="box box-primary">
                             <!-- /.box-header -->
                             <!-- form start -->
                             <form role="form" id="clientForm">
-                                <input type="hidden" id="editId" value=""/>
+                                <input type="hidden" id="id" name="id" value=""/>
                                 <div class="box-body">
                                     <div class="form-group">
-                                        <label for="area">国家/地区</label>
-                                        <input type="text" class="form-control" id="area" placeholder="国家/地区"/>
+                                        <label for="area">订单编号</label>
+                                        <input type="text" class="form-control" id="orderNum"  name="orderNum" placeholder="订单编号"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="acronym">缩写</label>
-                                        <input type="text" class="form-control" id="acronym" placeholder="缩写"/>
+                                        <label for="acronym">收货人</label>
+                                        <input type="text" class="form-control" id="trans_user_name"   name="trans_user_name" placeholder="收货人"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="code">代码</label>
-                                        <input type="text" class="form-control" id="code" placeholder="代码"/>
+                                        <label for="code">收货人身份证</label>
+                                        <input type="text" class="form-control" id="trans_user_id_num" name="trans_user_id_num"  placeholder="收货人身份证"/>
+                                    </div>
+                                     <div class="form-group">
+                                        <label for="code">收货人电话号码</label>
+                                        <input type="text" class="form-control" id="trans_user_phone"  name="trans_user_phone" placeholder="收货人电话号码"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">收货人地址</label>
+                                        <input type="text" class="form-control" id="trans_user_address" name="trans_user_address" placeholder="收货人地址"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">支付人</label>
+                                        <input type="text" class="form-control" id="payer_name"  name="payer_name" placeholder="支付人"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">支付人身份证</label>
+                                        <input type="text" class="form-control" id="payer_id_num"  name="payer_id_num" placeholder="支付人身份证"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">支付人电话号码</label>
+                                        <input type="text" class="form-control" id="payer_phone"   name="payer_phone" placeholder="支付人电话号码"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">订单金额</label>
+                                        <input type="text" class="form-control" id="order_amount"   name="order_amount" placeholder="订单金额"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">支付金额</label>
+                                        <input type="text" class="form-control" id="payer_amount"  name="payer_amount" placeholder="支付金额"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">运费</label>
+                                        <input type="text" class="form-control" id="trans_amount" name="trans_amount" placeholder="运费"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">运单号</label>
+                                        <input type="text" class="form-control" id="delevery_order"  name="delevery_order" placeholder="运单号"/>
+                                    </div>
+                                     <div class="form-group">
+                                        <label for="code">商品金额</label>
+                                        <input type="text" class="form-control" id="prd_amount"  name="prd_amount" placeholder="商品金额"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">税款金额</label>
+                                        <input type="text" class="form-control" id="tax_amount"  name="tax_amount" placeholder="税款金额"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">邮政编号</label>
+                                        <input type="text" class="form-control" id="postal_code" name="postal_code" placeholder="邮政编号"/>
                                     </div>
                                 </div>
                                 <!-- /.box-body -->
@@ -125,7 +173,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary" onclick="saveOrigin();">保存</button>
+                        <button type="button" class="btn btn-primary" onclick="updateOrder();">确定</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -179,9 +227,20 @@
             {
                 targets: 7,
                 render: function (data, type, row) {
-                    return '<button class="btn btn-primary" onclick="deleteById(' + row.id + ');">删除</button>';
+                	if(row.audit_status==0){
+                		return '<button class="btn btn-primary" onclick="selectById(' + row.id + ');">编辑</button>';
+                	}else{
+                		return '<button class="btn btn-primary" onclick="deleteById(' + row.id + ');">反审核</button>';
+                	}
+                    
                 }
-            }],
+            },
+            {
+                targets: 2,
+                type:"datetime",
+                render: $.fn.dataTable.render.moment.unit( 'YYYY-MM-DD HH:mm:ss' )
+            },
+            ],
             language: {
                 url: "/plugins/datatables/cn.json"
             },
@@ -194,6 +253,94 @@
             paging: true
         });
     });
+    
+    
+    function selectById(id){
+    	 $.ajax({
+             url: "/bam/order/getById",
+             contentType: "application/x-www-form-urlencoded; charset=utf-8",
+             data:{
+                 id:id
+             },
+             dataType: "json",
+             type: "POST",
+             success : function(data)
+             {
+                 if(data != undefined)
+                 {   
+                	 $("#id").val("");
+                     $("#addModal").modal("show");
+                     $("#id").val(data.id);
+                     $("#orderNum").val(data.orderNum);
+                     $("#trans_user_name").val(data.trans_user_name);
+                     $("#trans_user_id_num").val(data.trans_user_id_num);
+                     $("#trans_user_phone").val(data.trans_user_phone);
+                     $("#trans_user_address").val(data.trans_user_address);
+                     $("#payer_name").val(data.payer_name);
+                     $("#payer_id_num").val(data.payer_id_num);
+                     $("#payer_phone").val(data.payer_phone);
+                     $("#order_amount").val(data.order_amount);
+                     $("#payer_amount").val(data.payer_amount);
+                     $("#trans_amount").val(data.trans_amount);
+                     $("#delevery_order").val(data.delevery_order);
+                     $("#prd_amount").val(data.prd_amount);
+                     $("#tax_amount").val(data.tax_amount);
+                     $("#postal_code").val(data.postal_code);
+                 }
+             }
+         });
+    }
+    
+    function updateOrder(){
+    	var id=$("#id").val();
+    	var dataJson=$("#clientForm").serialize();
+    	var data1={"orderNum":"test","trans_user_name":"gz"};
+    	 $.ajax({
+             url: "/bam/order/updateOrder",
+             contentType: "application/x-www-form-urlencoded; charset=utf-8",
+             data:dataJson,
+             dataType: "json",
+             type: "POST",
+             success : function(data)
+             {
+                 if(data.success)
+                 {
+                     Toast.success("编辑成功",'提示',null);
+                     $("#addModal").modal("hide");
+                     table.ajax.reload();
+                 }
+                 else
+                 {   
+                     Toast.error("保存失败");
+                 }
+             }
+         });
+    }
+    
+    
+    function editById(id) {
+        $.ajax({
+            url: "/bam/sysOriginAjax/getById",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data:{
+                id:id
+            },
+            dataType: "json",
+            type: "POST",
+            success : function(data)
+            {
+                if(data != undefined)
+                {
+                    $("#addModal").modal("show");
+                    $("#area").val(data.area);
+                    $("#acronym").val(data.acronym);
+                    $("#code").val(data.code);
+                    $("#editId").val(data.id);
+                }
+            }
+        });
+    }
+    
     
     function deleteById(id) {
         $.ajax({
