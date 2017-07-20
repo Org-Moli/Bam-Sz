@@ -56,8 +56,19 @@ public class OrderService {
 	   {
 	       return orderMapper.updateById(sysOrder);
 	   }
-    
-    
+	   
+	   
+	   /**
+	    * 反审核
+	    *
+	    * @param sysOrigin
+	    * @return
+	    */
+	   public int deleteById(Integer id)
+	   {
+	       return orderMapper.deleteById(id);
+	   }
+	   
     
 //
 //    /**

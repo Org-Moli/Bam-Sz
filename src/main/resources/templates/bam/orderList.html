@@ -240,6 +240,16 @@
                 type:"datetime",
                 render: $.fn.dataTable.render.moment.unit( 'YYYY-MM-DD HH:mm:ss' )
             },
+            {
+                targets: 3,
+                render: function(data, type, row){
+                	 if(row.audit_status==0){
+                		 return '<font color="red">未审核</font>';
+                	 }else{
+                		 return '<font color="green">已审核</font>';
+                	 }
+                }
+            }
             ],
             language: {
                 url: "/plugins/datatables/cn.json"
@@ -316,35 +326,12 @@
              }
          });
     }
-    
-    
-    function editById(id) {
-        $.ajax({
-            url: "/bam/sysOriginAjax/getById",
-            contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            data:{
-                id:id
-            },
-            dataType: "json",
-            type: "POST",
-            success : function(data)
-            {
-                if(data != undefined)
-                {
-                    $("#addModal").modal("show");
-                    $("#area").val(data.area);
-                    $("#acronym").val(data.acronym);
-                    $("#code").val(data.code);
-                    $("#editId").val(data.id);
-                }
-            }
-        });
-    }
+
     
     
     function deleteById(id) {
         $.ajax({
-            url: "/bam/sysClientsAjax/deleteById",
+            url: "/bam/order/deleteById",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             data:{
                 id:id
@@ -356,6 +343,8 @@
                 if(data.success)
                 {
                     table.ajax.reload();
+                }else{
+                	 Toast.error("反审核失败");
                 }
             }
         });

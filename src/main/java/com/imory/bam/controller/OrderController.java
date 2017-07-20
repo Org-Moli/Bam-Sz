@@ -90,5 +90,19 @@ public class OrderController {
     	}
         return resultMap;
     }
+    
+    @RequestMapping("/deleteById")
+    @ResponseBody
+    public Map<String, Object> deleteById(Integer id)
+    {    
+    	 Map<String, Object> resultMap = new HashMap<>();
+    	 if(orderService.deleteById(id)>0){
+    		 resultMap.put("success", true);
+    	 }else{
+    		 resultMap.put("success",false);
+    	 }
+         return resultMap;
+    }
+    
 
 }

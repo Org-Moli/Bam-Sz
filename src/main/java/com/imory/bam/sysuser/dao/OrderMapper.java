@@ -80,4 +80,12 @@ public interface OrderMapper {
             "where id = #{id,jdbcType=INTEGER}"
     })
     int updateById(SysOrder sysOrder);
+    
+    
+    @Update({
+        "update sys_order",
+        "set audit_status = 0 ",
+        "where id = #{id,jdbcType=INTEGER} and  audit_status=1"
+    })
+    int deleteById(Integer id);
 }
