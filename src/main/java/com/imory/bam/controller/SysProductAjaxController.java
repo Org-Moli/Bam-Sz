@@ -69,6 +69,7 @@ public class SysProductAjaxController {
             sysProductService.updateById(sysProduct);
         } else
         {
+            sysProduct.setYhprice(sysProduct.getPrice());
             sysProductService.insert(sysProduct);
         }
         if (sysProduct.getId() != null)

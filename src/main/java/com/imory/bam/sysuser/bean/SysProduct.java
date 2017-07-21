@@ -45,7 +45,9 @@ public class SysProduct {
 
     private Double yhprice;
 
-    private String desc;
+    private String productDesc;
+
+    private Integer state;
 
     public Integer getId()
     {
@@ -217,13 +219,23 @@ public class SysProduct {
         this.yhprice = yhprice;
     }
 
-    public String getDesc()
+    public Integer getState()
     {
-        return desc;
+        return state;
     }
 
-    public void setDesc(String desc)
+    public void setState(Integer state)
     {
-        this.desc = desc;
+        this.state = state;
+    }
+
+    public String getProductDesc()
+    {
+        return productDesc;
+    }
+
+    public void setProductDesc(String productDesc)
+    {
+        this.productDesc = productDesc;
     }
 }

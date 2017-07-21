@@ -23,18 +23,18 @@ public interface SysProductMapper {
 
     @Insert({
             "insert into sys_product (name, sku,amountUnitId,",
-            "originId,maozhong,jingzhong,brandName,barCode",
-            "hgbah,hgbm,gjbah,gyscode,gysName",
-            "productGg,price,yhprice,desc,state)",
+            "originId,maozhong,jingzhong,brandName,barCode,",
+            "hgbah,hgbm,gjbah,gyscode,gysName,",
+            "productGg,price,yhprice,productDesc,state)",
             "values (#{name,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, ",
             "#{amountUnitId,jdbcType=INTEGER},#{originId,jdbcType=INTEGER},",
             "#{maozhong,jdbcType=DOUBLE},#{jingzhong,jdbcType=DOUBLE},",
-            "#{brandName,jdbcType=INTEGER},#{barCode,jdbcType=INTEGER},",
-            "#{hgbah,jdbcType=INTEGER},#{hgbm,jdbcType=INTEGER},",
-            "#{gjbah,jdbcType=INTEGER},#{gyscode,jdbcType=INTEGER},",
-            "#{gysName,jdbcType=INTEGER},#{productGg,jdbcType=INTEGER},",
+            "#{brandName,jdbcType=VARCHAR},#{barCode,jdbcType=VARCHAR},",
+            "#{hgbah,jdbcType=VARCHAR},#{hgbm,jdbcType=VARCHAR},",
+            "#{gjbah,jdbcType=VARCHAR},#{gyscode,jdbcType=VARCHAR},",
+            "#{gysName,jdbcType=VARCHAR},#{productGg,jdbcType=VARCHAR},",
             "#{price,jdbcType=DOUBLE},#{yhprice,jdbcType=DOUBLE},",
-            "#{desc,jdbcType=VARCHAR},0)"
+            "#{productDesc,jdbcType=VARCHAR},0)"
     })
     @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", before = false, resultType = Integer.class)
     int insert(SysProduct sysProduct);
@@ -65,7 +65,7 @@ public interface SysProductMapper {
             "productGg = #{productGg,jdbcType=VARCHAR}",
             "price = #{price,jdbcType=DOUBLE}",
             "yhprice = #{yhprice,jdbcType=DOUBLE}",
-            "desc = #{desc,jdbcType=VARCHAR}",
+            "productDesc = #{productDesc,jdbcType=VARCHAR}",
             "state = #{desc,jdbcType=INTEGER}",
             "where id = #{id,jdbcType=INTEGER}"
     })

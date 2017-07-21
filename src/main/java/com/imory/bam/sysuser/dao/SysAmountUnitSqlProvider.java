@@ -25,7 +25,10 @@ public class SysAmountUnitSqlProvider {
             sql.append("and name like '%" + qryVal + "%' \n");
             sql.append("or code like '%" + qryVal + "%'");
         }
-        sql.append("limit #{startPos},#{maxRows}");
+        if(paramsMap.get("startPos") != null && paramsMap.get("maxRows") != null)
+        {
+            sql.append("limit #{startPos},#{maxRows}");
+        }
         return sql.toString();
     }
 

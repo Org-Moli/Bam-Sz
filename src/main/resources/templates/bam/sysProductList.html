@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>货币管理</title>
+    <title>商品管理</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
     <!-- Bootstrap 3.3.6 -->
@@ -50,12 +50,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                货币管理列表
+                商品管理列表
                 <!--<small>advanced tables</small>-->
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li><a href="#">货币管理列表</a></li>
+                <li><a href="#">商品管理列表</a></li>
             </ol>
         </section>
 
@@ -75,7 +75,7 @@
                                     <input type="text" class="form-control" id="search_area" placeholder="名称|SKU"/>
                                 </div>
                                 <button class="btn btn-danger" type="button" style="float: right;" onclick="deleteByIds();">删除</button>
-                                <button class="btn btn-primary" type="button" style="float: right;margin-right: 20px;" onclick="addInfo();">新增</button>
+                                <button class="btn btn-primary" type="button" style="float: right;margin-right: 20px;" onclick="javascript:location.href='/bam/sysProduct/addProduct';">新增</button>
                             </form>
                             <table id="example1" class="table table-bordered table-hover" style="text-align: center">
                                 <thead>
@@ -161,7 +161,7 @@
                 }
             },
             {
-                targets: 9,
+                targets: 8,
                 render: function (data, type, row) {
                     return  '<button class="btn btn-primary" onclick="editById(' + row.id + ');">配置</button>&nbsp;&nbsp;&nbsp;&nbsp;' +
                             '<button class="btn btn-primary" onclick="deleteById(' + row.id + ');">删除</button>';
