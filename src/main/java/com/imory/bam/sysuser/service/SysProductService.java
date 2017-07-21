@@ -24,7 +24,7 @@ public class SysProductService {
     @Autowired
     private SysProductMapper sysProductMapper;
 
-    public List<SysProduct> listSysProduct(Integer startPos, Integer maxRows, String qryVal)
+    public List<Map<String,Object>> listSysProduct(Integer startPos, Integer maxRows, String qryVal)
     {
         Map<String, Object> paramsMap = new HashMap<>();
         paramsMap.put("startPos", startPos);

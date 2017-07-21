@@ -19,11 +19,16 @@ public class SysProductSqlProvider {
     {
         String qryVal = (String) paramsMap.get("qryVal");
         StringBuffer sql = new StringBuffer();
-        sql.append("select * from sys_product where 1 = 1\n");
+        sql.append("select sp.*,so.area,sa.name as unitName from sys_product sp \n");
+        sql.append("LEFT join Sys_origin so \n");
+        sql.append("on sp.originId = so.id \n");
+        sql.append("left join sys_amountUnit sa \n");
+        sql.append("on sp.amountUnitId = sa.id \n");
+        sql.append("where 1 = 1 \n");
         if (StringUtils.isNotBlank(qryVal))
         {
-            sql.append("and name like '%" + qryVal + "%' \n");
-            sql.append("or sku like '%" + qryVal + "%'");
+            sql.append("and sp.name like CONCAT('%',#{qryVal},'%') \n");
+            sql.append("or sp.sku like CONCAT('%',#{qryVal},'%') \n");
         }
         sql.append("limit #{startPos},#{maxRows}");
         return sql.toString();

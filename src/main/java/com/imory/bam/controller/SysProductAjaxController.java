@@ -37,7 +37,7 @@ public class SysProductAjaxController {
     @RequestMapping("/listSysProduct")
     public String listSysProduct(@Param("draw") int draw, @Param("start") int start, @Param("length") int length, @Param("qryVal") String qryVal)
     {
-        List<SysProduct> sysProductList = sysProductService.listSysProduct(start, length, qryVal);
+        List<Map<String,Object>> sysProductList = sysProductService.listSysProduct(start, length, qryVal);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", JSON.toJSON(sysProductList));
         jsonObject.put("draw", draw);

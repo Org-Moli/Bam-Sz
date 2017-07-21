@@ -73,6 +73,7 @@
                                 <div class="form-group">
                                     <label>模糊查询:</label>
                                     <input type="text" class="form-control" id="search_area" placeholder="国家/地区|缩写|代码"/>
+                                    <button class="btn btn-primary" type="button" onclick="doQuery();">查询</button>
                                 </div>
                                 <button class="btn btn-danger" type="button" style="float: right;" onclick="deleteByIds();">删除</button>
                                 <button class="btn btn-primary" type="button" style="float: right;margin-right: 20px;" onclick="addInfo();">新增</button>
@@ -232,10 +233,11 @@
             }
         });
 
-        $("#search_area").on('keyup', function () {
-            table.ajax.reload();
-        });
     });
+
+    function doQuery() {
+        table.ajax.reload();
+    }
 
     function addInfo() {
         $("#area").val("");

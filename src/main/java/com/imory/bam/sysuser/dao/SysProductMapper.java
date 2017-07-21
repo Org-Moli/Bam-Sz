@@ -19,7 +19,7 @@ import java.util.Map;
 public interface SysProductMapper {
 
     @SelectProvider(type = SysProductSqlProvider.class, method = "listSysProduct")
-    List<SysProduct> listSysProduct(Map<String, Object> paramsMap);
+    List<Map<String,Object>> listSysProduct(Map<String, Object> paramsMap);
 
     @Insert({
             "insert into sys_product (name, sku,amountUnitId,",
