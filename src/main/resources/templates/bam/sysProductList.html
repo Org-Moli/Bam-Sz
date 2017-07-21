@@ -183,8 +183,14 @@
             {
                 targets: 8,
                 render: function (data, type, row) {
-                    return  '<button class="btn btn-primary" onclick="editById(' + row.id + ');">配置</button>&nbsp;&nbsp;&nbsp;&nbsp;' +
-                            '<button class="btn btn-primary" onclick="deleteById(' + row.id + ');">删除</button>';
+                    var _html = '';
+                        if(row.bgstate == 0)
+                        {
+                            _html += '<button type="button" class="btn btn-primary" onclick="doBgEdit();">报关</button>&nbsp;&nbsp;&nbsp;&nbsp;';
+                        }
+                        _html +=    '<button class="btn btn-primary" type="button" onclick="editById(' + row.id + ');">配置</button>&nbsp;&nbsp;&nbsp;&nbsp;' +
+                                    '<button class="btn btn-primary" type="button" onclick="deleteById(' + row.id + ');">删除</button>';
+                    return  _html;
                 }
             }],
             language: {
@@ -217,6 +223,10 @@
         });
 
     });
+
+    function editById(id) {
+        location.href = '/bam/sysProduct/addProduct?id=' + id;
+    }
 
     function doQuery() {
         table.ajax.reload();

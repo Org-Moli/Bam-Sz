@@ -56,7 +56,7 @@
             <div class="row">
                 <!-- right column -->
                 <form role="form" id="productForm">
-                <input type="hidden" id="id" th:value="${id}"/>
+                <input type="hidden" id="id" name="id" th:value="${productInfo.id}"/>
                 <div class="col-md-6">
                     <!-- general form elements disabled -->
                     <div class="box box-warning">
@@ -65,38 +65,39 @@
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>名称</label>
-                                    <input type="text" class="form-control" placeholder="名称" id="name" name="name"/>
+                                    <input type="text" class="form-control" placeholder="名称" id="name" name="name" th:value="${productInfo.name}"/>
                                     <span class="help-block" id="helpName" style="display: none">请输入名称</span>
                                 </div>
                                 <div class="form-group">
                                     <label>产地</label>
                                     <select class="form-control" id="originId" name="originId">
-                                        <option th:each="orig,stat : ${sysOriginList}" th:value="${orig.id}" th:text="${orig.area}"></option>
+                                        <option th:each="orig,stat : ${sysOriginList}" th:value="${orig.id}"
+                                                th:text="${orig.area}" th:selected="${productInfo.originId == orig.id}"></option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>毛重</label>
-                                    <input type="text" class="form-control" placeholder="毛重" id="maozhong" name="maozhong"/>
+                                    <input type="text" class="form-control" placeholder="毛重" id="maozhong" name="maozhong" th:value="${productInfo.maozhong}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>品牌名称</label>
-                                    <input type="text" class="form-control" placeholder="品牌名称" id="brandName" name="brandName"/>
+                                    <input type="text" class="form-control" placeholder="品牌名称" id="brandName" name="brandName" th:value="${productInfo.brandName}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>海关备案号</label>
-                                    <input type="text" class="form-control" placeholder="海关备案号" id="hgbah" name="hgbah"/>
+                                    <input type="text" class="form-control" placeholder="海关备案号" id="hgbah" name="hgbah" th:value="${productInfo.hgbah}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>国检备案号</label>
-                                    <input type="text" class="form-control" placeholder="国检备案号" id="gjbah" name="gjbah"/>
+                                    <input type="text" class="form-control" placeholder="国检备案号" id="gjbah" name="gjbah" th:value="${productInfo.gjbah}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>供应商名称</label>
-                                    <input type="text" class="form-control" placeholder="供应商名称" id="gysName" name="gysName"/>
+                                    <input type="text" class="form-control" placeholder="供应商名称" id="gysName" name="gysName" th:value="${productInfo.gysName}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>商品规格</label>
-                                    <textarea class="form-control" id="productGg" name="productGg" rows="3" placeholder="商品规格"></textarea>
+                                    <textarea class="form-control" id="productGg" name="productGg" rows="3" placeholder="商品规格" th:text="${productInfo.productGg}"></textarea>
                                 </div>
                         </div>
                         <!-- /.box-body -->
@@ -115,37 +116,38 @@
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label>SKU</label>
-                                    <input type="text" class="form-control" placeholder="SKU" id="sku" name="sku"/>
+                                    <input type="text" class="form-control" placeholder="SKU" id="sku" name="sku" th:value="${productInfo.sku}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>单位</label>
                                     <select class="form-control" id="amountUnitId" name="amountUnitId">
-                                        <option th:each="unit,stats : ${sysAmountUnitList}" th:text="${unit.name}" th:value="${unit.id}"></option>
+                                        <option th:each="unit,stats : ${sysAmountUnitList}" th:text="${unit.name}"
+                                                th:value="${unit.id}" th:selected="${productInfo.amountUnitId == unit.id}"></option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>净重</label>
-                                    <input type="text" class="form-control" placeholder="净重" id="jingzhong" name="jingzhong"/>
+                                    <input type="text" class="form-control" placeholder="净重" id="jingzhong" name="jingzhong" th:value="${productInfo.jingzhong}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>条形码</label>
-                                    <input type="text" class="form-control" placeholder="条形码" id="barCode" name="barCode"/>
+                                    <input type="text" class="form-control" placeholder="条形码" id="barCode" name="barCode" th:value="${productInfo.barCode}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>海关编码</label>
-                                    <input type="text" class="form-control" placeholder="海关编码" id="hgbm" name="hgbm"/>
+                                    <input type="text" class="form-control" placeholder="海关编码" id="hgbm" name="hgbm" th:value="${productInfo.hgbm}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>供应商编码</label>
-                                    <input type="text" class="form-control" placeholder="供应商编码" id="gyscode" name="gyscode"/>
+                                    <input type="text" class="form-control" placeholder="供应商编码" id="gyscode" name="gyscode" th:value="${productInfo.gyscode}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>价格</label>
-                                    <input type="text" class="form-control" placeholder="价格" id="price" name="price"/>
+                                    <input type="text" class="form-control" placeholder="价格" id="price" name="price" th:value="${productInfo.price}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>描述</label>
-                                    <textarea class="form-control" id="productDesc" name="productDesc" rows="3" placeholder="描述"></textarea>
+                                    <textarea class="form-control" id="productDesc" name="productDesc" rows="3" placeholder="描述" th:text="${productInfo.productDesc}"></textarea>
                                 </div>
                         </div>
                         <!-- /.box-body -->

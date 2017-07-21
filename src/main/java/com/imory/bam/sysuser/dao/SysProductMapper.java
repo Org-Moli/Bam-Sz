@@ -25,7 +25,7 @@ public interface SysProductMapper {
             "insert into sys_product (name, sku,amountUnitId,",
             "originId,maozhong,jingzhong,brandName,barCode,",
             "hgbah,hgbm,gjbah,gyscode,gysName,",
-            "productGg,price,yhprice,productDesc,state)",
+            "productGg,price,yhprice,productDesc,state,bgstate)",
             "values (#{name,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, ",
             "#{amountUnitId,jdbcType=INTEGER},#{originId,jdbcType=INTEGER},",
             "#{maozhong,jdbcType=DOUBLE},#{jingzhong,jdbcType=DOUBLE},",
@@ -34,7 +34,7 @@ public interface SysProductMapper {
             "#{gjbah,jdbcType=VARCHAR},#{gyscode,jdbcType=VARCHAR},",
             "#{gysName,jdbcType=VARCHAR},#{productGg,jdbcType=VARCHAR},",
             "#{price,jdbcType=DOUBLE},#{yhprice,jdbcType=DOUBLE},",
-            "#{productDesc,jdbcType=VARCHAR},0)"
+            "#{productDesc,jdbcType=VARCHAR},0,0)"
     })
     @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", before = false, resultType = Integer.class)
     int insert(SysProduct sysProduct);
@@ -51,22 +51,23 @@ public interface SysProductMapper {
             "update sys_product",
             "set name = #{name,jdbcType=VARCHAR},",
             "sku = #{sku,jdbcType=VARCHAR},",
-            "amountUnitId = #{amountUnitId,jdbcType=INTEGER}",
-            "originId = #{originId,jdbcType=INTEGER}",
-            "maozhong = #{maozhong,jdbcType=DOUBLE}",
-            "jingzhong = #{jingzhong,jdbcType=DOUBLE}",
-            "brandName = #{brandName,jdbcType=VARCHAR}",
-            "barCode = #{barCode,jdbcType=VARCHAR}",
-            "hgbah = #{hgbah,jdbcType=VARCHAR}",
-            "hgbm = #{hgbm,jdbcType=VARCHAR}",
-            "gjbah = #{gjbah,jdbcType=VARCHAR}",
-            "gyscode = #{gyscode,jdbcType=VARCHAR}",
-            "gysName = #{gysName,jdbcType=VARCHAR}",
-            "productGg = #{productGg,jdbcType=VARCHAR}",
-            "price = #{price,jdbcType=DOUBLE}",
-            "yhprice = #{yhprice,jdbcType=DOUBLE}",
-            "productDesc = #{productDesc,jdbcType=VARCHAR}",
-            "state = #{desc,jdbcType=INTEGER}",
+            "amountUnitId = #{amountUnitId,jdbcType=INTEGER},",
+            "originId = #{originId,jdbcType=INTEGER},",
+            "maozhong = #{maozhong,jdbcType=DOUBLE},",
+            "jingzhong = #{jingzhong,jdbcType=DOUBLE},",
+            "brandName = #{brandName,jdbcType=VARCHAR},",
+            "barCode = #{barCode,jdbcType=VARCHAR},",
+            "hgbah = #{hgbah,jdbcType=VARCHAR},",
+            "hgbm = #{hgbm,jdbcType=VARCHAR},",
+            "gjbah = #{gjbah,jdbcType=VARCHAR},",
+            "gyscode = #{gyscode,jdbcType=VARCHAR},",
+            "gysName = #{gysName,jdbcType=VARCHAR},",
+            "productGg = #{productGg,jdbcType=VARCHAR},",
+            "price = #{price,jdbcType=DOUBLE},",
+            "yhprice = #{yhprice,jdbcType=DOUBLE},",
+            "productDesc = #{productDesc,jdbcType=VARCHAR},",
+            "state = #{state,jdbcType=INTEGER},",
+            "bgstate = #{bgstate,jdbcType=INTEGER}",
             "where id = #{id,jdbcType=INTEGER}"
     })
     int updateById(SysProduct sysProduct);

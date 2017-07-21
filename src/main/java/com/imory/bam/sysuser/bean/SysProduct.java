@@ -49,6 +49,8 @@ public class SysProduct {
 
     private Integer state;
 
+    private Integer bgstate;
+
     public Integer getId()
     {
         return id;
@@ -237,5 +239,15 @@ public class SysProduct {
     public void setProductDesc(String productDesc)
     {
         this.productDesc = productDesc;
+    }
+
+    public Integer getBgstate()
+    {
+        return bgstate;
+    }
+
+    public void setBgstate(Integer bgstate)
+    {
+        this.bgstate = bgstate;
     }
 }

@@ -1,7 +1,9 @@
 package com.imory.bam.controller;
 
+import com.imory.bam.sysuser.bean.SysProduct;
 import com.imory.bam.sysuser.service.SysAmountUnitService;
 import com.imory.bam.sysuser.service.SysOriginService;
+import com.imory.bam.sysuser.service.SysProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,9 @@ public class SysProductController {
     @Autowired
     private SysAmountUnitService sysAmountUnitService;
 
+    @Autowired
+    private SysProductService sysProductService;
+
     @RequestMapping("/sysProductList")
     public String sysProductList()
     {
@@ -33,8 +38,15 @@ public class SysProductController {
     }
 
     @RequestMapping("/addProduct")
-    public String addProduct(Model model)
+    public String addProduct(Integer id, Model model)
     {
+        if (id != null)
+        {
+            model.addAttribute("productInfo", sysProductService.getById(id));
+        } else
+        {
+            model.addAttribute("productInfo", new SysProduct());
+        }
         //查询所有产地
         model.addAttribute("sysOriginList", sysOriginService.listSysOrigin(null, null, ""));
         //查询所有单位
