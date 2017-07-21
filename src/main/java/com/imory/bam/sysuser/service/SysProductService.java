@@ -24,7 +24,7 @@ public class SysProductService {
     @Autowired
     private SysProductMapper sysProductMapper;
 
-    public List<Map<String,Object>> listSysProduct(Integer startPos, Integer maxRows, String qryVal)
+    public List<Map<String, Object>> listSysProduct(Integer startPos, Integer maxRows, String qryVal)
     {
         Map<String, Object> paramsMap = new HashMap<>();
         paramsMap.put("startPos", startPos);
@@ -93,6 +93,18 @@ public class SysProductService {
         Map<String, Object> paramsMap = new HashMap<>();
         paramsMap.put("ids", ids);
         sysProductMapper.deleteByIds(paramsMap);
+    }
+
+    /**
+     * 审核
+     *
+     * @param ids
+     */
+    public void auditProduct(Integer[] ids)
+    {
+        Map<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("ids", ids);
+        sysProductMapper.auditProduct(paramsMap);
     }
 
 }

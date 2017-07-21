@@ -68,4 +68,26 @@ public class SysProductSqlProvider {
 
         return sql.toString();
     }
+
+    public String auditProduct(Map<String, Object> paramsMap)
+    {
+        Integer[] ids = (Integer[]) paramsMap.get("ids");
+
+        StringBuffer sql = new StringBuffer();
+        sql.append("update sys_product set state = 1 where id in \n");
+        sql.append("(\n");
+        for (int i = 0; i < ids.length; i++)
+        {
+            if (i != ids.length - 1)
+            {
+                sql.append(ids[i] + ",");
+            } else
+            {
+                sql.append(ids[i]);
+            }
+        }
+        sql.append(")\n");
+
+        return sql.toString();
+    }
 }

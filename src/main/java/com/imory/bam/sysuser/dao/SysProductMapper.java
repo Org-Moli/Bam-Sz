@@ -79,4 +79,7 @@ public interface SysProductMapper {
 
     @DeleteProvider(type = SysProductSqlProvider.class, method = "deleteByIds")
     void deleteByIds(Map<String, Object> paramsMap);
+
+    @UpdateProvider(type = SysProductSqlProvider.class, method = "auditProduct")
+    void auditProduct(Map<String, Object> paramsMap);
 }

@@ -37,7 +37,7 @@ public class SysProductAjaxController {
     @RequestMapping("/listSysProduct")
     public String listSysProduct(@Param("draw") int draw, @Param("start") int start, @Param("length") int length, @Param("qryVal") String qryVal)
     {
-        List<Map<String,Object>> sysProductList = sysProductService.listSysProduct(start, length, qryVal);
+        List<Map<String, Object>> sysProductList = sysProductService.listSysProduct(start, length, qryVal);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", JSON.toJSON(sysProductList));
         jsonObject.put("draw", draw);
@@ -108,6 +108,21 @@ public class SysProductAjaxController {
     {
         Map<String, Object> resultMap = new HashMap<>();
         sysProductService.deleteByIds(ids);
+        resultMap.put("success", true);
+        return resultMap;
+    }
+
+    /**
+     * 删除
+     *
+     * @param ids
+     * @return
+     */
+    @RequestMapping("/auditProduct")
+    public Map<String, Object> auditProduct(Integer[] ids)
+    {
+        Map<String, Object> resultMap = new HashMap<>();
+        sysProductService.auditProduct(ids);
         resultMap.put("success", true);
         return resultMap;
     }
