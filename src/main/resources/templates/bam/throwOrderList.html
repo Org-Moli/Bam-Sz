@@ -290,11 +290,12 @@
                 { data: "id" },      
                 { data: "orderNum" },
                 { data: "create_date" },
-                { data: "audit_status"},
+                { data: "update_time" },
                 { data: "trans_user_name"},
-                { data: "trans_user_phone"},
-                { data: "trans_user_address"},
-                { data: null}
+                { data: "customs_status"},
+                { data: "ngtc_status"},
+                { data: "payment_bg_status"},
+                { data: ""}
             ],
             columnDefs: [   
             {
@@ -310,23 +311,13 @@
             },
             {
                 targets: 4,
-                render: function(data, type, row){
-                	 if(row.audit_status==0){
-                		 return '<font color="red">未审核</font>';
-                	 }else{
-                		 return '<font color="green">已审核</font>';
-                	 }
-                }
+                type:"datetime",
+                render: $.fn.dataTable.render.moment.unit( 'YYYY-MM-DD HH:mm:ss' )
             },
             {
                 targets: 9,
                 render: function (data, type, row) {
-                	if(row.audit_status==0){
-                		return '<button class="btn btn-primary" onclick="selectById(' + row.id + ');">编辑</button>';
-                	}else{
-                		return '<button class="btn btn-primary" onclick="fshById(' + row.id + ');">反审核</button>';
-                	}
-                    
+                	return '<button class="btn btn-primary">申报详情</button>';
                 }
             }
             ],

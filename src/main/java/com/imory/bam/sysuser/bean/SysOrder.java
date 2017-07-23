@@ -37,7 +37,10 @@ public class SysOrder {
     private Double tax_amount;                  //'税款金额' ,
     private String postal_code;                 //'邮政编号' 
     private String delevery_order;              //运单号
-    
+    private Integer  customs_status;            //海关状态
+    private Integer  ngtc_status;               //国检状态
+    private Integer  payment_bg_status;         //支付报关状态
+    private Date   update_time;                 //更新时间
 	public Integer getId() {
 		return id;
 	}
@@ -206,6 +209,30 @@ public class SysOrder {
 	public void setDelevery_order(String delevery_order) {
 		this.delevery_order = delevery_order;
 	}
+	public Integer getCustoms_status() {
+		return customs_status;
+	}
+	public void setCustoms_status(Integer customs_status) {
+		this.customs_status = customs_status;
+	}
+	public Integer getNgtc_status() {
+		return ngtc_status;
+	}
+	public void setNgtc_status(Integer ngtc_status) {
+		this.ngtc_status = ngtc_status;
+	}
+	public Integer getPayment_bg_status() {
+		return payment_bg_status;
+	}
+	public void setPayment_bg_status(Integer payment_bg_status) {
+		this.payment_bg_status = payment_bg_status;
+	}
+	public Date getUpdate_time() {
+		return update_time;
+	}
+	public void setUpdate_time(Date update_time) {
+		this.update_time = update_time;
+	}
 	@Override
 	public String toString() {
 		return "SysOrder [id=" + id + ", orderNum=" + orderNum
@@ -226,7 +253,12 @@ public class SysOrder {
 				+ payer_phone + ", payer_amount=" + payer_amount
 				+ ", trans_amount=" + trans_amount + ", prd_amount="
 				+ prd_amount + ", tax_amount=" + tax_amount + ", postal_code="
-				+ postal_code + ", delevery_order=" + delevery_order + "]";
+				+ postal_code + ", delevery_order=" + delevery_order
+				+ ", customs_status=" + customs_status + ", ngtc_status="
+				+ ngtc_status + ", payment_bg_status=" + payment_bg_status
+				+ ", update_time=" + update_time + "]";
 	}
+    
+    
     
 }
