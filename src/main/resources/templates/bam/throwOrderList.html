@@ -293,7 +293,8 @@
                 { data: "audit_status"},
                 { data: "trans_user_name"},
                 { data: "trans_user_phone"},
-                { data: "trans_user_address"}
+                { data: "trans_user_address"},
+                { data: null}
             ],
             columnDefs: [   
             {
@@ -318,7 +319,7 @@
                 }
             },
             {
-                targets: 8,
+                targets: 9,
                 render: function (data, type, row) {
                 	if(row.audit_status==0){
                 		return '<button class="btn btn-primary" onclick="selectById(' + row.id + ');">编辑</button>';
