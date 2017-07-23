@@ -28,17 +28,35 @@ public class ThrowOrderController {
 	
 	@Autowired
 	private OrderService orderService;
-
+    
+	/**
+	 * 订单抛送
+	 * @return
+	 */
     @RequestMapping("/orderList")
     public String orderList()
     {
         return "/bam/throwOrderList";
     }
     
+    /**
+     * 支付单抛送
+     * @return
+     */
     @RequestMapping("/paymentList")
     public String paymentOrderList()
     {
         return "/bam/paymentOrderList";
+    }
+    
+    /**
+     * 物流单抛送
+     * @return
+     */
+    @RequestMapping("/logisticsList")
+    public String logisticsList()
+    {
+        return "/bam/logisticsOrderList";
     }
     
     /**

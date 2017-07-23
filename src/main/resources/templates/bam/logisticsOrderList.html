@@ -48,7 +48,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                 支付单抛送
+                 物流单抛送
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
@@ -67,11 +67,9 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                         <form class="form-inline" id="searchForm">
-                        	<button type="button" class="btn btn-primary">易汇金</button>
-                        	<button type="button" class="btn btn-link">通联</button>
-                        </form>
-                         <form class="form-inline">
-                              <span style="position: absolute;right: 10px;">
+                        	<button type="button" class="btn btn-primary">全部</button>
+                        	<button type="button" class="btn btn-link">心怡物流</button>
+                        	<span style="position: absolute;right: 10px;">
                         	 <span class="input-group">
 							      <span class="input-group-addon">订单编号</span>
 							      <input type="text" class="form-control"  name="startTime"/>
@@ -89,30 +87,55 @@
 							      <span class="input-group-addon">收货人</span>
 							      <input type="text" class="form-control"  name="startTime"/>
 								</span>
-	                            <select class="input-md form-control"   id="searchTag" name="searchTag">
-	                                <option value="">报关状态</option>
-			                        <option value="SUCCESS">报关成功</option>
-			                        <option value="customsing">报关审核中</option>
-			                        <option value="FAILED">报关失败</option>
-			                        <option value="PROCESSING">报关处理中</option>
-			                        <option value="notcustoms">未报关</option>
+                            </span>
+                        </form>
+                        <div class="box-body">
+                             <form class="form-inline">
+                             <div style="position: absolute;right: 10px;">
+                                    <select class="input-md form-control" id="searchTag" name="searchTag">
+	                                <option value="">订单海关状态</option>
+					                <option value="UNDECLARED">未申报</option>
+					                <option value="PROCEED">审核中</option>
+					                <option value="SUCCESS">通过</option>
+					                <option value="FAILURE">驳回</option>
 	                            </select>
-	                            <select class="input-md form-control"  id="searchTag" name="searchTag">
-	                                <option value="">报国检状态</option>
-			                        <option value="成功">成功</option>
-			                        <option value="初始化">初始化</option>
-			                        <option value="取消">取消</option>
-			                        <option value="失败">失败</option>
-			                        <option value="错误">错误</option>
-			                        <option value="申报中">申报中</option>
-			                        <option value="未申报">未申报</option>
+	                            <select class="input-md form-control" id="searchTag" name="searchTag">
+	                                    <option value="">订单国检状态</option>
+						                <option value="UNDECLARED">未申报</option>
+						                <option value="PROCEED">审核中</option>
+						                <option value="SUCCESS">通过</option>
+						                <option value="FAILURE">驳回</option>
+	                            </select>
+	                             <select class="input-md form-control" id="searchTag" name="searchTag">
+	                                    <option value="">支付海关状态</option>
+						                <option value="UNDECLARED">未申报</option>
+						                <option value="PROCEED">审核中</option>
+						                <option value="SUCCESS">报关成功</option>
+						                <option value="FAILED">报关失败</option>
+	                            </select>
+	                             <select class="input-md form-control"  id="searchTag" name="searchTag">
+	                                        <option value="">支付国检状态</option>
+					                        <option value="成功">成功</option>
+					                        <option value="初始化">初始化</option>
+					                        <option value="取消">取消</option>
+					                        <option value="失败">失败</option>
+					                        <option value="错误">错误</option>
+					                        <option value="申报中">申报中</option>
+					                        <option value="未申报">未申报</option>
+	                            </select>
+	                             <select class="input-md form-control"  id="searchTag" name="searchTag">
+	                                        <option value="">申报物流状态</option>
+							              	<option value="UNDECLARED">未申报</option>
+							              	<option value="PROCEED">审核中</option>
+							              	<option value="SUCCESS">通过</option>
+							              	<option value="FAILURE">驳回</option>
 	                            </select>
 	                            <button type="button" class="btn btn-primary" onclick="searchByCondition()">搜索</button>
 	                            <button type="button" class="btn btn-primary" onclick="searchByCondition()">导出</button>
-	                             <button type="button" class="btn btn-primary" onclick="searchByCondition()">批量报关</button>
-                            </span>
-                         </form>
-                        	<br/><br/>
+	                         </div>
+                             </form>
+                        </div>
+                        	<br/>
                             <table id="example1" class="table table-bordered table-hover" style="text-align: center">
                                 <thead>
                                 <tr>
@@ -120,10 +143,14 @@
                                     <th>#</th>
                                     <th>订单编号</th>
                                     <th>下单时间</th>
+                                    <th>更新时间</th>
                                     <th>收货人</th>
-                                    <th>总金额</th>
-                                    <th>报关状态</th>
-                                    <th>报国检状态</th>
+                                    <th>运单号</th>
+                                    <th>订单海关状态</th>
+                                    <th>订单国检状态</th>
+                                    <th>支付海关状态</th>
+                                    <th>支付国检状态</th>
+                                    <th>物流状态</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -289,7 +316,11 @@
                 { data: "id" },      
                 { data: "orderNum" },
                 { data: "create_date" },
+                { data: "update_time" },
                 { data: "trans_user_name"},
+                { data: "delevery_order"},
+                { data: null},
+                { data: null},
                 { data: null},
                 { data: null},
                 { data: null},
@@ -308,9 +339,14 @@
                 render: $.fn.dataTable.render.moment.unit( 'YYYY-MM-DD HH:mm:ss' )
             },
             {
-                targets: 8,
+                targets: 4,
+                type:"datetime",
+                render: $.fn.dataTable.render.moment.unit( 'YYYY-MM-DD HH:mm:ss' )
+            },
+            {
+                targets: 12,
                 render: function (data, type, row) {
-                	return '<button class="btn btn-primary">报关</button>';
+                	return '<button class="btn btn-primary">申报详情</button>';
                 }
             }
             ],

@@ -69,7 +69,9 @@
                         <form class="form-inline" id="searchForm">
                         	<button type="button" class="btn btn-primary">全部</button>
                         	<button type="button" class="btn btn-link">家宝国际</button>
-                        	<span style="position: absolute;right: 10px;">
+                        </form>
+                         <form class="form-inline" id="searchForm">
+                             	<span style="position: absolute;right: 10px;">
                         	 <span class="input-group">
 							      <span class="input-group-addon">订单编号</span>
 							      <input type="text" class="form-control"  name="startTime"/>
@@ -87,21 +89,21 @@
 							      <span class="input-group-addon">收货人</span>
 							      <input type="text" class="form-control"  name="startTime"/>
 								</span>
-	                            <select class="input-md form-control" style="width: 100px" id="searchTag" name="searchTag">
+	                            <select class="input-md form-control"  id="searchTag" name="searchTag">
 	                                <option value="">申报海关状态</option>
 					              	<option value="UNDECLARED">未申报</option>
 					              	<option value="PROCEED">审核中</option>
 					              	<option value="SUCCESS">通过</option>
 					              	<option value="FAILURE">驳回</option>
 	                            </select>
-	                            <select class="input-md form-control" style="width: 100px" id="searchTag" name="searchTag">
+	                            <select class="input-md form-control"  id="searchTag" name="searchTag">
 	                                <option value="">申报国检状态</option>
 					              	<option value="UNDECLARED">未申报</option>
 					              	<option value="PROCEED">审核中</option>
 					              	<option value="SUCCESS">通过</option>
 					              	<option value="FAILURE">驳回</option>
 	                            </select>
-	                            <select class="input-md form-control" style="width: 100px" id="searchTag" name="searchTag">
+	                            <select class="input-md form-control"  id="searchTag" name="searchTag">
 	                                <option value="">支付海关状态</option>
 					                <option value="UNDECLARED">未申报</option>
 					                <option value="PROCEED">审核中</option>
@@ -111,8 +113,8 @@
 	                            <button type="button" class="btn btn-primary" onclick="searchByCondition()">搜索</button>
 	                            <button type="button" class="btn btn-primary" onclick="searchByCondition()">导出</button>
                             </span>
-                        </form>
-                        	
+                         </form>
+                        	<br/><br/>
                             <table id="example1" class="table table-bordered table-hover" style="text-align: center">
                                 <thead>
                                 <tr>
