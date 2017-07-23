@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.imory.bam.searchDto.OrderDto;
 import com.imory.bam.sysuser.bean.SysOrder;
 import com.imory.bam.sysuser.service.OrderService;
 
@@ -41,12 +42,12 @@ public class OrderController {
      */
     @RequestMapping("/orderListSearch")
     @ResponseBody
-    public String listSysOrigin(@Param("draw") int draw, @Param("start") int start ,@Param("length") int length)
-    {
-        List<SysOrder> orderList = orderService.orderListSearch(start, length);
+    public String listSysOrigin(OrderDto  orderDto)
+    {   
+        List<SysOrder> orderList = orderService.orderListSearch(orderDto);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("data", JSON.toJSON(orderList));
-        jsonObject.put("draw", draw);
+        jsonObject.put("draw", orderDto.getDraw());
         jsonObject.put("recordsTotal", orderList.size());
         jsonObject.put("recordsFiltered", orderService.countOrder());
         return jsonObject.toJSONString();
