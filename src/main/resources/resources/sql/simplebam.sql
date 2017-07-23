@@ -90,7 +90,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for `order`
+-- Table structure for `sys_order`
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_order`;
 CREATE TABLE `sys_order` (
@@ -100,7 +100,7 @@ CREATE TABLE `sys_order` (
   `create_date` datetime DEFAULT NULL COMMENT '下单时间',
   `audit_status` int(3) DEFAULT '0' COMMENT '审核状态',
   `trans_user_name` varchar(255) DEFAULT NULL COMMENT '收货人',
-  `trans_user_id` int(11) DEFAULT NULL COMMENT '收货人ID',
+  `trans_user_id` int(11) DEFAULT '0' COMMENT '收货人ID',
   `trans_user_id_num` varchar(255) DEFAULT NULL COMMENT '收货人身份证',
   `trans_user_phone` varchar(20) DEFAULT NULL COMMENT '收货人电话',
   `trans_user_address` varchar(255) DEFAULT NULL COMMENT '收货人地址',
@@ -122,14 +122,17 @@ CREATE TABLE `sys_order` (
   `tax_amount` double(20,2) DEFAULT '0.00' COMMENT '税款金额',
   `postal_code` varchar(10) DEFAULT NULL COMMENT '邮政编号',
   `delevery_order` varchar(30) DEFAULT NULL COMMENT '运单号',
+  `customs_status` int(3) DEFAULT '0' COMMENT '海关状态',
+  `ngtc_status` int(3) DEFAULT '0' COMMENT '国检状态',
+  `payment_bg_status` int(3) DEFAULT '0' COMMENT '支付报关状态',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_order
 -- ----------------------------
-INSERT INTO `sys_order` VALUES ('1', '10000', '10', '2017-07-20 14:19:20', '0', '小蒋', '1', '431333199903332455', '18620000000', '小蒋地址', '省', '省code', '市', '市code', '县', '县code', '镇', '镇code', '0', '小蒋支付人', 'zf4312222152415456', '18600000000', '8.00', '2.00', '8.00', '0.00', '200000', '333333333333');
-INSERT INTO `sys_order` VALUES ('2', '20000', '20', '2017-07-20 14:19:20', '1', '爱妃', '1', '431333199903332455', '18620000000', '爱妃地址', '省', '省code', '市', '市code', '县', '县code', '镇', '镇code', '0', '爱妃支付人', 'zf4312222152415456', '18600000000', '8.00', '2.00', '8.00', '0.00', '200000', '4444444444444');
+INSERT INTO `sys_order` VALUES ('1', '10000', '10', '2017-07-20 14:19:20', '0', '小蒋', '1', '431333199903332455', '18620000000', '小蒋地址', '省', '省code', '市', '市code', '县', '县code', '镇', '镇code', '0', '小蒋支付人', 'zf4312222152415456', '18600000000', '8.00', '2.00', '8.00', '0.00', '200000', '333333333333', '0', '0', '0');
+INSERT INTO `sys_order` VALUES ('2', '20000', '20', '2017-07-20 14:19:20', '1', '爱妃', '1', '431333199903332455', '18620000000', '爱妃地址', '省', '省code', '市', '市code', '县', '县code', '镇', '镇code', '0', '爱妃支付人', 'zf4312222152415456', '18600000000', '8.00', '2.00', '8.00', '0.00', '200000', '4444444444444', '0', '0', '0');
 commit;
 
 DROP TABLE IF EXISTS `sys_amountUnit`;

@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>AdminLTE 2 | Data Tables</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/css/font-awesome.min.css"/>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/css/ionicons.min.css"/>
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/plugins/datatables/dataTables.bootstrap.css"/>
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/css/AdminLTE.min.css"/>
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="/css/skins/_all-skins.min.css"/>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    .table>thead:first-child>tr:first-child>th{
+        text-align:center;
+    }
+	</style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <header th:include="/bam/head"></header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <html th:include="/bam/menu"></html>
+        <!-- /.sidebar -->
+    </aside> 
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                订单抛送
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li><a href="#">产地列表</a></li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <!--<div class="box-header">
+                            <h3 class="box-title">客户列表</h3>
+                        </div>-->
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                        <form class="form-inline" id="searchForm">
+                        	<button type="button" class="btn btn-primary">全部</button>
+                        	<button type="button" class="btn btn-link">家宝国际</button>
+                        	<span style="position: absolute;right: 10px;">
+                        	 <span class="input-group">
+							      <span class="input-group-addon">订单编号</span>
+							      <input type="text" class="form-control"  name="startTime"/>
+							 </span>
+	                            <span class="input-append date ">
+	                            <span class="add-on"><i class="icon-th"></i></span>
+							    <span class="input-group">
+							      <span class="input-group-addon">下单起始时间</span>
+							      <input type="text" class="form-control form_datetime" id="startTime" readonly="readonly" name="startTime"/>
+							      <span class="input-group-addon">~</span>
+							      <input type="text" class="form-control form_datetime" id="endTime" readonly="readonly" name="endTime"/>
+							    </span>
+							    </span>
+							    <span class="input-group">
+							      <span class="input-group-addon">收货人</span>
+							      <input type="text" class="form-control"  name="startTime"/>
+								</span>
+	                            <select class="input-md form-control" style="width: 100px" id="searchTag" name="searchTag">
+	                                <option value="">申报海关状态</option>
+					              	<option value="UNDECLARED">未申报</option>
+					              	<option value="PROCEED">审核中</option>
+					              	<option value="SUCCESS">通过</option>
+					              	<option value="FAILURE">驳回</option>
+	                            </select>
+	                            <select class="input-md form-control" style="width: 100px" id="searchTag" name="searchTag">
+	                                <option value="">申报国检状态</option>
+					              	<option value="UNDECLARED">未申报</option>
+					              	<option value="PROCEED">审核中</option>
+					              	<option value="SUCCESS">通过</option>
+					              	<option value="FAILURE">驳回</option>
+	                            </select>
+	                            <select class="input-md form-control" style="width: 100px" id="searchTag" name="searchTag">
+	                                <option value="">支付海关状态</option>
+					                <option value="UNDECLARED">未申报</option>
+					                <option value="PROCEED">审核中</option>
+					                <option value="SUCCESS">报关成功</option>
+					                <option value="FAILED">报关失败</option>
+	                            </select>
+	                            <button type="button" class="btn btn-primary" onclick="searchByCondition()">搜索</button>
+	                            <button type="button" class="btn btn-primary" onclick="searchByCondition()">导出</button>
+                            </span>
+                        </form>
+                        	
+                            <table id="example1" class="table table-bordered table-hover" style="text-align: center">
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="checkAll"/></th>
+                                    <th>#</th>
+                                    <th>订单编号</th>
+                                    <th>下单时间</th>
+                                    <th>更新时间</th>
+                                    <th>收货人</th>
+                                    <th>海关状态</th>
+                                    <th>国检状态</th>
+                                    <th>支付报关状态</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!--defalut modal-->
+        <div class="modal" id="addModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">设置订单信息</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="box box-primary">
+                            <!-- /.box-header -->
+                            <!-- form start -->
+                            <form role="form" id="clientForm">
+                                <input type="hidden" id="id" name="id" value=""/>
+                                <div class="box-body">
+                                    <div class="form-group">
+                                        <label for="area">订单编号</label>
+                                        <input type="text" class="form-control" id="orderNum"  name="orderNum" placeholder="订单编号"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="acronym">收货人</label>
+                                        <input type="text" class="form-control" id="trans_user_name"   name="trans_user_name" placeholder="收货人"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">收货人身份证</label>
+                                        <input type="text" class="form-control" id="trans_user_id_num" name="trans_user_id_num"  placeholder="收货人身份证"/>
+                                    </div>
+                                     <div class="form-group">
+                                        <label for="code">收货人电话号码</label>
+                                        <input type="text" class="form-control" id="trans_user_phone"  name="trans_user_phone" placeholder="收货人电话号码"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">收货人地址</label>
+                                        <input type="text" class="form-control" id="trans_user_address" name="trans_user_address" placeholder="收货人地址"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">支付人</label>
+                                        <input type="text" class="form-control" id="payer_name"  name="payer_name" placeholder="支付人"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">支付人身份证</label>
+                                        <input type="text" class="form-control" id="payer_id_num"  name="payer_id_num" placeholder="支付人身份证"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">支付人电话号码</label>
+                                        <input type="text" class="form-control" id="payer_phone"   name="payer_phone" placeholder="支付人电话号码"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">订单金额</label>
+                                        <input type="text" class="form-control" id="order_amount"   name="order_amount" placeholder="订单金额"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">支付金额</label>
+                                        <input type="text" class="form-control" id="payer_amount"  name="payer_amount" placeholder="支付金额"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">运费</label>
+                                        <input type="text" class="form-control" id="trans_amount" name="trans_amount" placeholder="运费"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">运单号</label>
+                                        <input type="text" class="form-control" id="delevery_order"  name="delevery_order" placeholder="运单号"/>
+                                    </div>
+                                     <div class="form-group">
+                                        <label for="code">商品金额</label>
+                                        <input type="text" class="form-control" id="prd_amount"  name="prd_amount" placeholder="商品金额"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">税款金额</label>
+                                        <input type="text" class="form-control" id="tax_amount"  name="tax_amount" placeholder="税款金额"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="code">邮政编号</label>
+                                        <input type="text" class="form-control" id="postal_code" name="postal_code" placeholder="邮政编号"/>
+                                    </div>
+                                </div>
+                                <!-- /.box-body -->
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" onclick="updateOrder();">确定</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+    <!--defalut modal-->
+
+    <!-- /.content-wrapper -->
+    <footer th:include="/bam/foot"></footer>
+
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.2.3 -->
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="/scripts/moment.js"></script>
+<script src="/scripts/datatable-datetime.js"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/bootstrap/js/bootstrap-datetimepicker.zh-CN.js"></script>
+<!-- FastClick -->
+<script src="/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="/scripts/app.min.js"></script>
+<!-- page script -->
+<script src="/scripts/toast.js"></script>
+<script>
+    var table;
+    $(function () {
+    	
+        $(".form_datetime").datetimepicker({
+        	format: 'yyyy-mm-dd',//日期的格式
+        	autoclose:true,//日期选择完成后是否关闭选择框
+            language:'zh_CN',//语言
+            minView: "month",//表示日期选择的最小范围，默认是hour
+            pickerPosition: "bottom-left"
+        });
+    	
+        table = $('#example1').DataTable({
+            //开启服务器模式
+            serverSide: true,
+            ajax:{
+            	 url:'/bam/order/orderListSearch',
+            	 data:function (d) {
+                     d.orderStatus = $("#orderStatus").val();
+                     d.searchTag = $("#searchTag").val();
+                     d.searchTxt = $("#searchTxt").val();
+                     d.endTime = $("#endTime").val();
+                     d.startTime = $("#startTime").val();
+                   }
+            },
+            columns: [
+				{ data:""},
+                { data: "id" },      
+                { data: "orderNum" },
+                { data: "create_date" },
+                { data: "audit_status"},
+                { data: "trans_user_name"},
+                { data: "trans_user_phone"},
+                { data: "trans_user_address"}
+            ],
+            columnDefs: [   
+            {
+                targets: 0,
+                render: function (data, type, row) {
+                    return  '<input type="checkbox" value="' + row.id + '" name="idChk" onclick="numSet()" data-status="'+row.audit_status+'" />';
+                }
+            },
+            {
+                targets: 3,
+                type:"datetime",
+                render: $.fn.dataTable.render.moment.unit( 'YYYY-MM-DD HH:mm:ss' )
+            },
+            {
+                targets: 4,
+                render: function(data, type, row){
+                	 if(row.audit_status==0){
+                		 return '<font color="red">未审核</font>';
+                	 }else{
+                		 return '<font color="green">已审核</font>';
+                	 }
+                }
+            },
+            {
+                targets: 8,
+                render: function (data, type, row) {
+                	if(row.audit_status==0){
+                		return '<button class="btn btn-primary" onclick="selectById(' + row.id + ');">编辑</button>';
+                	}else{
+                		return '<button class="btn btn-primary" onclick="fshById(' + row.id + ');">反审核</button>';
+                	}
+                    
+                }
+            }
+            ],
+            language: {
+                url: "/plugins/datatables/cn.json"
+            },
+            paging: true,
+            lengthChange: false,
+            searching: false,
+            ordering: false,
+            info: true,
+            autoWidth: false,
+            paging: true
+        });
+    });
+    
+    
+    $("#checkAll").click(function(){
+    	 if($(this).is(":checked"))
+         {    
+    		 $("input[type='checkbox'][name='idChk']").prop("checked",true);
+         }
+         else
+         {
+        	 $("input[type='checkbox'][name='idChk']").prop("checked",false);
+         }
+    	 numSet();
+    });
+    
+    function numSet(){
+    	$("#showNumBtn").text($("input[type='checkbox'][name='idChk']:checked").length);
+    	
+    }
+    
+    
+    function selectById(id){
+    	 $.ajax({
+             url: "/bam/order/getById",
+             contentType: "application/x-www-form-urlencoded; charset=utf-8",
+             data:{
+                 id:id
+             },
+             dataType: "json",
+             type: "POST",
+             success : function(data)
+             {
+                 if(data != undefined)
+                 {   
+                	 $("#id").val("");
+                     $("#addModal").modal("show");
+                     $("#id").val(data.id);
+                     $("#orderNum").val(data.orderNum);
+                     $("#trans_user_name").val(data.trans_user_name);
+                     $("#trans_user_id_num").val(data.trans_user_id_num);
+                     $("#trans_user_phone").val(data.trans_user_phone);
+                     $("#trans_user_address").val(data.trans_user_address);
+                     $("#payer_name").val(data.payer_name);
+                     $("#payer_id_num").val(data.payer_id_num);
+                     $("#payer_phone").val(data.payer_phone);
+                     $("#order_amount").val(data.order_amount);
+                     $("#payer_amount").val(data.payer_amount);
+                     $("#trans_amount").val(data.trans_amount);
+                     $("#delevery_order").val(data.delevery_order);
+                     $("#prd_amount").val(data.prd_amount);
+                     $("#tax_amount").val(data.tax_amount);
+                     $("#postal_code").val(data.postal_code);
+                 }
+             }
+         });
+    }
+    
+    function updateOrder(){
+    	var id=$("#id").val();
+    	var dataJson=$("#clientForm").serialize();
+    	var data1={"orderNum":"test","trans_user_name":"gz"};
+    	 $.ajax({
+             url: "/bam/order/updateOrder",
+             contentType: "application/x-www-form-urlencoded; charset=utf-8",
+             data:dataJson,
+             dataType: "json",
+             type: "POST",
+             success : function(data)
+             {
+                 if(data.success)
+                 {
+                     Toast.success("编辑成功",'提示',null);
+                     $("#addModal").modal("hide");
+                     table.ajax.reload();
+                 }
+                 else
+                 {   
+                     Toast.error("保存失败");
+                 }
+             }
+         });
+    }
+    
+    function fshById(id) {
+        $.ajax({
+            url: "/bam/order/fshById",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data:{
+                id:id
+            },
+            dataType: "json",
+            type: "POST",
+            success : function(data)
+            {
+                if(data.success)
+                {   
+                	Toast.success("反审核成功",'提示',null);
+                	setTimeout(function () { 
+                		table.ajax.reload();
+                    }, 1000);
+                    
+                }else{
+                	 Toast.error("反审核失败");
+                }
+            }
+        });
+    }
+    
+    function deleteById(){
+    	var num=$("input[type='checkbox'][name='idChk']:checked").length;
+    	if(num==0){
+    		Toast.error("请选择一项数据再进行操作");
+    		return;
+    	}
+    	var ids=[];
+    	var d_flag=false;
+    	$("input[type='checkbox'][name='idChk']:checked").each(function(){
+    		var obj=$(this);
+    		if(obj.attr("data-status")==1){
+    			Toast.error("已审核订单不能删除");
+    			d_flag=true;
+    			return;
+    		}
+    		ids.push(obj.val());
+    	});
+    	if(d_flag){
+    		return ;
+    	}
+    	var statu = confirm('确认删除['+ids.join(",")+']吗?');
+    	if(!statu){
+    	   return false;
+    	  }
+    	$.ajax({
+            url: "/bam/order/deleteById",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data:{
+            	idList:ids
+            },
+            dataType: "json",
+            type: "POST",
+            success : function(data)
+            {
+                if(data.success)
+                {    
+                	 Toast.success("删除成功",'提示',null);
+                	 setTimeout(function () { 
+                 		table.ajax.reload();
+                     }, 1000);
+                     table.ajax.reload();
+                }else{
+                	 Toast.error("删除失败");
+                }
+            }
+        });
+    }
+    
+    
+    function searchByCondition(){
+    	table.ajax.reload();
+    }
+    
+    
+    
+    function chenckById(){
+    	var num=$("input[type='checkbox'][name='idChk']:checked").length;
+    	if(num==0){
+    		Toast.error("请选择一项数据再进行操作");
+    		return;
+    	}
+    	var ids=[];
+    	var d_flag=false;
+    	$("input[type='checkbox'][name='idChk']:checked").each(function(){
+    		var obj=$(this);
+    		if(obj.attr("data-status")==1){
+    			Toast.error("已审核订单不能再审核");
+    			d_flag=true;
+    			return;
+    		}
+    		ids.push(obj.val());
+    	});
+    	if(d_flag){
+    		return ;
+    	}
+    	return;
+    	//获取关检名称，物流名称，支付方式
+    	$.ajax({
+            url: "/bam/order/chenckById",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data:{
+            	idList:ids
+            },
+            dataType: "json",
+            type: "POST",
+            success : function(data)
+            {
+                if(data.success)
+                {    
+                	 Toast.success("审核成功",'提示',null);
+                	 setTimeout(function () { 
+                 		table.ajax.reload();
+                     }, 1000);
+                     table.ajax.reload();
+                }else{
+                	 Toast.error("审核失败");
+                }
+            }
+        });
+    }
+    
+
+</script>
+</body>
+</html>
