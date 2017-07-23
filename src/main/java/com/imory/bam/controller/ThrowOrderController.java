@@ -30,9 +30,15 @@ public class ThrowOrderController {
 	private OrderService orderService;
 
     @RequestMapping("/orderList")
-    public String sysOriginList()
+    public String orderList()
     {
         return "/bam/throwOrderList";
+    }
+    
+    @RequestMapping("/paymentList")
+    public String paymentOrderList()
+    {
+        return "/bam/paymentOrderList";
     }
     
     /**
