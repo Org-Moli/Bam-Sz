@@ -98,18 +98,30 @@ CREATE TABLE `sys_order` (
   `tax_amount` double(20,2) DEFAULT '0.00' COMMENT '税款金额',
   `postal_code` varchar(10) DEFAULT NULL COMMENT '邮政编号',
   `delevery_order` varchar(30) DEFAULT NULL COMMENT '运单号',
-  `customs_status` int(3) DEFAULT '0' COMMENT '海关状态',
-  `ngtc_status` int(3) DEFAULT '0' COMMENT '国检状态',
-  `payment_bg_status` int(3) DEFAULT '0' COMMENT '支付报关状态',
+  `customs_status` int(3) DEFAULT '0' COMMENT '申报海关状态:0未申报，1审核中，2通过，3驳回',
+  `ngtc_status` int(3) DEFAULT '0' COMMENT '申报国检状态:0未申报，1审核中，2通过，3驳回',
+  `payment_bg_status` int(3) DEFAULT '0' COMMENT '支付海关状态:0未申报，1审核中，2报关成功，3报关失败',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `all_amount` double(20,2) DEFAULT '0.00' COMMENT '总金额',
+  `bg_status` int(3) DEFAULT '0' COMMENT '报关状态:0未报关，1报关成功，2，报关审核中，3报关失败，4报关处理中',
+  `bgj_status` int(3) DEFAULT '0' COMMENT '报国检状态:0未申报，1成功，2初始化，3取消，4失败，5错误，6申报中',
+  `logistics_status` int(3) DEFAULT '0' COMMENT '物流状态:0未申报，1审核中，2通过，3驳回',
+  `tem_guanj_name` varchar(255) DEFAULT NULL COMMENT '关检名称',
+  `tem_hg_name` varchar(255) DEFAULT NULL COMMENT '海关名称',
+  `tem_hg_huizhi` varchar(255) DEFAULT NULL COMMENT '海关申报回执',
+  `tem_guoj_name` varchar(255) DEFAULT NULL COMMENT '国检名称',
+  `tem_guoj_huizhi` varchar(255) DEFAULT NULL COMMENT '国检申报回执',
+  `tem_logitics_name` varchar(255) DEFAULT NULL COMMENT '物流名称',
+  `tem_logitics_huizhi` varchar(255) DEFAULT NULL COMMENT '物流回执',
+  `payment_gj_status` int(3) DEFAULT '0' COMMENT '支付国检状态:0未申报，1成功，2初始化，3取消，4失败，5错误，6申报中',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sys_order
 -- ----------------------------
-INSERT INTO `sys_order` VALUES ('1', '10000', '10', '2017-07-20 14:19:20', '0', '小蒋', '1', '431333199903332455', '18620000000', '小蒋地址', '省', '省code', '市', '市code', '县', '县code', '镇', '镇code', '0', '小蒋支付人', 'zf4312222152415456', '18600000000', '8.00', '2.00', '8.00', '0.00', '200000', '333333333333', '0', '0', '0', '2017-07-23 21:42:32');
-INSERT INTO `sys_order` VALUES ('2', '20000', '20', '2017-07-20 14:19:20', '1', '爱妃', '1', '431333199903332455', '18620000000', '爱妃地址', '省', '省code', '市', '市code', '县', '县code', '镇', '镇code', '0', '爱妃支付人', 'zf4312222152415456', '18600000000', '8.00', '2.00', '8.00', '0.00', '200000', '4444444444444', '0', '0', '0', '2017-07-23 21:42:32');
+INSERT INTO `sys_order` VALUES ('1', '10000', '10', '2017-07-20 14:19:20', '0', '小蒋', '1', '431333199903332455', '18620000000', '小蒋地址', '省', '省code', '市', '市code', '县', '县code', '镇', '镇code', '0', '小蒋支付人', 'zf4312222152415456', '18600000000', '8.00', '2.00', '8.00', '0.00', '200000', '333333333333', '0', '0', '0', '2017-07-23 21:42:32', '0.00', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+INSERT INTO `sys_order` VALUES ('2', '20000', '20', '2017-07-20 14:19:20', '1', '爱妃', '1', '431333199903332455', '18620000000', '爱妃地址', '省', '省code', '市', '市code', '县', '县code', '镇', '镇code', '0', '爱妃支付人', 'zf4312222152415456', '18600000000', '8.00', '2.00', '8.00', '0.00', '200000', '4444444444444', '0', '0', '0', '2017-07-23 21:42:32', '0.00', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
 commit;
 
 DROP TABLE IF EXISTS `sys_amountUnit`;
