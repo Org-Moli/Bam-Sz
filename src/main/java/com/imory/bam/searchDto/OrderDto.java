@@ -14,6 +14,8 @@ public class OrderDto {
    private  Integer customs_status;
    private  Integer ngtc_status;
    private  Integer payment_bg_status;
+   private  Integer bg_status;
+   private  Integer bgj_status;
    
    
 		public String getSearchTxt() {
@@ -93,6 +95,18 @@ public class OrderDto {
 		}
 		public void setPayment_bg_status(Integer payment_bg_status) {
 			this.payment_bg_status = payment_bg_status;
+		}
+		public Integer getBg_status() {
+			return bg_status;
+		}
+		public void setBg_status(Integer bg_status) {
+			this.bg_status = bg_status;
+		}
+		public Integer getBgj_status() {
+			return bgj_status;
+		}
+		public void setBgj_status(Integer bgj_status) {
+			this.bgj_status = bgj_status;
 		}
    
 	

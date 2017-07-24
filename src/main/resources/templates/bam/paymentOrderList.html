@@ -67,14 +67,14 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                         <form class="form-inline" id="searchForm">
-                        	<button type="button" class="btn btn-primary">易汇金</button>
-                        	<button type="button" class="btn btn-link">通联</button>
+                        	<button type="button" class="btn btn-primary myClickStyle">易汇金</button>
+                        	<button type="button" class="btn btn-link myClickStyle">通联</button>
                         </form>
                          <form class="form-inline">
                               <span style="position: absolute;right: 10px;">
                         	 <span class="input-group">
 							      <span class="input-group-addon">订单编号</span>
-							      <input type="text" class="form-control"  name="startTime"/>
+							      <input type="text" class="form-control"  id="orderNum"/>
 							 </span>
 	                            <span class="input-append date ">
 	                            <span class="add-on"><i class="icon-th"></i></span>
@@ -87,25 +87,25 @@
 							    </span>
 							    <span class="input-group">
 							      <span class="input-group-addon">收货人</span>
-							      <input type="text" class="form-control"  name="startTime"/>
+							      <input type="text" class="form-control"  id="trans_user_name"/>
 								</span>
-	                            <select class="input-md form-control"   id="searchTag" name="searchTag">
+	                            <select class="input-md form-control"   id="bg_status" >
 	                                <option value="">报关状态</option>
-			                        <option value="SUCCESS">报关成功</option>
-			                        <option value="customsing">报关审核中</option>
-			                        <option value="FAILED">报关失败</option>
-			                        <option value="PROCESSING">报关处理中</option>
-			                        <option value="notcustoms">未报关</option>
+			                        <option value="1">报关成功</option>
+			                        <option value="2">报关审核中</option>
+			                        <option value="3">报关失败</option>
+			                        <option value="4">报关处理中</option>
+			                        <option value="0">未报关</option>
 	                            </select>
-	                            <select class="input-md form-control"  id="searchTag" name="searchTag">
+	                            <select class="input-md form-control"  id="bgj_status">
 	                                <option value="">报国检状态</option>
-			                        <option value="成功">成功</option>
-			                        <option value="初始化">初始化</option>
-			                        <option value="取消">取消</option>
-			                        <option value="失败">失败</option>
-			                        <option value="错误">错误</option>
-			                        <option value="申报中">申报中</option>
-			                        <option value="未申报">未申报</option>
+			                        <option value="1">成功</option>
+			                        <option value="2">初始化</option>
+			                        <option value="3">取消</option>
+			                        <option value="4">失败</option>
+			                        <option value="5">错误</option>
+			                        <option value="6">申报中</option>
+			                        <option value="0">未申报</option>
 	                            </select>
 	                            <button type="button" class="btn btn-primary" onclick="searchByCondition()">搜索</button>
 	                            <button type="button" class="btn btn-primary" onclick="searchByCondition()">导出</button>
@@ -277,11 +277,18 @@
             ajax:{
             	 url:'/bam/order/orderListSearch',
             	 data:function (d) {
-                     d.orderStatus = $("#orderStatus").val();
+            		 d.orderStatus = $("#orderStatus").val();
                      d.searchTag = $("#searchTag").val();
                      d.searchTxt = $("#searchTxt").val();
                      d.endTime = $("#endTime").val();
                      d.startTime = $("#startTime").val();
+                     d.orderNum=$("#orderNum").val();
+                     d.trans_user_name=$("#trans_user_name").val();
+                     d.customs_status=$("#customs_status").val();
+                     d.ngtc_status=$("#ngtc_status").val();
+                     d.payment_bg_status=$("#payment_bg_status").val();
+                     d.bg_status=$("#bg_status").val();
+                     d.bgj_status=$("#bgj_status").val();
                    }
             },
             columns: [
@@ -290,9 +297,9 @@
                 { data: "orderNum" },
                 { data: "create_date" },
                 { data: "trans_user_name"},
-                { data: null},
-                { data: null},
-                { data: null},
+                { data: "all_amount"},
+                { data: "bg_status"},
+                { data: "bgj_status"},
                 { data: "id"}
             ],
             columnDefs: [   
@@ -306,6 +313,48 @@
                 targets: 3,
                 type:"datetime",
                 render: $.fn.dataTable.render.moment.unit( 'YYYY-MM-DD HH:mm:ss' )
+            },
+            {
+                targets: 6,
+                render: function (data, type, row) {
+                	var str="";
+                	//'报关状态:0未报关，1报关成功，2，报关审核中，3报关失败，4报关处理中',
+                	if(row.bg_status==0){
+                		str="未报关";
+                	}else if(row.bg_status==1){
+                		str="报关成功";
+                	}else if(row.bg_status==2){
+                		str="报关审核中";
+                	}else if(row.bg_status==3){
+                		str="报关失败";
+                	}else if(row.bg_status==4){
+                		str="报关处理中";
+                	}
+                    return  str;
+                }
+            },
+            {
+                targets: 7,
+                render: function (data, type, row) {
+                	var str="";
+                	//'报国检状态:0未申报，1成功，2初始化，3取消，4失败，5错误，6申报中',
+                	if(row.bgj_status==0){
+                		str="未申报";
+                	}else if(row.bgj_status==1){
+                		str="成功";
+                	}else if(row.bgj_status==2){
+                		str="初始化";
+                	}else if(row.bgj_status==3){
+                		str="取消";
+                	}else if(row.bgj_status==4){
+                		str="失败";
+                	}else if(row.bgj_status==5){
+                		str="错误";
+                	}else if(row.bgj_status==6){
+                		str="申报中";
+                	}
+                    return  str;
+                }
             },
             {
                 targets: 8,
@@ -327,6 +376,10 @@
         });
     });
     
+    $(".myClickStyle").click(function(){
+  	  $(".myClickStyle").removeClass();
+  	  $(this).addClass('btn btn-primary myClickStyle').siblings().removeClass('btn btn-primary myClickStyle').addClass('btn btn-link myClickStyle');  
+    })
     
     $("#checkAll").click(function(){
     	 if($(this).is(":checked"))
