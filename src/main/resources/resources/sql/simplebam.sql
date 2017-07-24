@@ -193,4 +193,35 @@ VALUES
   (13,'2','23','34','2017-07-20 10:53:08'),
   (14,'2','23','34','2017-07-20 10:53:12'),
   (15,'2','3','1','2017-07-20 10:53:46');
+
+CREATE TABLE sys_product (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) DEFAULT NULL COMMENT '名称',
+  `sku` varchar(200) DEFAULT NULL COMMENT 'sku',
+  `originId` bigint(20) DEFAULT NULL COMMENT '产地ID',
+  `amountUnitId` bigint(20) DEFAULT NULL COMMENT '单位ID',
+  `maozhong` double(9,3) DEFAULT NULL COMMENT '毛重',
+  `jingzhong` double(9,3) DEFAULT NULL COMMENT '净重',
+  `brandName` varchar(200) DEFAULT NULL COMMENT '品牌名称',
+  `barCode` varchar(100) DEFAULT NULL COMMENT '条形码',
+  `hgbah` varchar(100) DEFAULT NULL COMMENT '海关备案号',
+  `hgbm` varchar(200) DEFAULT NULL COMMENT '海关编码',
+  `gjbah` varchar(200) DEFAULT NULL COMMENT '国检备案号',
+  `gyscode` varchar(100) DEFAULT NULL COMMENT '供应商编码',
+  `gysName` varchar(200) DEFAULT NULL COMMENT '供应商名称',
+  `productGg` varchar(200) DEFAULT NULL COMMENT '商品规格',
+  `price` double(8,2) DEFAULT NULL COMMENT '价格',
+  `yhprice` double(8,2) DEFAULT NULL COMMENT '优惠价格',
+  `productDesc` varchar(500) DEFAULT NULL COMMENT '描述',
+  `state` int(2) DEFAULT NULL COMMENT '状态:0:未审核；1：已审核',
+  `bgstate` int(2) DEFAULT NULL COMMENT '报关状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `sys_product` (`id`, `name`, `sku`, `originId`, `amountUnitId`, `maozhong`, `jingzhong`, `brandName`, `barCode`, `hgbah`, `hgbm`, `gjbah`, `gyscode`, `gysName`, `productGg`, `price`, `yhprice`, `productDesc`, `state`, `bgstate`)
+VALUES
+  (1,'测试商品','SKU-werwersdfsfsre',3,3,0.500,0.450,'测试品牌','TX-wedqeq12313','hg91231313132','hg0123123asd','gj0123131313213','gys12313a','测试供应商','2134123阿斯达多',50.00,50.00,'11111111111111111',0,0),
+  (4,'355841084156064','sku-1231313',4,5,0.800,0.700,'aqew','11312313','123123','111111','1231','222222','13123','11111111',33.00,NULL,'3333339999990000',0,0),
+  (5,'1','11',9,2,2.000,22.000,'3','33','4','44','5','55','6','7',66.00,66.00,'77',1,0);
+
 COMMIT;
