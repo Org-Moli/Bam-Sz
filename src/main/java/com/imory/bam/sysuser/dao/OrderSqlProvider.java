@@ -16,7 +16,7 @@ public class OrderSqlProvider {
 	  public String searchList(OrderDto orderDto)
 	    {
 	        StringBuffer sql = new StringBuffer();
-	        sql.append("select * from sys_order where 1 = 1\n");
+	        sql.append("select * from sys_order where del_flag = 0 \n");
 	        if (orderDto!=null)
 	        {    
 	        	if(orderDto.getDraw()==null){
@@ -44,6 +44,21 @@ public class OrderSqlProvider {
 	        		if(1==orderDto.getSearchTag()){//trans_user_name
 	        			sql.append(" and trans_user_name  like '%"+orderDto.getSearchTxt()+"%' \n");
 	        		}
+	        	}
+	        	if(StringUtils.isNoneBlank(orderDto.getOrderNum())){
+	        		sql.append(" and orderNum  like '%"+orderDto.getOrderNum()+"%' \n");
+	        	}
+	        	if(StringUtils.isNoneBlank(orderDto.getTrans_user_name())){
+	        		sql.append(" and trans_user_name  like '%"+orderDto.getTrans_user_name()+"%' \n");
+	        	}
+	        	if(null!=orderDto.getCustoms_status()){
+	        		sql.append(" and customs_status="+orderDto.getCustoms_status()+" \n");
+	        	}
+	        	if(null!=orderDto.getNgtc_status()){
+	        		sql.append(" and ngtc_status="+orderDto.getNgtc_status()+" \n");
+	        	}
+	        	if(null!=orderDto.getPayment_bg_status()){
+	        		sql.append(" and payment_bg_status="+orderDto.getPayment_bg_status()+" \n");
 	        	}
 	        }
 	        sql.append("limit "+orderDto.getStart()+","+orderDto.getLength());

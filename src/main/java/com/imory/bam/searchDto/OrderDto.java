@@ -9,6 +9,11 @@ public class OrderDto {
    private  String searchTxt;
    private  String startTime;
    private  String endTime;
+   private  String orderNum;
+   private  String trans_user_name;
+   private  Integer customs_status;
+   private  Integer ngtc_status;
+   private  Integer payment_bg_status;
    
    
 		public String getSearchTxt() {
@@ -58,6 +63,36 @@ public class OrderDto {
 		}
 		public void setEndTime(String endTime) {
 			this.endTime = endTime;
+		}
+		public String getOrderNum() {
+			return orderNum;
+		}
+		public void setOrderNum(String orderNum) {
+			this.orderNum = orderNum;
+		}
+		public String getTrans_user_name() {
+			return trans_user_name;
+		}
+		public void setTrans_user_name(String trans_user_name) {
+			this.trans_user_name = trans_user_name;
+		}
+		public Integer getCustoms_status() {
+			return customs_status;
+		}
+		public void setCustoms_status(Integer customs_status) {
+			this.customs_status = customs_status;
+		}
+		public Integer getNgtc_status() {
+			return ngtc_status;
+		}
+		public void setNgtc_status(Integer ngtc_status) {
+			this.ngtc_status = ngtc_status;
+		}
+		public Integer getPayment_bg_status() {
+			return payment_bg_status;
+		}
+		public void setPayment_bg_status(Integer payment_bg_status) {
+			this.payment_bg_status = payment_bg_status;
 		}
    
 	

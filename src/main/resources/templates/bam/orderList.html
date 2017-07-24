@@ -200,10 +200,27 @@
                                         <input type="text" class="form-control" id="postal_code" name="postal_code" placeholder="邮政编号"/>
                                     </div>
                                 </div>
+                                
                                 <!-- /.box-body -->
                             </form>
                         </div>
                     </div>
+                     <table id="example2" class="table table-bordered table-hover" style="text-align: center">
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="checkAll"/></th>
+                                    <th>#</th>
+                                    <th>名称</th>
+                                    <th>SKU</th>
+                                    <th>审核状态</th>
+                                    <th>单价</th>
+                                    <th>数量</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
                         <button type="button" class="btn btn-primary" onclick="updateOrder();">确定</button>
@@ -374,6 +391,7 @@
                      $("#prd_amount").val(data.prd_amount);
                      $("#tax_amount").val(data.tax_amount);
                      $("#postal_code").val(data.postal_code);
+  
                  }
              }
          });

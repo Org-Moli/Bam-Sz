@@ -67,14 +67,15 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                         <form class="form-inline" id="searchForm">
-                        	<button type="button" class="btn btn-primary">全部</button>
-                        	<button type="button" class="btn btn-link">家宝国际</button>
+                        	<button type="button" class="btn btn-primary myClickStyle">全部</button>
+                        	<button type="button" class="btn btn-link myClickStyle">家宝国际</button>
                         </form>
+                        <br/>
                          <form class="form-inline" id="searchForm">
                              	<span style="position: absolute;right: 10px;">
                         	 <span class="input-group">
 							      <span class="input-group-addon">订单编号</span>
-							      <input type="text" class="form-control"  name="startTime"/>
+							      <input type="text" class="form-control" id="orderNum"  name="orderNum"/>
 							 </span>
 	                            <span class="input-append date ">
 	                            <span class="add-on"><i class="icon-th"></i></span>
@@ -87,28 +88,28 @@
 							    </span>
 							    <span class="input-group">
 							      <span class="input-group-addon">收货人</span>
-							      <input type="text" class="form-control"  name="startTime"/>
+							      <input type="text" class="form-control"  name="trans_user_name" id="trans_user_name"/>
 								</span>
-	                            <select class="input-md form-control"  id="searchTag" name="searchTag">
+	                            <select class="input-md form-control"  id="customs_status" name="customs_status">
 	                                <option value="">申报海关状态</option>
-					              	<option value="UNDECLARED">未申报</option>
-					              	<option value="PROCEED">审核中</option>
-					              	<option value="SUCCESS">通过</option>
-					              	<option value="FAILURE">驳回</option>
+					              	<option value="0">未申报</option>
+					              	<option value="1">审核中</option>
+					              	<option value="2">通过</option>
+					              	<option value="3">驳回</option>
 	                            </select>
-	                            <select class="input-md form-control"  id="searchTag" name="searchTag">
+	                            <select class="input-md form-control"  id="ngtc_status" name="ngtc_status">
 	                                <option value="">申报国检状态</option>
-					              	<option value="UNDECLARED">未申报</option>
-					              	<option value="PROCEED">审核中</option>
-					              	<option value="SUCCESS">通过</option>
-					              	<option value="FAILURE">驳回</option>
+					              	<option value="0">未申报</option>
+					              	<option value="1">审核中</option>
+					              	<option value="2">通过</option>
+					              	<option value="3">驳回</option>
 	                            </select>
-	                            <select class="input-md form-control"  id="searchTag" name="searchTag">
+	                            <select class="input-md form-control"  id="payment_bg_status" name="payment_bg_status">
 	                                <option value="">支付海关状态</option>
-					                <option value="UNDECLARED">未申报</option>
-					                <option value="PROCEED">审核中</option>
-					                <option value="SUCCESS">报关成功</option>
-					                <option value="FAILED">报关失败</option>
+					                <option value="0">未申报</option>
+					                <option value="1">审核中</option>
+					                <option value="2">报关成功</option>
+					                <option value="3">报关失败</option>
 	                            </select>
 	                            <button type="button" class="btn btn-primary" onclick="searchByCondition()">搜索</button>
 	                            <button type="button" class="btn btn-primary" onclick="searchByCondition()">导出</button>
@@ -150,83 +151,39 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">设置订单信息</h4>
+                        <h4 class="modal-title">申报详情</h4>
                     </div>
                     <div class="modal-body">
                         <div class="box box-primary">
                             <!-- /.box-header -->
                             <!-- form start -->
-                            <form role="form" id="clientForm">
+                            <form role="form" id="showDetailFrom">
                                 <input type="hidden" id="id" name="id" value=""/>
                                 <div class="box-body">
                                     <div class="form-group">
-                                        <label for="area">订单编号</label>
-                                        <input type="text" class="form-control" id="orderNum"  name="orderNum" placeholder="订单编号"/>
+                                        <label for="area">关检名称</label>
+                                        <input type="text" class="form-control" readonly="readonly" id="tem_guanj_name"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="acronym">收货人</label>
-                                        <input type="text" class="form-control" id="trans_user_name"   name="trans_user_name" placeholder="收货人"/>
+                                        <label for="acronym">海关名称</label>
+                                        <input type="text" class="form-control" readonly="readonly" id="tem_hg_name"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="code">收货人身份证</label>
-                                        <input type="text" class="form-control" id="trans_user_id_num" name="trans_user_id_num"  placeholder="收货人身份证"/>
+                                        <label for="code">海关申报回执</label>
+                                        <input type="text" class="form-control" readonly="readonly" id="tem_hg_huizhi"/>
                                     </div>
                                      <div class="form-group">
-                                        <label for="code">收货人电话号码</label>
-                                        <input type="text" class="form-control" id="trans_user_phone"  name="trans_user_phone" placeholder="收货人电话号码"/>
+                                        <label for="code">国检名称</label>
+                                        <input type="text" class="form-control" readonly="readonly" id="tem_guoj_name"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="code">收货人地址</label>
-                                        <input type="text" class="form-control" id="trans_user_address" name="trans_user_address" placeholder="收货人地址"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">支付人</label>
-                                        <input type="text" class="form-control" id="payer_name"  name="payer_name" placeholder="支付人"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">支付人身份证</label>
-                                        <input type="text" class="form-control" id="payer_id_num"  name="payer_id_num" placeholder="支付人身份证"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">支付人电话号码</label>
-                                        <input type="text" class="form-control" id="payer_phone"   name="payer_phone" placeholder="支付人电话号码"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">订单金额</label>
-                                        <input type="text" class="form-control" id="order_amount"   name="order_amount" placeholder="订单金额"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">支付金额</label>
-                                        <input type="text" class="form-control" id="payer_amount"  name="payer_amount" placeholder="支付金额"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">运费</label>
-                                        <input type="text" class="form-control" id="trans_amount" name="trans_amount" placeholder="运费"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">运单号</label>
-                                        <input type="text" class="form-control" id="delevery_order"  name="delevery_order" placeholder="运单号"/>
-                                    </div>
-                                     <div class="form-group">
-                                        <label for="code">商品金额</label>
-                                        <input type="text" class="form-control" id="prd_amount"  name="prd_amount" placeholder="商品金额"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">税款金额</label>
-                                        <input type="text" class="form-control" id="tax_amount"  name="tax_amount" placeholder="税款金额"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">邮政编号</label>
-                                        <input type="text" class="form-control" id="postal_code" name="postal_code" placeholder="邮政编号"/>
+                                        <label for="code">国检申报回执</label>
+                                        <input type="text" class="form-control" readonly="readonly" id="tem_guoj_huizhi"/>
                                     </div>
                                 </div>
                                 <!-- /.box-body -->
                             </form>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary" onclick="updateOrder();">确定</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -285,6 +242,12 @@
                      d.searchTxt = $("#searchTxt").val();
                      d.endTime = $("#endTime").val();
                      d.startTime = $("#startTime").val();
+                     d.orderNum=$("#orderNum").val();
+                     d.trans_user_name=$("#trans_user_name").val();
+                     d.customs_status=$("#customs_status").val();
+                     d.ngtc_status=$("#ngtc_status").val();
+                     d.payment_bg_status=$("#payment_bg_status").val();
+                     
                    }
             },
             columns: [
@@ -317,9 +280,61 @@
                 render: $.fn.dataTable.render.moment.unit( 'YYYY-MM-DD HH:mm:ss' )
             },
             {
-                targets: 9,
+                targets: 6,
                 render: function (data, type, row) {
-                	return '<button class="btn btn-primary">申报详情</button>';
+                	var str="";
+                	//0未申报，1审核中，2通过，3驳回
+                	if(row.customs_status==0){
+                		str="未申报";
+                	}else if(row.customs_status==1){
+                		str="审核中";
+                	}else if(row.customs_status==2){
+                		str="通过";
+                	}else if(row.customs_status==3){
+                		str="驳回";
+                	}
+                    return  str;
+                }
+            },
+            {
+                targets: 7,
+                render: function (data, type, row) {
+                	var str="";
+                	//0未申报，1审核中，2通过，3驳回
+                	if(row.ngtc_status==0){
+                		str="未申报";
+                	}else if(row.ngtc_status==1){
+                		str="审核中";
+                	}else if(row.ngtc_status==2){
+                		str="通过";
+                	}else if(row.ngtc_status==3){
+                		str="驳回";
+                	}
+                    return  str;
+                }
+            },
+            {
+                targets: 8,
+                render: function (data, type, row) {
+                	var str="";
+                	//0未申报，1审核中，2报关成功，3报关失败
+                	if(row.payment_bg_status==0){
+                		str="未申报";
+                	}else if(row.payment_bg_status==1){
+                		str="审核中";
+                	}else if(row.payment_bg_status==2){
+                		str="报关成功";
+                	}else if(row.payment_bg_status==3){
+                		str="报关失败";
+                	}
+                    return  str;
+                }
+            },
+            {
+                targets: 9,
+                render: function (data, type, row,meta) {
+                	//'+row.tem_guanj_name+','+row.tem_hg_name+','+row.tem_hg_huizhi+','+row.tem_guoj_name+','+row.tem_guoj_huizhi+'
+                	return '<button class="btn btn-primary" onclick="showDetail()">申报详情</button>';
                 }
             }
             ],
@@ -335,6 +350,22 @@
             paging: true
         });
     });
+    
+    $(".myClickStyle").click(function(){
+    	  $(".myClickStyle").removeClass();
+    	  $(this).addClass('btn btn-primary myClickStyle').siblings().removeClass('btn btn-primary myClickStyle').addClass('btn btn-link myClickStyle');  
+    })
+    
+    function showDetail(){
+    	var obj=table.rows(".seleted").data().context[0].json.data[0];
+    	 $("#showDetailFrom")[0].reset();
+    	 $("#addModal").modal("show");
+    	 $("#tem_guanj_name").val(obj.tem_guanj_name);
+    	 $("#tem_hg_name").val(obj.tem_hg_name);
+    	 $("#tem_hg_huizhi").val(obj.tem_hg_huizhi);
+    	 $("#tem_guoj_name").val(obj.tem_guoj_name);
+    	 $("#tem_guoj_huizhi").val(obj.tem_guoj_huizhi);
+    }
     
     
     $("#checkAll").click(function(){

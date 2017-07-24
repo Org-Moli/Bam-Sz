@@ -37,10 +37,22 @@ public class SysOrder {
     private Double tax_amount;                  //'税款金额' ,
     private String postal_code;                 //'邮政编号' 
     private String delevery_order;              //运单号
-    private Integer  customs_status;            //海关状态
-    private Integer  ngtc_status;               //国检状态
-    private Integer  payment_bg_status;         //支付报关状态
+    private Integer  customs_status;            //'申报海关状态:0未申报，1审核中，2通过，3驳回',
+    private Integer  ngtc_status;               //'申报国检状态:0未申报，1审核中，2通过，3驳回'
+    private Integer  payment_bg_status;         //'支付海关状态:0未申报，1审核中，2报关成功，3报关失败'
     private Date   update_time;                 //更新时间
+    private Double all_amount;                  //总金额
+    private int   bg_status;                    //'报关状态:0未报关，1报关成功，2，报关审核中，3报关失败，4报关处理中',
+    private int   bgj_status;                   //'报国检状态:0未申报，1成功，2初始化，3取消，4失败，5错误，6申报中',
+    private int   logistics_status;             //'物流状态:0未申报，1审核中，2通过，3驳回',
+    private String tem_guanj_name;//'关检名称',
+    private String tem_hg_name;   //'海关名称',
+    private String tem_hg_huizhi;//'海关申报回执',
+    private String tem_guoj_name;//'国检名称',
+    private String tem_guoj_huizhi;//'国检申报回执',
+    private String tem_logitics_name;//'物流名称',
+    private String tem_logitics_huizhi;//'物流回执',
+    private int  payment_gj_status;//'支付国检状态:0未申报，1成功，2初始化，3取消，4失败，5错误，6申报中',
 	public Integer getId() {
 		return id;
 	}
@@ -233,32 +245,79 @@ public class SysOrder {
 	public void setUpdate_time(Date update_time) {
 		this.update_time = update_time;
 	}
-	@Override
-	public String toString() {
-		return "SysOrder [id=" + id + ", orderNum=" + orderNum
-				+ ", order_amount=" + order_amount + ", create_date="
-				+ create_date + ", audit_status=" + audit_status
-				+ ", trans_user_name=" + trans_user_name + ", trans_user_id="
-				+ trans_user_id + ", trans_user_id_num=" + trans_user_id_num
-				+ ", trans_user_phone=" + trans_user_phone
-				+ ", trans_user_address=" + trans_user_address
-				+ ", trans_province=" + trans_province
-				+ ", trans_province_code=" + trans_province_code
-				+ ", trans_city=" + trans_city + ", trans_city_code="
-				+ trans_city_code + ", trans_area=" + trans_area
-				+ ", trans_area_code=" + trans_area_code + ", trans_town="
-				+ trans_town + ", trans_town_code=" + trans_town_code
-				+ ", del_flag=" + del_flag + ", payer_name=" + payer_name
-				+ ", payer_id_num=" + payer_id_num + ", payer_phone="
-				+ payer_phone + ", payer_amount=" + payer_amount
-				+ ", trans_amount=" + trans_amount + ", prd_amount="
-				+ prd_amount + ", tax_amount=" + tax_amount + ", postal_code="
-				+ postal_code + ", delevery_order=" + delevery_order
-				+ ", customs_status=" + customs_status + ", ngtc_status="
-				+ ngtc_status + ", payment_bg_status=" + payment_bg_status
-				+ ", update_time=" + update_time + "]";
+	
+	public Double getAll_amount() {
+		return all_amount;
 	}
-    
+	public void setAll_amount(Double all_amount) {
+		this.all_amount = all_amount;
+	}
+	public int getBg_status() {
+		return bg_status;
+	}
+	public void setBg_status(int bg_status) {
+		this.bg_status = bg_status;
+	}
+	public int getBgj_status() {
+		return bgj_status;
+	}
+	public void setBgj_status(int bgj_status) {
+		this.bgj_status = bgj_status;
+	}
+	public int getLogistics_status() {
+		return logistics_status;
+	}
+	public void setLogistics_status(int logistics_status) {
+		this.logistics_status = logistics_status;
+	}
+	public String getTem_guanj_name() {
+		return tem_guanj_name;
+	}
+	public void setTem_guanj_name(String tem_guanj_name) {
+		this.tem_guanj_name = tem_guanj_name;
+	}
+	public String getTem_hg_name() {
+		return tem_hg_name;
+	}
+	public void setTem_hg_name(String tem_hg_name) {
+		this.tem_hg_name = tem_hg_name;
+	}
+	public String getTem_hg_huizhi() {
+		return tem_hg_huizhi;
+	}
+	public void setTem_hg_huizhi(String tem_hg_huizhi) {
+		this.tem_hg_huizhi = tem_hg_huizhi;
+	}
+	public String getTem_guoj_name() {
+		return tem_guoj_name;
+	}
+	public void setTem_guoj_name(String tem_guoj_name) {
+		this.tem_guoj_name = tem_guoj_name;
+	}
+	public String getTem_guoj_huizhi() {
+		return tem_guoj_huizhi;
+	}
+	public void setTem_guoj_huizhi(String tem_guoj_huizhi) {
+		this.tem_guoj_huizhi = tem_guoj_huizhi;
+	}
+	public String getTem_logitics_name() {
+		return tem_logitics_name;
+	}
+	public void setTem_logitics_name(String tem_logitics_name) {
+		this.tem_logitics_name = tem_logitics_name;
+	}
+	public String getTem_logitics_huizhi() {
+		return tem_logitics_huizhi;
+	}
+	public void setTem_logitics_huizhi(String tem_logitics_huizhi) {
+		this.tem_logitics_huizhi = tem_logitics_huizhi;
+	}
+	public int getPayment_gj_status() {
+		return payment_gj_status;
+	}
+	public void setPayment_gj_status(int payment_gj_status) {
+		this.payment_gj_status = payment_gj_status;
+	}
     
     
 }
