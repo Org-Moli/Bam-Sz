@@ -67,12 +67,12 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                         <form class="form-inline" id="searchForm">
-                        	<button type="button" class="btn btn-primary">全部</button>
-                        	<button type="button" class="btn btn-link">心怡物流</button>
+                        	<button type="button" class="btn btn-primary myClickStyle">全部</button>
+                        	<button type="button" class="btn btn-link myClickStyle">心怡物流</button>
                         	<span style="position: absolute;right: 10px;">
                         	 <span class="input-group">
 							      <span class="input-group-addon">订单编号</span>
-							      <input type="text" class="form-control"  name="startTime"/>
+							      <input type="text" class="form-control"  id="orderNum"/>
 							 </span>
 	                            <span class="input-append date ">
 	                            <span class="add-on"><i class="icon-th"></i></span>
@@ -85,50 +85,50 @@
 							    </span>
 							    <span class="input-group">
 							      <span class="input-group-addon">收货人</span>
-							      <input type="text" class="form-control"  name="startTime"/>
+							      <input type="text" class="form-control"  id="trans_user_name"/>
 								</span>
                             </span>
                         </form>
                         <div class="box-body">
                              <form class="form-inline">
                              <div style="position: absolute;right: 10px;">
-                                    <select class="input-md form-control" id="searchTag" name="searchTag">
+                                   <select class="input-md form-control"  id="customs_status" name="customs_status">
 	                                <option value="">订单海关状态</option>
-					                <option value="UNDECLARED">未申报</option>
-					                <option value="PROCEED">审核中</option>
-					                <option value="SUCCESS">通过</option>
-					                <option value="FAILURE">驳回</option>
+					              	<option value="0">未申报</option>
+					              	<option value="1">审核中</option>
+					              	<option value="2">通过</option>
+					              	<option value="3">驳回</option>
 	                            </select>
-	                            <select class="input-md form-control" id="searchTag" name="searchTag">
-	                                    <option value="">订单国检状态</option>
-						                <option value="UNDECLARED">未申报</option>
-						                <option value="PROCEED">审核中</option>
-						                <option value="SUCCESS">通过</option>
-						                <option value="FAILURE">驳回</option>
+	                           <select class="input-md form-control"  id="ngtc_status" name="ngtc_status">
+	                                <option value="">订单国检状态</option>
+					              	<option value="0">未申报</option>
+					              	<option value="1">审核中</option>
+					              	<option value="2">通过</option>
+					              	<option value="3">驳回</option>
 	                            </select>
-	                             <select class="input-md form-control" id="searchTag" name="searchTag">
-	                                    <option value="">支付海关状态</option>
-						                <option value="UNDECLARED">未申报</option>
-						                <option value="PROCEED">审核中</option>
-						                <option value="SUCCESS">报关成功</option>
-						                <option value="FAILED">报关失败</option>
+	                             <select class="input-md form-control"  id="payment_bg_status" name="payment_bg_status">
+	                                <option value="">支付海关状态</option>
+					                <option value="0">未申报</option>
+					                <option value="1">审核中</option>
+					                <option value="2">报关成功</option>
+					                <option value="3">报关失败</option>
 	                            </select>
-	                             <select class="input-md form-control"  id="searchTag" name="searchTag">
+	                             <select class="input-md form-control"  id="payment_gj_status" >
 	                                        <option value="">支付国检状态</option>
-					                        <option value="成功">成功</option>
-					                        <option value="初始化">初始化</option>
-					                        <option value="取消">取消</option>
-					                        <option value="失败">失败</option>
-					                        <option value="错误">错误</option>
-					                        <option value="申报中">申报中</option>
-					                        <option value="未申报">未申报</option>
+					                        <option value="1">成功</option>
+					                        <option value="2">初始化</option>
+					                        <option value="3">取消</option>
+					                        <option value="4">失败</option>
+					                        <option value="5">错误</option>
+					                        <option value="6">申报中</option>
+					                        <option value="0">未申报</option>
 	                            </select>
-	                             <select class="input-md form-control"  id="searchTag" name="searchTag">
+	                             <select class="input-md form-control"  id="logistics_status">
 	                                        <option value="">申报物流状态</option>
-							              	<option value="UNDECLARED">未申报</option>
-							              	<option value="PROCEED">审核中</option>
-							              	<option value="SUCCESS">通过</option>
-							              	<option value="FAILURE">驳回</option>
+							              	<option value="0">未申报</option>
+							              	<option value="1">审核中</option>
+							              	<option value="2">通过</option>
+							              	<option value="3">驳回</option>
 	                            </select>
 	                            <button type="button" class="btn btn-primary" onclick="searchByCondition()">搜索</button>
 	                            <button type="button" class="btn btn-primary" onclick="searchByCondition()">导出</button>
@@ -180,77 +180,20 @@
                         <div class="box box-primary">
                             <!-- /.box-header -->
                             <!-- form start -->
-                            <form role="form" id="clientForm">
-                                <input type="hidden" id="id" name="id" value=""/>
+                            <form role="form" id="showDetailFrom">
                                 <div class="box-body">
                                     <div class="form-group">
-                                        <label for="area">订单编号</label>
-                                        <input type="text" class="form-control" id="orderNum"  name="orderNum" placeholder="订单编号"/>
+                                        <label for="area">物流名称</label>
+                                        <input type="text" class="form-control" readonly="readonly" id="tem_logitics_name"  />
                                     </div>
                                     <div class="form-group">
-                                        <label for="acronym">收货人</label>
-                                        <input type="text" class="form-control" id="trans_user_name"   name="trans_user_name" placeholder="收货人"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">收货人身份证</label>
-                                        <input type="text" class="form-control" id="trans_user_id_num" name="trans_user_id_num"  placeholder="收货人身份证"/>
-                                    </div>
-                                     <div class="form-group">
-                                        <label for="code">收货人电话号码</label>
-                                        <input type="text" class="form-control" id="trans_user_phone"  name="trans_user_phone" placeholder="收货人电话号码"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">收货人地址</label>
-                                        <input type="text" class="form-control" id="trans_user_address" name="trans_user_address" placeholder="收货人地址"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">支付人</label>
-                                        <input type="text" class="form-control" id="payer_name"  name="payer_name" placeholder="支付人"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">支付人身份证</label>
-                                        <input type="text" class="form-control" id="payer_id_num"  name="payer_id_num" placeholder="支付人身份证"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">支付人电话号码</label>
-                                        <input type="text" class="form-control" id="payer_phone"   name="payer_phone" placeholder="支付人电话号码"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">订单金额</label>
-                                        <input type="text" class="form-control" id="order_amount"   name="order_amount" placeholder="订单金额"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">支付金额</label>
-                                        <input type="text" class="form-control" id="payer_amount"  name="payer_amount" placeholder="支付金额"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">运费</label>
-                                        <input type="text" class="form-control" id="trans_amount" name="trans_amount" placeholder="运费"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">运单号</label>
-                                        <input type="text" class="form-control" id="delevery_order"  name="delevery_order" placeholder="运单号"/>
-                                    </div>
-                                     <div class="form-group">
-                                        <label for="code">商品金额</label>
-                                        <input type="text" class="form-control" id="prd_amount"  name="prd_amount" placeholder="商品金额"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">税款金额</label>
-                                        <input type="text" class="form-control" id="tax_amount"  name="tax_amount" placeholder="税款金额"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="code">邮政编号</label>
-                                        <input type="text" class="form-control" id="postal_code" name="postal_code" placeholder="邮政编号"/>
+                                        <label for="acronym">物流回执</label>
+                                        <input type="text" class="form-control"  readonly="readonly" id="tem_logitics_huizhi" />
                                     </div>
                                 </div>
                                 <!-- /.box-body -->
                             </form>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-primary" onclick="updateOrder();">确定</button>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -304,11 +247,20 @@
             ajax:{
             	 url:'/bam/order/orderListSearch',
             	 data:function (d) {
-                     d.orderStatus = $("#orderStatus").val();
+            		 d.orderStatus = $("#orderStatus").val();
                      d.searchTag = $("#searchTag").val();
                      d.searchTxt = $("#searchTxt").val();
                      d.endTime = $("#endTime").val();
                      d.startTime = $("#startTime").val();
+                     d.orderNum=$("#orderNum").val();
+                     d.trans_user_name=$("#trans_user_name").val();
+                     d.customs_status=$("#customs_status").val();
+                     d.ngtc_status=$("#ngtc_status").val();
+                     d.payment_bg_status=$("#payment_bg_status").val();
+                     d.bg_status=$("#bg_status").val();
+                     d.bgj_status=$("#bgj_status").val();
+                     d.payment_gj_status=$("#payment_gj_status").val();
+                     d.logistics_status=$("#logistics_status").val();
                    }
             },
             columns: [
@@ -319,11 +271,11 @@
                 { data: "update_time" },
                 { data: "trans_user_name"},
                 { data: "delevery_order"},
-                { data: null},
-                { data: null},
-                { data: null},
-                { data: null},
-                { data: null},
+                { data: "customs_status"},
+                { data: "ngtc_status"},
+                { data: "payment_bg_status"},
+                { data: "payment_gj_status"},
+                { data: "logistics_status"},
                 { data: "id"}
             ],
             columnDefs: [   
@@ -344,9 +296,100 @@
                 render: $.fn.dataTable.render.moment.unit( 'YYYY-MM-DD HH:mm:ss' )
             },
             {
+                targets: 7,
+                render: function (data, type, row) {
+                	var str="";
+                	//'申报海关状态:0未申报，1审核中，2通过，3驳回',
+                	if(row.customs_status==0){
+                		str="未申报";
+                	}else if(row.customs_status==1){
+                		str="审核中";
+                	}else if(row.customs_status==2){
+                		str="通过";
+                	}else if(row.customs_status==3){
+                		str="驳回";
+                	}
+                    return  str;
+                }
+            },
+            {
+                targets: 8,
+                render: function (data, type, row) {
+                	var str="";
+                	//'申报海关状态:0未申报，1审核中，2通过，3驳回',
+                	if(row.ngtc_status==0){
+                		str="未申报";
+                	}else if(row.ngtc_status==1){
+                		str="审核中";
+                	}else if(row.ngtc_status==2){
+                		str="通过";
+                	}else if(row.ngtc_status==3){
+                		str="驳回";
+                	}
+                    return  str;
+                }
+            },
+            {
+                targets: 9,
+                render: function (data, type, row) {
+                	var str="";
+                	//'支付海关状态:0未申报，1审核中，2报关成功，3报关失败'
+                	if(row.payment_bg_status==0){
+                		str="未申报";
+                	}else if(row.payment_bg_status==1){
+                		str="审核中";
+                	}else if(row.payment_bg_status==2){
+                		str="报关成功";
+                	}else if(row.payment_bg_status==3){
+                		str="报关失败";
+                	}
+                    return  str;
+                }
+            },
+            {
+                targets: 10,
+                render: function (data, type, row) {
+                	var str="";
+                	//'支付国检状态:0未申报，1成功，2初始化，3取消，4失败，5错误，6申报中',
+                	if(row.payment_gj_status==0){
+                		str="未申报";
+                	}else if(row.payment_gj_status==1){
+                		str="成功";
+                	}else if(row.payment_gj_status==2){
+                		str="初始化";
+                	}else if(row.payment_gj_status==3){
+                		str="取消";
+                	}else if(row.payment_gj_status==4){
+                		str="失败";
+                	}else if(row.payment_gj_status==5){
+                		str="错误";
+                	}else if(row.payment_gj_status==6){
+                		str="申报中";
+                	}
+                    return  str;
+                }
+            },
+            {
+                targets: 11,
+                render: function (data, type, row) {
+                	var str="";
+                	//'物流状态:0未申报，1审核中，2通过，3驳回',
+                	if(row.logistics_status==0){
+                		str="未申报";
+                	}else if(row.logistics_status==1){
+                		str="审核中";
+                	}else if(row.logistics_status==2){
+                		str="通过";
+                	}else if(row.logistics_status==3){
+                		str="驳回";
+                	}
+                    return  str;
+                }
+            },
+            {
                 targets: 12,
                 render: function (data, type, row) {
-                	return '<button class="btn btn-primary">申报详情</button>';
+                	return '<button class="btn btn-primary" onclick="showDetail()">申报详情</button>';
                 }
             }
             ],
@@ -362,6 +405,19 @@
             paging: true
         });
     });
+    
+    function showDetail(){
+    	var obj=table.rows(".seleted").data().context[0].json.data[0];
+    	 $("#showDetailFrom")[0].reset();
+    	 $("#addModal").modal("show");
+    	 $("#tem_logitics_name").val(obj.tem_logitics_name);
+    	 $("#tem_logitics_huizhi").val(obj.tem_logitics_huizhi);
+    }
+    
+    $(".myClickStyle").click(function(){
+    	  $(".myClickStyle").removeClass();
+    	  $(this).addClass('btn btn-primary myClickStyle').siblings().removeClass('btn btn-primary myClickStyle').addClass('btn btn-link myClickStyle');  
+      })
     
     
     $("#checkAll").click(function(){

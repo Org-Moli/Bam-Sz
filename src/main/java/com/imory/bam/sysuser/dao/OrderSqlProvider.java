@@ -66,6 +66,12 @@ public class OrderSqlProvider {
 	        	if(null!=orderDto.getBgj_status()){
 	        		sql.append(" and bgj_status="+orderDto.getBgj_status()+" \n");
 	        	}
+	        	if(null!=orderDto.getLogistics_status()){
+	        		sql.append(" and logistics_status="+orderDto.getLogistics_status()+" \n");
+	        	}
+	        	if(null!=orderDto.getPayment_gj_status()){
+	        		sql.append(" and payment_gj_status="+orderDto.getPayment_gj_status()+" \n");
+	        	}
 	        }
 	        sql.append("limit "+orderDto.getStart()+","+orderDto.getLength());
 	        return sql.toString();
