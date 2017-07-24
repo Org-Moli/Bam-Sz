@@ -20,7 +20,7 @@ public class SysProductSqlProvider {
         String qryVal = (String) paramsMap.get("qryVal");
         StringBuffer sql = new StringBuffer();
         sql.append("select sp.*,so.area,sa.name as unitName from sys_product sp \n");
-        sql.append("LEFT join Sys_origin so \n");
+        sql.append("LEFT join sys_origin so \n");
         sql.append("on sp.originId = so.id \n");
         sql.append("left join sys_amountUnit sa \n");
         sql.append("on sp.amountUnitId = sa.id \n");

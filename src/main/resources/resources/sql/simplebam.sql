@@ -63,30 +63,6 @@ SET FOREIGN_KEY_CHECKS = 1;
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
--- ----------------------------
---  Table structure for `Sys_origin`
--- ----------------------------
-DROP TABLE IF EXISTS `Sys_origin`;
-CREATE TABLE `Sys_origin` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `area` varchar(100) DEFAULT NULL COMMENT '国家/地区',
-  `acronym` varchar(50) DEFAULT NULL COMMENT '缩写',
-  `code` varchar(50) DEFAULT NULL COMMENT '代码',
-  `createTime` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
-
--- ----------------------------
---  Records of `Sys_origin`
--- ----------------------------
-BEGIN;
-INSERT INTO `Sys_origin` VALUES ('3', '中国', 'CN', '001', '2017-07-20 10:51:58'), ('4', '1', '2', '3', '2017-07-20 10:52:44'), ('5', '2', '23', '34', '2017-07-20 10:52:50'), ('6', '2', '23', '34', '2017-07-20 10:52:57'), ('7', '2', '23', '34', '2017-07-20 10:52:59'), ('8', '2', '23', '34', '2017-07-20 10:53:00'), ('9', '2', '23', '34', '2017-07-20 10:53:02'), ('10', '2', '23', '34', '2017-07-20 10:53:03'), ('11', '2', '23', '34', '2017-07-20 10:53:05'), ('12', '2', '23', '34', '2017-07-20 10:53:06'), ('13', '2', '23', '34', '2017-07-20 10:53:08'), ('14', '2', '23', '34', '2017-07-20 10:53:12'), ('15', '2', '3', '1', '2017-07-20 10:53:46');
-COMMIT;
-
-SET FOREIGN_KEY_CHECKS = 1;
-
-
-
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
@@ -177,9 +153,9 @@ VALUES
   (9,'6','6','2017-07-20 17:18:57'),
   (12,'33','33','2017-07-20 17:19:07');
 
-DROP TABLE IF EXISTS `Sys_origin`;
+DROP TABLE IF EXISTS `sys_origin`;
 
-CREATE TABLE `Sys_origin` (
+CREATE TABLE `sys_origin` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `area` varchar(100) DEFAULT NULL COMMENT '国家/地区',
   `acronym` varchar(50) DEFAULT NULL COMMENT '缩写',
@@ -188,7 +164,7 @@ CREATE TABLE `Sys_origin` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `Sys_origin` (`id`, `area`, `acronym`, `code`, `createTime`)
+INSERT INTO `sys_origin` (`id`, `area`, `acronym`, `code`, `createTime`)
 VALUES
   (3,'中国','CN','001','2017-07-20 10:51:58'),
   (4,'美国','USA','002','2017-07-20 10:52:44'),
