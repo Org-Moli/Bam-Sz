@@ -198,6 +198,7 @@ VALUES
   (14,'2','23','34','2017-07-20 10:53:12'),
   (15,'2','3','1','2017-07-20 10:53:46');
 
+DROP TABLE IF EXISTS `Sys_origin`;
 CREATE TABLE sys_product (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) DEFAULT NULL COMMENT '名称',
