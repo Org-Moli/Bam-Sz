@@ -8,8 +8,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 
+import com.imory.bam.searchDto.OrderDto;
 import com.imory.bam.sysuser.bean.SysOrder;
 import com.imory.bam.sysuser.bean.SysOrigin;
 import com.imory.bam.utils.SimpleInLangDriver;
@@ -38,10 +40,8 @@ public interface OrderMapper {
      * @param maxRows
      * @return
      */
-    @Select({
-            "select * from sys_order limit #{startPos},#{maxRows}"
-    })
-    List<SysOrder> orderListSearch(@Param("startPos") Integer startPos, @Param("maxRows") Integer maxRows);
+    @SelectProvider(type = OrderSqlProvider.class, method = "searchList")
+    List<SysOrder> orderListSearch(OrderDto  orderDto);
 
     
     /**

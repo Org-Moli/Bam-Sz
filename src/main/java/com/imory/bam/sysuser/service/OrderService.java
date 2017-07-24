@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.imory.bam.searchDto.OrderDto;
 import com.imory.bam.sysuser.bean.SysOrder;
 import com.imory.bam.sysuser.dao.OrderMapper;
 
@@ -19,9 +20,9 @@ public class OrderService {
     @Autowired
     private OrderMapper orderMapper;
 
-    public List<SysOrder> orderListSearch(Integer startPos, Integer maxRows)
+    public List<SysOrder> orderListSearch(OrderDto  orderDto)
     {
-        return orderMapper.orderListSearch(startPos, maxRows);
+        return orderMapper.orderListSearch(orderDto);
     }
     
     /**

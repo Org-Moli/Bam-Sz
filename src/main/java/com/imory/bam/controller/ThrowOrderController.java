@@ -23,16 +23,40 @@ import com.imory.bam.sysuser.service.OrderService;
  *
  */
 @Controller
-@RequestMapping("/bam/order")
-public class OrderController {
+@RequestMapping("/bam/throw")
+public class ThrowOrderController {
 	
 	@Autowired
 	private OrderService orderService;
-
+    
+	/**
+	 * 订单抛送
+	 * @return
+	 */
     @RequestMapping("/orderList")
-    public String sysOriginList()
+    public String orderList()
     {
-        return "/bam/orderList";
+        return "/bam/throwOrderList";
+    }
+    
+    /**
+     * 支付单抛送
+     * @return
+     */
+    @RequestMapping("/paymentList")
+    public String paymentOrderList()
+    {
+        return "/bam/paymentOrderList";
+    }
+    
+    /**
+     * 物流单抛送
+     * @return
+     */
+    @RequestMapping("/logisticsList")
+    public String logisticsList()
+    {
+        return "/bam/logisticsOrderList";
     }
     
     /**
