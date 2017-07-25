@@ -302,18 +302,28 @@ INSERT INTO `region` VALUES ('130107', '井陉矿区', '130101');
 COMMIT;
 
 
-SET FOREIGN_KEY_CHECKS=0;  
-  
--- ----------------------------  
--- Table structure for region  
--- ----------------------------  
-DROP TABLE IF EXISTS `sys_orderDetail`;  
-CREATE TABLE `sys_orderDetail` (
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `sys_orderdetail`
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_orderdetail`;
+CREATE TABLE `sys_orderdetail` (
   `id` bigint(20) NOT NULL,
-  `orderId` bigint(20) DEFAULT NULL COMMENT '订单Id',
+  `orderNum` bigint(20) DEFAULT NULL COMMENT '订单Id',
   `productId` bigint(20) DEFAULT NULL COMMENT '商品Id',
+  `productName` varchar(200) DEFAULT NULL COMMENT '商品name',
   `amount` int(5) DEFAULT NULL COMMENT '数量',
   `prices` double(12,2) DEFAULT NULL COMMENT '价格',
   `totalMoney` double(12,2) DEFAULT NULL COMMENT '总价',
+  `sku` varchar(200) DEFAULT NULL COMMENT 'sku',
+  `status` int(3) DEFAULT NULL COMMENT '审核状态',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_orderdetail
+-- ----------------------------
+INSERT INTO `sys_orderdetail` VALUES ('1', '10000', '4', '355841084156064', '1', '33.00', '33.00', 'sku-1231313', '0');
+INSERT INTO `sys_orderdetail` VALUES ('2', '20000', '4', '355841084156064', '1', '33.00', '33.00', 'sku-1231313', '0');
+COMMIT;

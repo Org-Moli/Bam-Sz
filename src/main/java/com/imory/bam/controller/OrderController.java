@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.imory.bam.searchDto.OrderDto;
 import com.imory.bam.sysuser.bean.SysOrder;
+import com.imory.bam.sysuser.bean.SysOrderDetail;
 import com.imory.bam.sysuser.service.OrderService;
 
 /**
@@ -60,14 +62,17 @@ public class OrderController {
      */
     @RequestMapping("/getById")
     @ResponseBody
-    public SysOrder getById(Integer id)
+    public String getById(Integer id)
     {
     	SysOrder sysOrder = orderService.getById(id);
-    	
-    	if(sysOrder==null){
-    		return null;
+    	JSONObject jsonObject = new JSONObject();
+    	jsonObject.put("order", JSON.toJSON(sysOrder));
+    	if(sysOrder!=null && StringUtils.isNotBlank(sysOrder.getOrderNum())){
+    		//再查询订单明细内容
+        	List<SysOrderDetail> byIdofDetail = orderService.getByIdofDetail(sysOrder.getOrderNum());
+        	jsonObject.put("orderDetail", JSON.toJSON(byIdofDetail));
     	}
-        return sysOrder;
+        return jsonObject.toJSONString();
     }
     
     
