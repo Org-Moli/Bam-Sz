@@ -413,7 +413,7 @@
                         	    		 statusStr="驳回";
                         	    	 }
                         	    	 if(flag==0){
-                        	    		 var trHTML = "<tr><td>"+orderDetail[i].id+"</td><td>"+orderDetail[i].productName+"</td><td>"+orderDetail[i].sku+"</td><td>"+statusStr+"</td><td><input type='text'  style='width:60px;' id=detailPrices'"+orderDetail[i].id+"' value='"+orderDetail[i].prices+"'/></td><td><input type='text' id=detailAmount'"+orderDetail[i].id+"' style='width:60px;' value='"+orderDetail[i].amount+"'/></td><td><button type='button' class='btn btn-default btn-xs' onclick='detailEdit("+orderDetail[i].id+")'>编辑</button></td></tr>"
+                        	    		 var trHTML = "<tr><td>"+orderDetail[i].id+"</td><td>"+orderDetail[i].productName+"</td><td>"+orderDetail[i].sku+"</td><td>"+statusStr+"</td><td><input type='text'  style='width:60px;' id='detailPrices"+orderDetail[i].id+"' value='"+orderDetail[i].prices+"'/></td><td><input type='text' id='detailAmount"+orderDetail[i].id+"' style='width:60px;' value='"+orderDetail[i].amount+"'/></td><td><button type='button' class='btn btn-default btn-xs' onclick='detailEdit("+orderDetail[i].id+")'>编辑</button></td></tr>"
                         	    	 }else{
                         	    		 var trHTML = "<tr><td>"+orderDetail[i].id+"</td><td>"+orderDetail[i].productName+"</td><td>"+orderDetail[i].sku+"</td><td>"+statusStr+"</td><td>"+orderDetail[i].prices+"</td><td>"+orderDetail[i].amount+"</td><td></td></tr>"
                         	    	 }
@@ -427,6 +427,33 @@
                 	 
                      
   
+                 }
+             }
+         });
+    }
+    
+    function detailEdit(id){
+    	var prices=$("#detailPrices"+id).val();
+    	var amount=$("#detailAmount"+id).val();
+    	if(prices==0||amount==0){
+    		Toast.error("单价或数量不能为0");
+    		return ;
+    	}
+    	 $.ajax({
+             url: "/bam/order/updateDetailOrder",
+             contentType: "application/x-www-form-urlencoded; charset=utf-8",
+             data:{id:id,prices:prices,amount:amount},
+             dataType: "json",
+             type: "POST",
+             success : function(data)
+             {
+                 if(data.success)
+                 {
+                     Toast.success("编辑成功",'提示',null);
+                 }
+                 else
+                 {   
+                     Toast.error("保存失败");
                  }
              }
          });
@@ -558,7 +585,6 @@
     	if(d_flag){
     		return ;
     	}
-    	return;
     	//获取关检名称，物流名称，支付方式
     	$.ajax({
             url: "/bam/order/chenckById",

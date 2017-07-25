@@ -15,6 +15,7 @@ import com.imory.bam.sysuser.bean.SysOrder;
 import com.imory.bam.sysuser.bean.SysOrderDetail;
 import com.imory.bam.sysuser.bean.SysOrigin;
 import com.imory.bam.utils.SimpleInLangDriver;
+import com.imory.bam.utils.SimpleUpdateLangDriver;
 
 /**
  * 
@@ -89,6 +90,13 @@ public interface OrderMapper {
     })
     int updateById(SysOrder sysOrder);
     
+    @Update({
+        "update  sys_orderdetail ",
+        "set amount = #{amount,jdbcType=INTEGER},",
+        "prices = #{prices,jdbcType=DOUBLE} ",
+        "where id = #{id,jdbcType=INTEGER}"
+    })
+    int updateDetailOrder(SysOrderDetail orderDetail);
     
     @Update({
         "update sys_order",
@@ -104,5 +112,28 @@ public interface OrderMapper {
     })
     @Lang(SimpleInLangDriver.class) 
     int deleteById(List<Integer> list);
+    
+    @Update({
+        "update sys_order",
+        " set audit_status = 1 ",
+        " where id in (#{list}) and audit_status=0 "
+    })
+    @Lang(SimpleInLangDriver.class) 
+    int chenckById(List<Integer> list);
+    
+    
+    @Update({
+        "update sys_order (#{sysOrderDetail})",
+        "where id = #{id} "
+    })
+    @Lang(SimpleUpdateLangDriver.class)
+    int updateSysOrderDetailOfJpa(SysOrderDetail sysOrderDetail);
+    
+    @Update({
+        "update sys_order (#{sysOrder})",
+        "where id = #{id} "
+    })
+    @Lang(SimpleUpdateLangDriver.class)
+    int updateSysOrderOfJpa(SysOrder sysOrder);
 
 }

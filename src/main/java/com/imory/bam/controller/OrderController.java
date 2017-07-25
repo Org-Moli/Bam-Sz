@@ -75,6 +75,26 @@ public class OrderController {
         return jsonObject.toJSONString();
     }
     
+    /**
+     * 查询所有产地
+     *
+     * @return
+     */
+    @RequestMapping("/updateDetailOrder")
+    @ResponseBody
+    public Map<String, Object> updateDetailOrder(SysOrderDetail orderDetail)
+    {    
+    	 Map<String, Object> resultMap = new HashMap<>();
+    	 if(orderService.updateDetailOrder(orderDetail)>0){
+    		 resultMap.put("success", true);
+    	 }else{
+    		 resultMap.put("success", false);
+    	 }
+    	 return resultMap;
+    }
+    
+    
+    
     
     @RequestMapping("/updateOrder")
     @ResponseBody
@@ -118,6 +138,19 @@ public class OrderController {
     {    
     	 Map<String, Object> resultMap = new HashMap<>();
     	 if(orderService.deleteById(idList)>0){
+    		 resultMap.put("success", true);
+    	 }else{
+    		 resultMap.put("success",false);
+    	 }
+         return resultMap;
+    }
+    
+    @RequestMapping("/chenckById")
+    @ResponseBody
+    public Map<String, Object> chenckById(@RequestParam("idList[]") List<Integer> idList)
+    {    
+    	 Map<String, Object> resultMap = new HashMap<>();
+    	 if(orderService.chenckById(idList)>0){
     		 resultMap.put("success", true);
     	 }else{
     		 resultMap.put("success",false);

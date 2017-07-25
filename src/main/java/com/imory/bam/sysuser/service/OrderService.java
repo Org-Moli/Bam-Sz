@@ -2,6 +2,8 @@ package com.imory.bam.sysuser.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Lang;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +11,7 @@ import com.imory.bam.searchDto.OrderDto;
 import com.imory.bam.sysuser.bean.SysOrder;
 import com.imory.bam.sysuser.bean.SysOrderDetail;
 import com.imory.bam.sysuser.dao.OrderMapper;
+import com.imory.bam.utils.SimpleUpdateLangDriver;
 
 /**
  * 
@@ -20,6 +23,10 @@ public class OrderService {
 
     @Autowired
     private OrderMapper orderMapper;
+    
+    public  int updateDetailOrder(SysOrderDetail orderDetail){
+    	return orderMapper.updateDetailOrder(orderDetail);
+    }
 
     public List<SysOrder> orderListSearch(OrderDto  orderDto)
     {
@@ -87,6 +94,23 @@ public class OrderService {
 	    */
 	   public int deleteById(List<Integer> idList){
 		   return orderMapper.deleteById(idList);
+	   }
+	   
+	   /**
+	    * 审核
+	    * @param ids
+	    * @return
+	    */
+	   public int chenckById(List<Integer> idList){
+		   return orderMapper.chenckById(idList);
+	   }
+	   
+	   public  int updateSysOrderDetailOfJpa(SysOrderDetail sysOrderDetail){
+		   return orderMapper.updateSysOrderDetailOfJpa(sysOrderDetail);
+	   }
+	   
+	   public  int updateSysOrderOfJpa(SysOrder sysOrder){
+		   return orderMapper.updateSysOrderOfJpa(sysOrder);
 	   }
 	   
     
