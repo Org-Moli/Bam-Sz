@@ -47,14 +47,19 @@ CREATE TABLE `sys_user` (
   `password` varchar(50) DEFAULT NULL COMMENT '密码',
   `level` int(1) DEFAULT NULL COMMENT '等级',
   `createTime` datetime DEFAULT NULL COMMENT '创建时间',
+  `lastIp` varchar(100) DEFAULT NULL COMMENT '登录IP',
+  `lastTime` datetime DEFAULT NULL COMMENT '登录时间',
+  `enabled` tinyint(1) DEFAULT NULL COMMENT '是否启用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Records of `sys_user`
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES ('1', 'superadmin', 'superadmin', '123456', '0', '2017-07-11 15:48:39');
+INSERT INTO `sys_user` (`id`, `logonId`, `userName`, `password`, `level`, `createTime`, `lastIp`, `lastTime`, `enabled`)
+VALUES
+  (1,'superadmin','superadmin','e10adc3949ba59abbe56e057f20f883e',0,'2017-07-11 15:48:39',NULL,NULL,NULL);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
@@ -218,3 +223,16 @@ VALUES
   (5,'1','11',9,2,2.000,22.000,'3','33','4','44','5','55','6','7',66.00,66.00,'77',1,0);
 
 COMMIT;
+
+DROP TABLE IF EXISTS `sys_platform`;
+
+CREATE TABLE `sys_platform` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL COMMENT '名称',
+  `types` varchar(100) DEFAULT NULL COMMENT '类型',
+  `isDefault` tinyint(1) DEFAULT NULL COMMENT '是否默认',
+  `descInfo` varchar(500) DEFAULT NULL COMMENT '描述',
+  `appName` varchar(100) DEFAULT NULL COMMENT 'app名称',
+  `createTime` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
