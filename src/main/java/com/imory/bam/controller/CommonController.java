@@ -67,7 +67,7 @@ public class CommonController {
             // 此方法不处理登录成功,由shiro进行处理.
             return "/bam/login";
         }
-        return "redirect:/common/index";
+        return "redirect:/bam/common/index";
     }
 
     @RequestMapping(path = {"/common/index", "/"})
