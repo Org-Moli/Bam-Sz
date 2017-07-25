@@ -20,7 +20,7 @@ public interface SysRoleMapper {
 
     @Insert({
             "insert into sys_role (name, enabled) ",
-            "values (#{name,jdbcType=VARCHAR}, #{enabled,jdbcType=BIT})"
+            "values (#{name,jdbcType=VARCHAR}, 1)"
     })
     @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", before = false, resultType = Integer.class)
     int insert(SysRole sysRole);
