@@ -48,7 +48,7 @@ public class CommonController {
         {
             if (UnknownAccountException.class.getName().equals(exception))
             {
-                logger.info("UnknownAccountException -- > 账号不存在：");
+                logger.info("UnknownAccountException --- > 账号不存在：");
                 msg = "账号不存在";
             } else if (IncorrectCredentialsException.class.getName().equals(exception))
             {

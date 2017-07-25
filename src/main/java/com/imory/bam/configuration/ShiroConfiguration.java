@@ -50,9 +50,10 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/scripts/**", "anon");
         filterChainDefinitionMap.put("/img/**", "anon");
         filterChainDefinitionMap.put("/fonts/**", "anon");
+        filterChainDefinitionMap.put("/bam/**", "authc");
 
         //该配置放入最后
-        filterChainDefinitionMap.put("/bam/**", "authc");
+        filterChainDefinitionMap.put("/**", "anon");
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         factoryBean.setLoginUrl("/bam/login");
         // 登录成功后要跳转的链接
