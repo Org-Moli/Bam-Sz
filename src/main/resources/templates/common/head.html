@@ -1,10 +1,12 @@
+<html xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <header class="main-header">
     <!-- Logo -->
     <a href="index2.html" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>A</b>LT</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>Admin</b>LTE</span>
+        <!--<span class="logo-lg"><b>Admin</b>LTE</span>-->
+        <span class="logo-lg">瑞银国际OMS订单管理系统</span>
     </a>
 
     <!-- Header Navbar: style can be found in header.less -->
@@ -20,14 +22,14 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
-                        <span class="hidden-xs">Alexander Pierce</span>
+                        <span class="hidden-xs" shiro:principal property="userName"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
                             <img src="/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
                             <p>
-                                爱摩里开发
+                                瑞银国际OMS订单管理系统
                                 <small>7/15/2017</small>
                             </p>
                         </li>
