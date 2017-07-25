@@ -116,21 +116,21 @@
                         <div class="box box-primary">
                             <!-- /.box-header -->
                             <!-- form start -->
+                            <input type="hidden" id="editId" value=""/>
+                            <input type="hidden" id="chkId" value=""/>
                             <form role="form" id="platForm">
-                                <input type="hidden" id="editId" value=""/>
-                                <input type="hidden" id="chkId" value=""/>
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="userName">名称</label>
-                                        <input type="text" class="form-control" id="userName" placeholder="名称"/>
+                                        <input type="text" class="form-control" id="userName" name="userName" placeholder="名称"/>
                                     </div>
                                     <div class="form-group">
                                         <label for="logonId">登录账户</label>
-                                        <input type="text" class="form-control" id="logonId" placeholder="登录账户"/>
+                                        <input type="text" class="form-control" id="logonId" name="logonId" placeholder="登录账户"/>
                                     </div>
                                     <div class="form-group">
                                         <label for="password">密码</label>
-                                        <input type="text" class="form-control" id="password" placeholder="密码"/>
+                                        <input type="text" class="form-control" id="password" name="password" placeholder="密码"/>
                                     </div>
                                 </div>
                                 <!-- /.box-body -->
@@ -181,7 +181,10 @@
             //开启服务器模式
             serverSide: true,
             ajax:{
-                url:'/bam/sysUserAjax/listSysUser'
+                url:'/bam/sysUserAjax/listSysUser',
+                data:function (d) {
+                    d.qryVal = $("#search_area").val()
+                }
             },
             columns: [
                 {data:"id"},
@@ -235,6 +238,10 @@
         });
 
     });
+
+    function doQuery() {
+        table.ajax.reload();
+    }
 
     function addInfo() {
         $("#userName").val("");
@@ -324,19 +331,24 @@
     }
 
     function saveOrigin() {
-        if($("#name").val().length == 0)
+        if($("#userName").val().length == 0)
         {
-            Toast.error("名称");
+            Toast.error("请输入名称");
             return;
         }
-        if($("#types").val().length == 0)
+        if($("#logonId").val().length == 0)
         {
-            Toast.error("请填写类型");
+            Toast.error("请填写账户");
+            return;
+        }
+        if($("#password").val().length == 0)
+        {
+            Toast.error("请填写密码");
             return;
         }
         var dataJson=$("#platForm").serialize();
         $.ajax({
-            url: "/bam/sysUserAjax/saveOrUpdate",
+            url: "/bam/sysUserAjax/saveSysUser",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             data:dataJson,
             dataType: "json",

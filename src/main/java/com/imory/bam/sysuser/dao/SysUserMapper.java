@@ -26,8 +26,9 @@ public interface SysUserMapper {
     @Insert({
             "insert into sys_user(logonId,userName,password,level,enabled,createTime)",
             "values",
-            "(#{logonId},#{userName},#{password},#{level},1,now())"
+            "(#{logonId},#{userName},#{password},1,1,now())"
     })
+    @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", before = false, resultType = Integer.class)
     int insert(SysUser sysUser);
 
     @Update({
