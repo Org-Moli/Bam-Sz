@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Update;
 
 import com.imory.bam.searchDto.OrderDto;
 import com.imory.bam.sysuser.bean.SysOrder;
+import com.imory.bam.sysuser.bean.SysOrderDetail;
 import com.imory.bam.sysuser.bean.SysOrigin;
 import com.imory.bam.utils.SimpleInLangDriver;
 
@@ -60,6 +61,12 @@ public interface OrderMapper {
             "select * from sys_order where id = #{id}"
     })
     SysOrder getById(Integer id);
+    
+    
+    @Select({
+        "select * from sys_orderdetail where orderNum = #{orderNum}"
+    })
+	List<SysOrderDetail> getByIdofDetail(String orderNum);
 
     @Update({
             "update  sys_order",

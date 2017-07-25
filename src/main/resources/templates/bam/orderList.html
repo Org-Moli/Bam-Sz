@@ -49,11 +49,10 @@
         <section class="content-header">
             <h1>
                 订单列表
-                <small>advanced tables</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li><a href="#">产地列表</a></li>
+                <li><a href="#">订单列表</a></li>
             </ol>
         </section>
 
@@ -143,7 +142,7 @@
                                         <label for="area">订单编号</label>
                                         <input type="text" class="form-control" id="orderNum"  name="orderNum" placeholder="订单编号"/>
                                     </div>
-                                    <div class="form-group">
+                                     <div class="form-group">
                                         <label for="acronym">收货人</label>
                                         <input type="text" class="form-control" id="trans_user_name"   name="trans_user_name" placeholder="收货人"/>
                                     </div>
@@ -208,7 +207,6 @@
                      <table id="example2" class="table table-bordered table-hover" style="text-align: center">
                                 <thead>
                                 <tr>
-                                    <th><input type="checkbox" id="checkAll"/></th>
                                     <th>#</th>
                                     <th>名称</th>
                                     <th>SKU</th>
@@ -221,7 +219,7 @@
                                 <tbody>
                                 </tbody>
                             </table>
-                    <div class="modal-footer">
+                    <div class="modal-footer" id="detailBtn">
                         <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
                         <button type="button" class="btn btn-primary" onclick="updateOrder();">确定</button>
                     </div>
@@ -320,7 +318,7 @@
                 targets: 8,
                 render: function (data, type, row) {
                 	if(row.audit_status==0){
-                		return '<button class="btn btn-primary" onclick="selectById(' + row.id + ');">编辑</button>';
+                		return '<button class="btn btn-primary" onclick="selectById(' + row.id+ ',0);">编辑</button> <button class="btn btn-primary" onclick="selectById(' + row.id + ',1);">查看</button>';
                 	}else{
                 		return '<button class="btn btn-primary" onclick="fshById(' + row.id + ');">反审核</button>';
                 	}
@@ -360,7 +358,7 @@
     }
     
     
-    function selectById(id){
+    function selectById(id,flag){
     	 $.ajax({
              url: "/bam/order/getById",
              contentType: "application/x-www-form-urlencoded; charset=utf-8",
@@ -370,27 +368,64 @@
              dataType: "json",
              type: "POST",
              success : function(data)
-             {
+             {   
+            	 if(flag==1){
+            		 $("#clientForm input").attr("readonly","readonly");
+            		 $("#detailBtn").hide();
+            	 }else{
+            		 $("#clientForm input").removeAttr("readonly");
+            		 $("#detailBtn").show();
+            	 }
                  if(data != undefined)
                  {   
-                	 $("#id").val("");
-                     $("#addModal").modal("show");
-                     $("#id").val(data.id);
-                     $("#orderNum").val(data.orderNum);
-                     $("#trans_user_name").val(data.trans_user_name);
-                     $("#trans_user_id_num").val(data.trans_user_id_num);
-                     $("#trans_user_phone").val(data.trans_user_phone);
-                     $("#trans_user_address").val(data.trans_user_address);
-                     $("#payer_name").val(data.payer_name);
-                     $("#payer_id_num").val(data.payer_id_num);
-                     $("#payer_phone").val(data.payer_phone);
-                     $("#order_amount").val(data.order_amount);
-                     $("#payer_amount").val(data.payer_amount);
-                     $("#trans_amount").val(data.trans_amount);
-                     $("#delevery_order").val(data.delevery_order);
-                     $("#prd_amount").val(data.prd_amount);
-                     $("#tax_amount").val(data.tax_amount);
-                     $("#postal_code").val(data.postal_code);
+                	 var order=data.order;
+                	 var orderDetail=data.orderDetail;
+                	 if(order!=null){
+                		 $("#id").val("");
+                         $("#addModal").modal("show");
+                         $("#id").val(order.id);
+                         $("#orderNum").val(order.orderNum);
+                         $("#trans_user_name").val(order.trans_user_name);
+                         $("#trans_user_id_num").val(order.trans_user_id_num);
+                         $("#trans_user_phone").val(order.trans_user_phone);
+                         $("#trans_user_address").val(order.trans_user_address);
+                         $("#payer_name").val(order.payer_name);
+                         $("#payer_id_num").val(order.payer_id_num);
+                         $("#payer_phone").val(order.payer_phone);
+                         $("#order_amount").val(order.order_amount);
+                         $("#payer_amount").val(order.payer_amount);
+                         $("#trans_amount").val(order.trans_amount);
+                         $("#delevery_order").val(order.delevery_order);
+                         $("#prd_amount").val(order.prd_amount);
+                         $("#tax_amount").val(order.tax_amount);
+                         $("#postal_code").val(order.postal_code);
+                         
+                         $("#example2  tr:not(:first)").empty();
+                         if(orderDetail!=null){
+                        	     for(var i=0;i<orderDetail.length;i++){
+                        	    	 var status=orderDetail[i].status;
+                        	    	 var statusStr="未审核";
+                        	    	 if(status==1){
+                        	    		 statusStr="已审核";
+                        	    	 }else if(status==2){
+                        	    		 statusStr="审核中";
+                        	    	 }else if(status==3){
+                        	    		 statusStr="驳回";
+                        	    	 }
+                        	    	 if(flag==0){
+                        	    		 var trHTML = "<tr><td>"+orderDetail[i].id+"</td><td>"+orderDetail[i].productName+"</td><td>"+orderDetail[i].sku+"</td><td>"+statusStr+"</td><td><input type='text'  style='width:60px;' id=detailPrices'"+orderDetail[i].id+"' value='"+orderDetail[i].prices+"'/></td><td><input type='text' id=detailAmount'"+orderDetail[i].id+"' style='width:60px;' value='"+orderDetail[i].amount+"'/></td><td><button type='button' class='btn btn-default btn-xs' onclick='detailEdit("+orderDetail[i].id+")'>编辑</button></td></tr>"
+                        	    	 }else{
+                        	    		 var trHTML = "<tr><td>"+orderDetail[i].id+"</td><td>"+orderDetail[i].productName+"</td><td>"+orderDetail[i].sku+"</td><td>"+statusStr+"</td><td>"+orderDetail[i].prices+"</td><td>"+orderDetail[i].amount+"</td><td></td></tr>"
+                        	    	 }
+                        	    	
+                        	     }
+                        		 $("#example2").append(trHTML);//在table最后面添加一行
+                         }
+                	 }else{
+                		 Toast.error("数据不存在或已删除");
+                	 }
+                	 
+                     
   
                  }
              }

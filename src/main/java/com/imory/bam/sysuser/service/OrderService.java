@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.imory.bam.searchDto.OrderDto;
 import com.imory.bam.sysuser.bean.SysOrder;
+import com.imory.bam.sysuser.bean.SysOrderDetail;
 import com.imory.bam.sysuser.dao.OrderMapper;
 
 /**
@@ -43,6 +44,15 @@ public class OrderService {
 	 public SysOrder getById(Integer id)
 	 {
 	     return orderMapper.getById(id);
+	 }
+	 
+	 /**
+	  * 查询订单明细
+	  * @param orderNum
+	  * @return
+	  */
+	 public List<SysOrderDetail> getByIdofDetail(String orderNum){
+		 return orderMapper.getByIdofDetail(orderNum);
 	 }
 	 
 	 
