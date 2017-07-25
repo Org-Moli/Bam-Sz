@@ -4,6 +4,7 @@ import com.imory.bam.sysuser.bean.SysUser;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>名称</p>
@@ -23,12 +24,11 @@ public interface SysUserMapper {
     SysUser findUserById(@Param("id") Integer id);
 
     @Insert({
-            "insert into sys_user(logonId,userName,password,level,createTime)",
+            "insert into sys_user(logonId,userName,password,level,enabled,createTime)",
             "values",
-            "(#{logonId},#{userName},#{password},#{level},now())"
+            "(#{logonId},#{userName},#{password},#{level},1,now())"
     })
-    int insert(@Param("logonId") String logonId, @Param("userName") String userName, @Param("password") String password,
-               @Param("level") Integer level);
+    int insert(SysUser sysUser);
 
     @Update({
             "update sys_user set password = 'e10adc3949ba59abbe56e057f20f883e'",
@@ -36,11 +36,19 @@ public interface SysUserMapper {
     })
     void resertPsd(@Param("id") Integer id);
 
-    @Select({
-            "select * from sys_user",
-            "limit #{startPos},#{maxRows}"
+    @SelectProvider(type = SysUserSqlProvider.class,method = "listSysUser")
+    List<SysUser> listSysUser(Map<String,Object> paramsMap);
+
+    @SelectProvider(type = SysUserSqlProvider.class,method = "countSysUser")
+    int countSysUser(Map<String,Object> paramsMap);
+
+    @Update({
+            "update sys_user set enabled = 0 where id = #{id}"
     })
-    List<SysUser> listSysUser(@Param("startPos") Integer startPos, @Param("maxRows") Integer maxRows);
+    void deleteById(@Param("id") Integer id);
+
+    @UpdateProvider(type = SysUserSqlProvider.class, method = "deleteByIds")
+    void deleteByIds(Map<String, Object> paramsMap);
 
     @Select({
             "select * from sys_user where logonId = #{logonId} and password = #{password}"
@@ -51,4 +59,14 @@ public interface SysUserMapper {
             "select * from sys_user where logonId = #{logonId}"
     })
     SysUser findSysUserByLogonId(@Param("logonId") String logonId);
+
+    @Update({
+            "update sys_user",
+            "set password = #{password,jdbcType=VARCHAR},",
+            "enabled = #{enabled,jdbcType=BIT},",
+            "lastTime = #{lastTime,jdbcType=TIMESTAMP},",
+            "lastIp = #{lastIp,jdbcType=VARCHAR}",
+            "where id = #{id,jdbcType=INTEGER}"
+    })
+    int updateById(SysUser sysUser);
 }

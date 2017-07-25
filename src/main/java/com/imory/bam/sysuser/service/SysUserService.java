@@ -5,7 +5,9 @@ import com.imory.bam.sysuser.dao.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>名称</p>
@@ -36,15 +38,11 @@ public class SysUserService {
     /**
      * 新增管理员
      *
-     * @param logonId
-     * @param userName
-     * @param password
-     * @param level
      * @return
      */
-    public int insert(String logonId, String userName, String password, Integer level)
+    public int insert(SysUser sysUser)
     {
-        return sysUserMapper.insert(logonId, userName, password, level);
+        return sysUserMapper.insert(sysUser);
     }
 
     /**
@@ -62,10 +60,22 @@ public class SysUserService {
      * @param maxRows
      * @return
      */
-    public List<SysUser> listSysUser(Integer startPos, Integer maxRows)
+    public List<SysUser> listSysUser(Integer startPos, Integer maxRows, String qryVal)
     {
-        return sysUserMapper.listSysUser(startPos, maxRows);
+        Map<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("startPos", startPos);
+        paramsMap.put("maxRows", maxRows);
+        paramsMap.put("qryVal", qryVal);
+        return sysUserMapper.listSysUser(paramsMap);
     }
+
+    public int countSysUser(String qryVal)
+    {
+        Map<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("qryVal", qryVal);
+        return sysUserMapper.countSysUser(paramsMap);
+    }
+
 
     /**
      * 登录
@@ -88,5 +98,37 @@ public class SysUserService {
     public SysUser findSysUserByLogonId(String logonId)
     {
         return sysUserMapper.findSysUserByLogonId(logonId);
+    }
+
+    /**
+     * 更新
+     *
+     * @return
+     */
+    public int updateById(SysUser sysUser)
+    {
+        return sysUserMapper.updateById(sysUser);
+    }
+
+    /**
+     * 删除
+     *
+     * @param id
+     */
+    public void deleteById(Integer id)
+    {
+        sysUserMapper.deleteById(id);
+    }
+
+    /**
+     * 删除
+     *
+     * @param ids
+     */
+    public void deleteByIds(Integer[] ids)
+    {
+        Map<String, Object> paramsMap = new HashMap<>();
+        paramsMap.put("ids", ids);
+        sysUserMapper.deleteByIds(paramsMap);
     }
 }

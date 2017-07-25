@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  * @author zb.jiang
  * @version 1.0
- * @Date 2017/7/11
+ * @Date 2017/7/20
  */
 @Controller
-@RequestMapping("/bam/sysUser")
-public class SysUserController {
+@RequestMapping("/bam/sysPlatform")
+public class SysPlatformController {
 
-    @RequestMapping("/sysUserList")
-    public String sysUserList()
+    @RequestMapping("/sysPlatformList")
+    public String sysPlatformList()
     {
-        return "/bam/sysUserList";
+        return "/bam/sysPlatformList";
     }
 
 }

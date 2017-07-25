@@ -23,6 +23,12 @@ public class SysUser {
 
     private Integer level;
 
+    private String lastIp;
+
+    private Date lastTime;
+
+    private Boolean enabled;
+
     private Date createTime;
 
     public Integer getId()
@@ -73,6 +79,36 @@ public class SysUser {
     public void setLevel(Integer level)
     {
         this.level = level;
+    }
+
+    public String getLastIp()
+    {
+        return lastIp;
+    }
+
+    public void setLastIp(String lastIp)
+    {
+        this.lastIp = lastIp;
+    }
+
+    public Date getLastTime()
+    {
+        return lastTime;
+    }
+
+    public void setLastTime(Date lastTime)
+    {
+        this.lastTime = lastTime;
+    }
+
+    public Boolean getEnabled()
+    {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled)
+    {
+        this.enabled = enabled;
     }
 
     public Date getCreateTime()
