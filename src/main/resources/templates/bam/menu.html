@@ -23,18 +23,6 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
         <li class="header">主菜单</li>
-        <li class="active treeview">
-            <a href="#">
-                <i class="fa fa-institution"></i> <span>Dashboard</span>
-                <span class="pull-right-container">
-                    <i class="fa fa-angle-left pull-right"></i>
-                </span>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="/bam/sysClients/sysClientsList"><i class="fa fa-user"></i> 操作员</a></li>
-                <li class="active"><a href="index2.html"><i class="fa fa-users"></i> 客户</a></li>
-            </ul>
-        </li>
         <li class="treeview">
             <a href="#">
                 <i class="fa fa-share"></i> <span>跨境管理</span>
@@ -106,6 +94,38 @@
             <ul class="treeview-menu">
                 <li><a href="/bam/sysProduct/sysProductList"><i class="fa fa-circle-o"></i> 商品列表</a></li>
                 <li><a href="#"><i class="fa fa-circle-o"></i> 商品导入</a></li>
+            </ul>
+        </li>
+
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-share"></i> <span>系统管理</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+                <li>
+                    <a href="#"><i class="fa fa-cog"></i> 基础设置
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/bam/sysPlatform/sysPlatformList"><i class="fa fa-circle-o"></i> 平台管理</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-cog"></i> 用户和权限
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="/bam/sysUser/sysUserList"><i class="fa fa-circle-o"></i>用户管理</a></li>
+                    </ul>
+                </li>
+                <li><a href="#"><i class="fa fa-circle-o"></i> Level One</a></li>
             </ul>
         </li>
         
