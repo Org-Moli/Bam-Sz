@@ -116,9 +116,9 @@
                         <div class="box box-primary">
                             <!-- /.box-header -->
                             <!-- form start -->
-                            <input type="hidden" id="editId" value=""/>
-                            <input type="hidden" id="chkId" value=""/>
                             <form role="form" id="platForm">
+                                <input type="hidden" id="id" name="id" value=""/>
+                                <input type="hidden" id="chkId" value=""/>
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="userName">名称</label>
@@ -130,7 +130,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="password">密码</label>
-                                        <input type="text" class="form-control" id="password" name="password" placeholder="密码"/>
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="密码"/>
                                     </div>
                                 </div>
                                 <!-- /.box-body -->
@@ -202,6 +202,19 @@
                 }
             },
             {
+                targets: 3,
+                render: function (data, type, row) {
+                    if(data)
+                    {
+                        return '启用';
+                    }
+                    else
+                    {
+                        return '禁用';
+                    }
+                }
+            },
+            {
                 targets: 6,
                 render: function (data, type, row) {
                     return  '<button class="btn btn-primary" onclick="editById(' + row.id + ');">配置</button>&nbsp;&nbsp;&nbsp;&nbsp;' +
@@ -247,7 +260,7 @@
         $("#userName").val("");
         $("#password").val("");
         $("#logonId").val("");
-        $("#editId").val("");
+        $("#id").val("");
         $("#addModal").modal("show");
     }
 
@@ -277,9 +290,9 @@
                 {
                     $("#addModal").modal("show");
                     $("#userName").val(data.userName);
-                    $("#password").val(data.password);
+                    $("#password").val();
                     $("#logonId").val(data.logonId);
-                    $("#editId").val(data.id);
+                    $("#id").val(data.id);
                 }
             }
         });

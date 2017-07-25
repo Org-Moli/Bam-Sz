@@ -47,6 +47,8 @@ public class SysUserAjaxController {
         } else
         {
             SysUser user = sysUserService.findUserById(sysUser.getId());
+            user.setUserName(sysUser.getUserName());
+            user.setLogonId(sysUser.getLogonId());
             user.setPassword(MD5Util.MD5Encode(sysUser.getPassword(), "UTF-8"));
             sysUserService.updateById(user);
         }

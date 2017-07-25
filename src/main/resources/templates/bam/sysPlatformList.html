@@ -112,29 +112,29 @@
                             <!-- /.box-header -->
                             <!-- form start -->
                             <form role="form" id="platForm">
-                                <input type="hidden" id="editId" value=""/>
+                                <input type="hidden" id="id" name="id" value=""/>
                                 <input type="hidden" id="chkId" value=""/>
                                 <div class="box-body">
                                     <div class="form-group">
                                         <label for="name">名称</label>
-                                        <input type="text" class="form-control" id="name" placeholder="名称"/>
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="名称"/>
                                     </div>
                                     <div class="form-group">
                                         <label for="types">类型</label>
-                                        <input type="text" class="form-control" id="types" placeholder="类型"/>
+                                        <input type="text" class="form-control" id="types" name="types" placeholder="类型"/>
                                     </div>
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" id="isDefault"/> 默认
+                                            <input type="checkbox" name="defaultFlag" id="defaultFlag" value="0"/> 默认
                                         </label>
                                     </div>
                                     <div class="form-group">
                                         <label for="types">描述</label>
-                                        <textarea class="form-control" rows="3" id="descInfo"></textarea>
+                                        <textarea class="form-control" rows="3" id="descInfo" name="descInfo"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="appName">App名称</label>
-                                        <input type="text" class="form-control" id="appName" placeholder="App名称"/>
+                                        <input type="text" class="form-control" id="appName" name="appName" placeholder="App名称"/>
                                     </div>
                                 </div>
                                 <!-- /.box-body -->
@@ -189,17 +189,30 @@
             },
             columns: [
                 {data:"id"},
-                { data: "name" },
-                { data: "types" },
-                { data: "appName"},
-                { data: "isDefault"},
-                { data: "descInfo"}
+                { data: "name" ,defaultContent:"-"},
+                { data: "types" ,defaultContent:"-"},
+                { data: "appName",defaultContent:"-"},
+                { data: "defaultFlag",defaultContent:"-"},
+                { data: "descInfo",defaultContent:"-"}
             ],
             columnDefs: [
             {
                 targets: 0,
                 render: function (data, type, row) {
                     return  '<input type="checkbox" value="' + row.id + '" name="idChk"/>';
+                }
+            },
+            {
+                targets: 4,
+                render: function (data, type, row) {
+                    if(data)
+                    {
+                        return '默认';
+                    }
+                    else
+                    {
+                        return '-';
+                    }
                 }
             },
             {
@@ -245,8 +258,8 @@
         $("#types").val("");
         $("#descInfo").val("");
         $("#appName").val("");
-        $("#isDefault").prop("checked",false);
-        $("#editId").val("");
+        $("#defaultFlag").prop("checked",false);
+        $("#id").val("");
         $("#addModal").modal("show");
     }
 
@@ -279,8 +292,8 @@
                     $("#types").val(data.types);
                     $("#descInfo").val(data.descInfo);
                     $("#appName").val(data.appName);
-                    $("#isDefault").val(data.isDefault);
-                    $("#editId").val(data.id);
+                    $("#defaultFlag").val(data.defaultFlag);
+                    $("#id").val(data.id);
                 }
             }
         });
@@ -342,9 +355,18 @@
             Toast.error("请填写类型");
             return;
         }
+        var defaultFlag = $("#defaultFlag").is(":checked");
+        if(defaultFlag)
+        {
+            $("#defaultFlag").val(true);
+        }
+        else
+        {
+            $("#defaultFlag").val(false);
+        }
         var dataJson=$("#platForm").serialize();
         $.ajax({
-            url: "/bam/sysPlatformAjax/saveOrUpdate",
+            url: "/bam/sysPlatformAjax/saveOrUpdate?",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             data:dataJson,
             dataType: "json",

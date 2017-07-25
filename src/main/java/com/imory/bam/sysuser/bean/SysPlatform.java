@@ -19,7 +19,7 @@ public class SysPlatform {
 
     private String types;
 
-    private Boolean isDefault;
+    private Boolean defaultFlag;
 
     private String descInfo;
 
@@ -57,14 +57,14 @@ public class SysPlatform {
         this.types = types;
     }
 
-    public Boolean getDefault()
+    public Boolean getDefaultFlag()
     {
-        return isDefault;
+        return defaultFlag;
     }
 
-    public void setDefault(Boolean aDefault)
+    public void setDefaultFlag(Boolean defaultFlag)
     {
-        isDefault = aDefault;
+        this.defaultFlag = defaultFlag;
     }
 
     public String getDescInfo()

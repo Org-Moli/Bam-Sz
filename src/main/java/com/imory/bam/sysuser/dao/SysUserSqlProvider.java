@@ -19,7 +19,7 @@ public class SysUserSqlProvider {
     {
         String qryVal = (String) paramsMap.get("qryVal");
         StringBuffer sql = new StringBuffer();
-        sql.append("select * from sys_user where enabled = 1\n");
+        sql.append("select * from sys_user where 1 = 1\n");
         if (StringUtils.isNotBlank(qryVal))
         {
             sql.append("and userName like '%" + qryVal + "%' \n");
@@ -36,7 +36,7 @@ public class SysUserSqlProvider {
     {
         String qryVal = (String) paramsMap.get("qryVal");
         StringBuffer sql = new StringBuffer();
-        sql.append("select count(*) from sys_user where enabled = 1\n");
+        sql.append("select count(*) from sys_user where 1 = 1\n");
         if (StringUtils.isNotBlank(qryVal))
         {
             sql.append("and userName like '%" + qryVal + "%' \n");

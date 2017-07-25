@@ -20,9 +20,9 @@ public interface SysPlatformMapper {
 
     @Insert({
             "insert into sys_platform (name, types, ",
-            "isDefault,descInfo,appName,createTime) ",
+            "defaultFlag,descInfo,appName,createTime) ",
             "values (#{name,jdbcType=VARCHAR}, #{types,jdbcType=VARCHAR}, ",
-            "#{isDefault,jdbcType=BIT},#{descInfo,jdbcType=VARCHAR},#{appName,jdbcType=VARCHAR},now())"
+            "#{defaultFlag,jdbcType=BIT},#{descInfo,jdbcType=VARCHAR},#{appName,jdbcType=VARCHAR},now())"
     })
     @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", before = false, resultType = Integer.class)
     int insert(SysPlatform sysPlatform);
@@ -46,7 +46,7 @@ public interface SysPlatformMapper {
             "update sys_platform",
             "set name = #{name,jdbcType=VARCHAR},",
             "types = #{types,jdbcType=VARCHAR},",
-            "isDefault = #{isDefault,jdbcType=BIT},",
+            "defaultFlag = #{defaultFlag,jdbcType=BIT},",
             "descInfo = #{descInfo,jdbcType=VARCHAR},",
             "appName = #{appName,jdbcType=VARCHAR}",
             "where id = #{id,jdbcType=INTEGER}"

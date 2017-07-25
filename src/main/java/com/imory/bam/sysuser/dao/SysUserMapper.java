@@ -64,9 +64,8 @@ public interface SysUserMapper {
     @Update({
             "update sys_user",
             "set password = #{password,jdbcType=VARCHAR},",
-            "enabled = #{enabled,jdbcType=BIT},",
-            "lastTime = #{lastTime,jdbcType=TIMESTAMP},",
-            "lastIp = #{lastIp,jdbcType=VARCHAR}",
+            "userName = #{userName,jdbcType=VARCHAR},",
+            "logonId = #{logonId,jdbcType=VARCHAR}",
             "where id = #{id,jdbcType=INTEGER}"
     })
     int updateById(SysUser sysUser);
