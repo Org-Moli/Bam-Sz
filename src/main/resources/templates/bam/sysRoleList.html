@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>平台列表</title>
+    <title>角色列表</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
     <!-- Bootstrap 3.3.6 -->
@@ -50,12 +50,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                平台列表
+                角色列表
                 <!--<small>advanced tables</small>-->
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li><a href="#">平台列表</a></li>
+                <li><a href="#">角色列表</a></li>
             </ol>
         </section>
 
@@ -78,10 +78,7 @@
                                 <tr>
                                     <th><input type="checkbox" id="checkAll"/></th>
                                     <th>名称</th>
-                                    <th>类型</th>
-                                    <th>App名称</th>
-                                    <th>默认</th>
-                                    <th>描述</th>
+                                    <th>状态</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -105,7 +102,7 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">配置平台</h4>
+                        <h4 class="modal-title">配置角色</h4>
                     </div>
                     <div class="modal-body">
                         <div class="box box-primary">
@@ -118,23 +115,6 @@
                                     <div class="form-group">
                                         <label for="name">名称</label>
                                         <input type="text" class="form-control" id="name" name="name" placeholder="名称"/>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="types">类型</label>
-                                        <input type="text" class="form-control" id="types" name="types" placeholder="类型"/>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="defaultFlag" id="defaultFlag" value="0"/> 默认
-                                        </label>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="types">描述</label>
-                                        <textarea class="form-control" rows="3" id="descInfo" name="descInfo"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="appName">App名称</label>
-                                        <input type="text" class="form-control" id="appName" name="appName" placeholder="App名称"/>
                                     </div>
                                 </div>
                                 <!-- /.box-body -->
@@ -185,15 +165,12 @@
             //开启服务器模式
             serverSide: true,
             ajax:{
-                url:'/bam/sysPlatformAjax/listSysPlatform'
+                url:'/bam/sysRoleAjax/listSysRoleList'
             },
             columns: [
                 {data:"id"},
                 { data: "name" ,defaultContent:"-"},
-                { data: "types" ,defaultContent:"-"},
-                { data: "appName",defaultContent:"-"},
-                { data: "defaultFlag",defaultContent:"-"},
-                { data: "descInfo",defaultContent:"-"}
+                { data: "enabled",defaultContent:"-"}
             ],
             columnDefs: [
             {
@@ -203,11 +180,11 @@
                 }
             },
             {
-                targets: 4,
+                targets: 2,
                 render: function (data, type, row) {
                     if(data)
                     {
-                        return '默认';
+                        return '启用';
                     }
                     else
                     {
@@ -216,7 +193,7 @@
                 }
             },
             {
-                targets: 6,
+                targets: 3,
                 render: function (data, type, row) {
                     return  '<button class="btn btn-primary" onclick="editById(' + row.id + ');">配置</button>&nbsp;&nbsp;&nbsp;&nbsp;' +
                             '<button class="btn btn-primary" onclick="deleteById(' + row.id + ');">删除</button>';
@@ -255,10 +232,6 @@
 
     function addInfo() {
         $("#name").val("");
-        $("#types").val("");
-        $("#descInfo").val("");
-        $("#appName").val("");
-        $("#defaultFlag").prop("checked",false);
         $("#id").val("");
         $("#addModal").modal("show");
     }
@@ -276,7 +249,7 @@
     
     function editById(id) {
         $.ajax({
-            url: "/bam/sysPlatformAjax/getById",
+            url: "/bam/sysRoleAjax/getById",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             data:{
                 id:id
@@ -289,10 +262,6 @@
                 {
                     $("#addModal").modal("show");
                     $("#name").val(data.name);
-                    $("#types").val(data.types);
-                    $("#descInfo").val(data.descInfo);
-                    $("#appName").val(data.appName);
-                    $("#defaultFlag").val(data.defaultFlag);
                     $("#id").val(data.id);
                 }
             }
@@ -304,11 +273,11 @@
         var _ids =  $("#chkId").val();
         if(_ids.length == 0)
         {
-            Toast.info("请选择需要删除的平台");
+            Toast.info("请选择需要删除的角色");
             return;
         }
         $.ajax({
-            url: "/bam/sysPlatformAjax/deleteByIds",
+            url: "/bam/sysRoleAjax/deleteByIds",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             data:{
                 ids:_ids
@@ -327,7 +296,7 @@
 
     function deleteById(id) {
         $.ajax({
-            url: "/bam/sysPlatformAjax/deleteById",
+            url: "/bam/sysRoleAjax/deleteById",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             data:{
                 id:id
@@ -350,23 +319,9 @@
             Toast.error("名称");
             return;
         }
-        if($("#types").val().length == 0)
-        {
-            Toast.error("请填写类型");
-            return;
-        }
-        var defaultFlag = $("#defaultFlag").is(":checked");
-        if(defaultFlag)
-        {
-            $("#defaultFlag").val(true);
-        }
-        else
-        {
-            $("#defaultFlag").val(false);
-        }
         var dataJson=$("#platForm").serialize();
         $.ajax({
-            url: "/bam/sysPlatformAjax/saveOrUpdate",
+            url: "/bam/sysRoleAjax/saveOrUpdate",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             data:dataJson,
             dataType: "json",
