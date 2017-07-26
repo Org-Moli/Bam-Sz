@@ -22,13 +22,13 @@
                 <!-- Notifications: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="/img/logo.png" class="user-image" alt="User Image"/>
+                        <img src="/img/logo_zs.png" class="user-image" alt="User Image"/>
                         <span class="hidden-xs" shiro:principal property="userName"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="/img/logo.png" class="img-circle" alt="User Image"/>
+                            <img src="/img/logo_zs.png" class="img-circle" alt="User Image"/>
                             <p>
                                 瑞银国际OMS订单管理系统
                                 <small th:text="${sysDate}"></small>
@@ -41,6 +41,9 @@
                             </div>
                         </li>
                     </ul>
+                </li>
+                <li>
+                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                 </li>
             </ul>
         </div>
