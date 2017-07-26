@@ -1,6 +1,6 @@
 <html xmlns:shiro="http://www.pollix.at/thymeleaf/shiro"
       xmlns:th="http://www.thymeleaf.org">
-<header class="main-header">
+<header class="main-header" th:fragment="headMenu">
     <!-- Logo -->
     <a href="/bam/common/index" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -11,7 +11,7 @@
     </a>
 
     <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
+    <nav class="navbar navbar-static-top" id="menuNavbar">
         <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
             <span class="sr-only">Toggle navigation</span>
@@ -47,3 +47,4 @@
 
     </nav>
 </header>
+<!-- jQuery 2.2.3 -->

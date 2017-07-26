@@ -1,4 +1,5 @@
-<html xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html xmlns:shiro="http://www.pollix.at/thymeleaf/shiro"
+      xmlns:th="http://www.thymeleaf.org">
 <section class="sidebar">
     <!-- Sidebar user panel -->
     <!--<div class="user-panel">
@@ -24,45 +25,45 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
         <li class="header">主菜单</li>
-        <li class="treeview">
+        <li th:class="${#strings.contains(menuCode,'kjmenu')} ? 'treeview active' : 'treeview'">
             <a href="#">
                 <i class="fa fa-share"></i> <span>跨境管理</span>
                 <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
             </a>
-            <ul class="treeview-menu">
-                <li>
+            <ul th:class="${#strings.contains(menuCode,'kjmenu')} ? 'treeview-menu menu-open' : 'treeview-menu'">
+                <li th:class="${#strings.contains(menuCode,'JBMenu')} ? 'active' : ''">
                     <a href="#"><i class="fa fa-cog"></i> 基本资料
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="/bam/sysOrigin/sysOriginList"><i class="fa fa-circle-o"></i> 产地管理</a></li>
-                        <li>
+                        <li th:class="${#strings.contains(menuCode,'sysOriginList')} ? 'active' : ''"><a href="/bam/sysOrigin/sysOriginList"><i class="fa fa-circle-o"></i> 产地管理</a></li>
+                        <li th:class="${#strings.contains(menuCode,'sysAmountUnitList')} ? 'active' : ''">
                             <a href="/bam/sysAmountUnit/sysAmountUnitList"><i class="fa fa-circle-o"></i> 数量单位管理
                             </a>
                         </li>
-                        <li>
+                        <li th:class="${#strings.contains(menuCode,'sysCurrencyUnitList')} ? 'active' : ''">
                             <a href="/bam/sysCurrencyUnit/sysCurrencyUnitList"><i class="fa fa-circle-o"></i> 货币管理
                             </a>
                         </li>
                     </ul>
                 </li>
-                <li>
+                <li th:class="${#strings.contains(menuCode,'DDMenu')} ? 'active' : ''">
                     <a href="#"><i class="fa fa-cog"></i> 订单报关
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="/bam/throw/orderList"><i class="fa fa-circle-o"></i>订单抛送</a></li>
-                        <li>
+                    <ul th:class="${#strings.contains(menuCode,'DDMenu')} ? 'treeview-menu menu-open' : 'treeview-menu'">
+                        <li th:class="${#strings.contains(menuCode,'throwOrder')} ? 'active' : ''"><a href="/bam/throw/orderList"><i class="fa fa-circle-o"></i>订单抛送</a></li>
+                        <li th:class="${#strings.contains(menuCode,'paymentList')} ? 'active' : ''">
                             <a href="/bam/throw/paymentList"><i class="fa fa-circle-o"></i>支付单抛送
                             </a>
                         </li>
-                        <li>
+                        <li th:class="${#strings.contains(menuCode,'logisticsOrder')} ? 'active' : ''">
                             <a href="/bam/throw/logisticsList"><i class="fa fa-circle-o"></i>物流单抛送
                             </a>
                         </li>
@@ -71,59 +72,59 @@
             </ul>
         </li>
         
-        <li class="treeview">
+        <li th:class="${#strings.contains(menuCode,'orderMenu')} ? 'treeview active' : 'treeview'">
             <a href="#">
                 <i class="fa fa-share"></i> <span>订单管理</span>
                 <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
             </a>
-            <ul class="treeview-menu">
-                <li><a href="/bam/order/orderList"><i class="fa fa-circle-o"></i> 订单列表</a></li>
+            <ul th:class="${#strings.contains(menuCode,'orderMenu')} ? 'treeview-menu menu-open' : 'treeview-menu'">
+                <li th:class="${#strings.contains(menuCode,'orderList')} ? 'active' : ''"><a href="/bam/order/orderList"><i class="fa fa-circle-o"></i> 订单列表</a></li>
                 <!--<li><a href="#"><i class="fa fa-circle-o"></i> 订单导入</a></li>-->
             </ul>
         </li>
 
-        <li class="treeview">
+        <li th:class="${#strings.contains(menuCode,'productMenu')} ? 'treeview active' : 'treeview'">
             <a href="#">
                 <i class="fa fa-share"></i> <span>商品管理</span>
                 <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
             </a>
-            <ul class="treeview-menu">
-                <li><a href="/bam/sysProduct/sysProductList"><i class="fa fa-circle-o"></i> 商品列表</a></li>
+            <ul th:class="${#strings.contains(menuCode,'productMenu')} ? 'treeview-menu menu-open' : 'treeview-menu'">
+                <li th:class="${#strings.contains(menuCode,'sysProductList')} ? 'active' : ''"><a href="/bam/sysProduct/sysProductList"><i class="fa fa-circle-o"></i> 商品列表</a></li>
                 <!--<li><a href="#"><i class="fa fa-circle-o"></i> 商品导入</a></li>-->
             </ul>
         </li>
 
-        <li class="treeview">
+        <li th:class="${#strings.contains(menuCode,'sysmenu')} ? 'treeview active' : 'treeview'">
             <a href="#">
                 <i class="fa fa-share"></i> <span>系统管理</span>
                 <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
             </a>
-            <ul class="treeview-menu">
-                <li>
+            <ul th:class="${#strings.contains(menuCode,'sysmenu')} ? 'treeview-menu menu-open' : 'treeview-menu'">
+                <li th:class="${#strings.contains(menuCode,'jcszMenu')} ? 'active' : ''">
                     <a href="#"><i class="fa fa-cog"></i> 基础设置
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="/bam/sysPlatform/sysPlatformList"><i class="fa fa-circle-o"></i> 平台管理</a></li>
+                    <ul th:class="${#strings.contains(menuCode,'jcszMenu')} ? 'treeview-menu menu-open' : 'treeview-menu'">
+                        <li th:class="${#strings.contains(menuCode,'sysPlatformList')} ? 'active' : ''"><a href="/bam/sysPlatform/sysPlatformList"><i class="fa fa-circle-o"></i> 平台管理</a></li>
                     </ul>
                 </li>
-                <li>
+                <li th:class="${#strings.contains(menuCode,'userRoleMenu')} ? 'active' : ''">
                     <a href="#"><i class="fa fa-cog"></i> 用户和权限
                         <span class="pull-right-container">
                             <i class="fa fa-angle-left pull-right"></i>
                         </span>
                     </a>
-                    <ul class="treeview-menu">
-                        <li><a href="/bam/sysUser/sysUserList"><i class="fa fa-circle-o"></i>用户管理</a></li>
-                        <li><a href="/bam/sysRole/sysRoleList"><i class="fa fa-circle-o"></i>角色管理</a></li>
+                    <ul th:class="${#strings.contains(menuCode,'userRoleMenu')} ? 'treeview-menu menu-open' : 'treeview-menu'">
+                        <li th:class="${#strings.contains(menuCode,'sysUserList')} ? 'active' : ''"><a href="/bam/sysUser/sysUserList"><i class="fa fa-circle-o"></i>用户管理</a></li>
+                        <li th:class="${#strings.contains(menuCode,'sysRoleList')} ? 'active' : ''"><a href="/bam/sysRole/sysRoleList"><i class="fa fa-circle-o"></i>角色管理</a></li>
                     </ul>
                 </li>
             </ul>

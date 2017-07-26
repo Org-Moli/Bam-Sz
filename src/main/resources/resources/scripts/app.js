@@ -324,13 +324,16 @@ function _init() {
 
       //Enable sidebar toggle
       $(document).on('click', toggleBtn, function (e) {
+
         e.preventDefault();
 
         //Enable sidebar push menu
         if ($(window).width() > (screenSizes.sm - 1)) {
           if ($("body").hasClass('sidebar-collapse')) {
+              $("#menuNavbar").css("background-color","#3c8dbc");
             $("body").removeClass('sidebar-collapse').trigger('expanded.pushMenu');
           } else {
+              $("#menuNavbar").css("background-color","#9a3737");
             $("body").addClass('sidebar-collapse').trigger('collapsed.pushMenu');
           }
         }
