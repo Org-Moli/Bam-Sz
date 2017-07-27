@@ -21,4 +21,10 @@ public class TreeDemoController {
     {
         return "tree";
     }
+    
+    @RequestMapping("/ztreeIndex")
+    public String ztreeIndex()
+    {
+        return "ztree";
+    }
 }
