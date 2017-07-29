@@ -65,6 +65,7 @@
                 <!-- right column -->
                 <form role="form" id="productForm">
                     <input type="hidden" id="id" name="id" th:value="${productCk.id}"/>
+                    <input type="hidden" id="productId" name="productId" th:value="${productCk.productId}"/>
                     <div class="col-md-12">
                         <!-- general form elements disabled -->
                         <div class="box box-warning">
@@ -183,6 +184,7 @@
                                 label: item.name,
                                 name: item.name,
                                 value: item.productNo,
+                                ids: item.id,
                                 sku: item.sku
                             }
                         }));
@@ -193,6 +195,7 @@
         select: function (event, ui) {
             $("#productName").val(ui.item.name);
             $("#sku").val(ui.item.sku);
+            $("#productId").val(ui.item.ids);
         }
     });
     function saveProduct() {
@@ -218,17 +221,17 @@
     $.fn.datetimepicker.dates['zh-CN'] = {
         days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
         daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
-        daysMin:  ["日", "一", "二", "三", "四", "五", "六", "日"],
+        daysMin: ["日", "一", "二", "三", "四", "五", "六", "日"],
         months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
         monthsShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
         today: "今天",
         suffix: [],
         meridiem: ["上午", "下午"]
     };
-    $( '#ckDate' ).datetimepicker(
+    $('#ckDate').datetimepicker(
         {
-            startView:2,
-            minView:2,
+            startView: 2,
+            minView: 2,
             autoclose: true,
             format: "yyyy-mm-dd",
             language: 'zh-CN',

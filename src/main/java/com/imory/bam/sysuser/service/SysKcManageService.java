@@ -24,15 +24,8 @@ public class SysKcManageService {
     @Autowired
     private SysKcManageMapper sysKcManageMapper;
 
-    public List<SysKcManage> listSysOrigin(Integer startPos, Integer maxRows, String productNo,
-                                           String productName, String sku)
+    public List<Map<String, Object>> listSysKcManage(Map<String, Object> paramsMap)
     {
-        Map<String, Object> paramsMap = new HashMap<>();
-        paramsMap.put("startPos", startPos);
-        paramsMap.put("maxRows", maxRows);
-        paramsMap.put("productNo", productNo);
-        paramsMap.put("productName", productName);
-        paramsMap.put("sku", sku);
         return sysKcManageMapper.listSysKcManage(paramsMap);
     }
 

@@ -16,20 +16,26 @@ public class SysKcManageSqlProvider {
     public String listSysKcManage(Map<String, Object> paramsMap)
     {
         StringBuffer sql = new StringBuffer();
-        sql.append("select * from sys_kcManage where 1 = 1\n");
-        if(paramsMap.get("productNo") != null)
+        sql.append("select sk.*,sp.productNo,sp.name,sp.sku from sys_kcManage sk \n");
+        sql.append("left join sys_product sp on sk.productId = sp.id \n");
+        sql.append("where 1 = 1 \n");
+        if (paramsMap.get("productNo") != null)
         {
-            sql.append("and productNo like CONCAT('%',#{productNo},'%') \n");
+            sql.append("and sp.productNo like CONCAT('%',#{productNo},'%') \n");
         }
-        if(paramsMap.get("productName") != null)
+        if (paramsMap.get("productName") != null)
         {
-            sql.append("and productName like CONCAT('%',#{productName},'%') \n");
+            sql.append("and sp.name like CONCAT('%',#{name},'%') \n");
         }
-        if(paramsMap.get("sku") != null)
+        if (paramsMap.get("sku") != null)
         {
-            sql.append("and sku like CONCAT('%',#{sku},'%') \n");
+            sql.append("and sp.sku like CONCAT('%',#{sku},'%') \n");
         }
-        if(paramsMap.get("startPos") != null && paramsMap.get("maxRows") != null)
+        if (paramsMap.get("ckName") != null)
+        {
+            sql.append("and sk.ckName = #{ckName} \n");
+        }
+        if (paramsMap.get("startPos") != null && paramsMap.get("maxRows") != null)
         {
             sql.append("limit #{startPos},#{maxRows}");
         }
@@ -39,18 +45,24 @@ public class SysKcManageSqlProvider {
     public String countSysKcManage(Map<String, Object> paramsMap)
     {
         StringBuffer sql = new StringBuffer();
-        sql.append("select count(*) from sys_kcManage where 1 = 1\n");
-        if(paramsMap.get("productNo") != null)
+        sql.append("select count(*) from sys_kcManage sk \n");
+        sql.append("left join sys_product sp on sk.productId = sp.id \n");
+        sql.append("where 1 = 1 \n");
+        if (paramsMap.get("productNo") != null)
         {
-            sql.append("and productNo like CONCAT('%',#{productNo},'%') \n");
+            sql.append("and sp.productNo like CONCAT('%',#{productNo},'%') \n");
         }
-        if(paramsMap.get("productName") != null)
+        if (paramsMap.get("productName") != null)
         {
-            sql.append("and productName like CONCAT('%',#{productName},'%') \n");
+            sql.append("and sp.name like CONCAT('%',#{name},'%') \n");
         }
-        if(paramsMap.get("sku") != null)
+        if (paramsMap.get("sku") != null)
         {
-            sql.append("and sku like CONCAT('%',#{sku},'%') \n");
+            sql.append("and sp.sku like CONCAT('%',#{sku},'%') \n");
+        }
+        if (paramsMap.get("ckName") != null)
+        {
+            sql.append("and sk.ckName = #{ckName} \n");
         }
         return sql.toString();
     }

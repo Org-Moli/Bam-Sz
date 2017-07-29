@@ -1,6 +1,8 @@
 package com.imory.bam.sysuser.service;
 
+import com.imory.bam.sysuser.bean.SysKcManage;
 import com.imory.bam.sysuser.bean.SysProductCk;
+import com.imory.bam.sysuser.dao.SysKcManageMapper;
 import com.imory.bam.sysuser.dao.SysProductCkMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,9 @@ public class SysProductCkService {
     @Autowired
     private SysProductCkMapper sysProductCkMapper;
 
+    @Autowired
+    private SysKcManageMapper sysKcManageMapper;
+
     public List<SysProductCk> listSysProductCk(Map<String, Object> paramsMap)
     {
 
@@ -43,6 +48,15 @@ public class SysProductCkService {
      */
     public int insert(SysProductCk sysProductCk)
     {
+        //查询该商品是否已入库
+        List<SysKcManage> sysKcManageList = sysKcManageMapper.listSysKcManageByProductAndCk(sysProductCk.getProductId(), sysProductCk.getCkName());
+        if (sysKcManageList.size() > 0)
+        {
+            SysKcManage sysKcManage = sysKcManageList.get(0);
+            sysKcManage.setCkTotal(sysProductCk.getCkNumbers());
+            sysKcManage.setSyNums(sysKcManage.getSyNums() - sysProductCk.getCkNumbers());
+            sysKcManageMapper.updateById(sysKcManage);
+        }
         return sysProductCkMapper.insert(sysProductCk);
     }
 
@@ -65,6 +79,16 @@ public class SysProductCkService {
      */
     public int updateById(SysProductCk sysProductCk)
     {
+        SysProductCk oldCk = sysProductCkMapper.getById(sysProductCk.getId());
+        //查询该商品是否已入库
+        List<SysKcManage> sysKcManageList = sysKcManageMapper.listSysKcManageByProductAndCk(sysProductCk.getProductId(), sysProductCk.getCkName());
+        if (sysKcManageList.size() > 0)
+        {
+            SysKcManage sysKcManage = sysKcManageList.get(0);
+            sysKcManage.setCkTotal(sysKcManage.getCkTotal() - oldCk.getCkNumbers() + sysProductCk.getCkNumbers());
+            sysKcManage.setSyNums(sysKcManage.getSyNums() + oldCk.getCkNumbers() - sysProductCk.getCkNumbers());
+            sysKcManageMapper.updateById(sysKcManage);
+        }
         return sysProductCkMapper.updateById(sysProductCk);
     }
 

@@ -31,7 +31,7 @@ public interface SysKcManageMapper {
     int insert(SysKcManage sysKcManage);
 
     @SelectProvider(type = SysKcManageSqlProvider.class, method = "listSysKcManage")
-    List<SysKcManage> listSysKcManage(Map<String, Object> paramsMap);
+    List<Map<String, Object>> listSysKcManage(Map<String, Object> paramsMap);
 
     @SelectProvider(type = SysKcManageSqlProvider.class, method = "countSysKcManage")
     int countSysKcManage(Map<String, Object> paramsMap);

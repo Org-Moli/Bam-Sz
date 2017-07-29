@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>入库管理</title>
+    <title>库存管理</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
     <!-- Bootstrap 3.3.6 -->
@@ -57,12 +57,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                入库管理列表
+                库存管理列表
                 <!--<small>advanced tables</small>-->
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li><a href="#">入库管理列表</a></li>
+                <li><a href="#">库存管理列表</a></li>
             </ol>
         </section>
 
@@ -86,6 +86,9 @@
                                     <label>商品名称:</label>
                                     <input type="text" class="form-control" id="search_productName" placeholder="商品名称"/>
                                 </div>
+                            </form>
+                            <br/>
+                            <form class="form-inline">
                                 <div class="form-group">
                                     <label>SKU:</label>
                                     <input type="text" class="form-control" id="search_sku" placeholder="SKU"/>
@@ -96,28 +99,6 @@
                                         <option value="">--请选择--</option>
                                         <option value="仓库1">仓库1</option>
                                     </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>客户:</label>
-                                    <select class="form-control" id="search_khName">
-                                        <option value="">--请选择--</option>
-                                        <option value="客户1">客户1</option>
-                                    </select>
-                                </div>
-                            </form>
-                            <br/>
-                            <form class="form-inline">
-                                <div class="form-group">
-                                    <label>入库订单号:</label>
-                                    <input type="text" class="form-control" id="search_khRkNo" placeholder="入库订单号"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>入库时间:</label>
-                                    <input type="text" class="form-control" id="search_rkDate" placeholder="入库时间"/>
-                                </div>
-                                <div class="form-group">
-                                    <label>入库操作员:</label>
-                                    <input type="text" class="form-control" id="search_rkOperator" placeholder="入库操作员"/>
                                 </div>
                                 <button class="btn btn-primary" type="button" onclick="doQuery();">查询</button>
                                 <button class="btn btn-danger" type="button" style="float: right;" onclick="deleteByIds();">删除</button>
@@ -131,12 +112,9 @@
                                     <th>商品名称</th>
                                     <th>SKU</th>
                                     <th>仓库</th>
-                                    <th>客户名称</th>
-                                    <th>入库订单号</th>
-                                    <th>入库时间</th>
-                                    <th>入库操作员</th>
-                                    <th>入库数量</th>
-                                    <th>操作</th>
+                                    <th>总入库数量</th>
+                                    <th>总出库数量</th>
+                                    <th>剩余数量</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -153,81 +131,6 @@
         <!-- /.content -->
     </div>
         <!-- /.modal -->
-    <div class="modal" id="addModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">查看入库单</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="box box-primary">
-                        <!-- /.box-header -->
-                        <!-- form start -->
-                        <form role="form" id="clientForm">
-                            <input type="hidden" id="editId" value=""/>
-                            <input type="hidden" id="chkId" value=""/>
-                            <div class="box-body">
-                                <div class="form-group">
-                                    <label>商品编码</label>
-                                    <input type="text" class="form-control" placeholder="请输入商品编码搜索" id="productNo"
-                                           name="productNo" />
-                                </div>
-                                <div class="form-group">
-                                    <label>货物名称</label>
-                                    <input type="text" class="form-control" placeholder="货物名称" id="productName"
-                                           name="productName" />
-                                </div>
-                                <div class="form-group">
-                                    <label>SKU</label>
-                                    <input type="text" class="form-control" placeholder="sku" id="sku" name="sku"
-                                    />
-                                </div>
-                                <div class="form-group">
-                                    <label>仓库</label>
-                                    <select class="form-control" id="ckName" name="ckName">
-                                        <option value="仓库1" selected="selected">仓库1</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>客户名称</label>
-                                    <select class="form-control" id="khName" name="khName">
-                                        <option value="客户1" selected="selected">客户1</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>客户入库订单号</label>
-                                    <input type="text" class="form-control" placeholder="客户入库订单号" id="khRkNo"
-                                           name="khRkNo" />
-                                </div>
-                                <div class="form-group">
-                                    <label>入库时间</label>
-                                    <input type="text" class="form-control" placeholder="入库时间" id="rkDate" name="rkDate"
-                                    />
-                                </div>
-                                <div class="form-group">
-                                    <label>入库操作员</label>
-                                    <input type="text" class="form-control" placeholder="入库操作员" id="rkOperator"
-                                           name="rkOperator" />
-                                </div>
-                                <div class="form-group">
-                                    <label>入库数量</label>
-                                    <input type="text" class="form-control" placeholder="入库数量" id="rkNumbers"
-                                           name="rkNumbers" />
-                                </div>
-                            </div>
-                            <!-- /.box-body -->
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
 
     <!-- /.content-wrapper -->
     <footer th:include="/common/foot"></footer>
@@ -263,47 +166,24 @@
             //开启服务器模式
             serverSide: true,
             ajax:{
-                url:'/bam/sysProductRkAjax/listSysProductRk',
+                url:'/bam/sysKcManageAjax/listSysKcManage',
                 data:function (d) {
                     d.productNo = $("#search_productNo").val(),
                     d.productName = $("#search_productName").val(),
                     d.sku = $("#search_sku").val(),
-                    d.ckName = $("#search_ckName").val(),
-                    d.khName = $("#search_khName").val(),
-                    d.khRkNo = $("#search_khRkNo").val(),
-                    d.rkDate = $("#search_rkDate").val(),
-                    d.rkOperator = $("#search_rkOperator").val()
+                    d.ckName = $("#search_ckName").val()
                 }
             },
             columns: [
                 {data:"id"},
                 { data: "productNo" ,defaultContent:"-"},
-                { data: "productName" ,defaultContent:"-"},
+                { data: "name" ,defaultContent:"-"},
                 { data: "sku" ,defaultContent:"-"},
                 { data: "ckName",defaultContent:"-"},
-                { data: "khName",defaultContent:"-"},
-                { data: "khRkNo" ,defaultContent:"-"},
-                { data: "rkDate" ,defaultContent:"-"},
-                { data: "rkOperator" ,defaultContent:"-"},
-                { data: "rkNumbers" ,defaultContent:"-"},
+                { data: "rkTotal",defaultContent:"-"},
+                { data: "ckTotal" ,defaultContent:"-"},
+                { data: "syNums" ,defaultContent:"-"},
             ],
-            columnDefs: [
-            {
-                targets: 0,
-                render: function (data, type, row) {
-                    return  '<input type="checkbox" value="' + row.id + '" name="idChk"/>';
-                }
-            },
-            {
-                targets: 10,
-                render: function (data, type, row) {
-                    var _html = '';
-                        _html +=    '<button class="btn btn-primary" type="button" onclick="viewById(' + row.id + ');">查看</button>&nbsp;&nbsp;&nbsp;&nbsp;';
-                        _html +=    '<button class="btn btn-primary" type="button" onclick="editById(' + row.id + ');">配置</button>&nbsp;&nbsp;&nbsp;&nbsp;' +
-                                    '<button class="btn btn-primary" type="button" onclick="deleteById(' + row.id + ');">删除</button>';
-                    return  _html;
-                }
-            }],
             language: {
                 url: "/plugins/datatables/cn.json"
             },
@@ -336,122 +216,8 @@
 
     });
 
-    $.fn.datetimepicker.dates['zh-CN'] = {
-        days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
-        daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
-        daysMin:  ["日", "一", "二", "三", "四", "五", "六", "日"],
-        months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
-        monthsShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
-        today: "今天",
-        suffix: [],
-        meridiem: ["上午", "下午"]
-    };
-    $( '#search_rkDate' ).datetimepicker(
-        {
-            startView:2,
-            minView:2,
-            autoclose: true,
-            format: "yyyy-mm-dd",
-            language: 'zh-CN',
-            todayBtn: true
-        });
-
-
-    function editById(id) {
-        location.href = '/bam/sysProductRk/addProductRk?id=' + id;
-    }
-    
-    function viewById(id) {
-        $.ajax({
-            url: "/bam/sysProductRkAjax/getById",
-            contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            data:{
-                id:id
-            },
-            dataType: "json",
-            type: "POST",
-            success : function(data)
-            {
-                if(data != undefined)
-                {
-                    $("#productNo").val(data.productNo);
-                    $("#productName").val(data.productName);
-                    $("#sku").val(data.sku);
-                    $("#ckName").val(data.ckName);
-                    $("#khName").val(data.khName);
-                    $("#khCkNo").val(data.khCkNo);
-                    $("#ckDate").val(data.ckDate);
-                    $("#ckOperator").val(data.ckOperator);
-                    $("#ckNumbers").val(data.ckNumbers);
-                    $("#addModal").modal("show");
-                }
-                else
-                {
-                    Toast.error("查询错误");
-                }
-            }
-        });
-    }
-
     function doQuery() {
         table.ajax.reload();
-    }
-
-    function setChkVal() {
-        var _arr = [];
-        $("input[type='checkbox'][name='idChk']").each(function () {
-            if($(this).is(":checked"))
-            {
-                _arr.push($(this).val());
-            }
-        });
-        $($("#chkId").val(_arr));
-    }
-
-
-    function deleteByIds() {
-        setChkVal();
-        var _ids =  $("#chkId").val();
-        if(_ids.length == 0)
-        {
-            Toast.info("请选择需要删除的货币");
-            return;
-        }
-        $.ajax({
-            url: "/bam/sysProductRkAjax/deleteByIds",
-            contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            data:{
-                ids:_ids
-            },
-            dataType: "json",
-            type: "POST",
-            success : function(data)
-            {
-                if(data.success)
-                {
-                    table.ajax.reload();
-                }
-            }
-        });
-    }
-
-    function deleteById(id) {
-        $.ajax({
-            url: "/bam/sysProductRkAjax/deleteById",
-            contentType: "application/x-www-form-urlencoded; charset=utf-8",
-            data:{
-                id:id
-            },
-            dataType: "json",
-            type: "POST",
-            success : function(data)
-            {
-                if(data.success)
-                {
-                    table.ajax.reload();
-                }
-            }
-        });
     }
 
 </script>
