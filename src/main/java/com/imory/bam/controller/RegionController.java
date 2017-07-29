@@ -1,5 +1,6 @@
 package com.imory.bam.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.imory.bam.searchDto.OrderDto;
+import com.imory.bam.searchDto.RegionDto;
 import com.imory.bam.sysuser.bean.SysOrder;
+import com.imory.bam.sysuser.bean.SysOrderDetail;
 import com.imory.bam.sysuser.bean.SysRegion;
 import com.imory.bam.sysuser.service.OrderService;
 import com.imory.bam.sysuser.service.RegionService;
@@ -36,7 +39,6 @@ public class RegionController {
     {
         return "/bam/region";
     }
-    
     /**
      * 查询地区目录
      *
@@ -44,13 +46,85 @@ public class RegionController {
      */
     @RequestMapping("/regionInfoSearch")
     @ResponseBody
-    public String listSysOrigin(Integer  pid)
+    public List listSysOrigin(Integer id)
     {   
-//        List<SysRegion> regionInfoSearch = regionService.regionInfoSearch(pid);
-//        System.out.println(regionInfoSearch);
-    	
-         String x="[{ id:1, pId:0, name:'父节点 1', open:true},{ id:11, pId:1, name:'叶子节点 1-1'},{ id:12, pId:1, name:'叶子节点 1-2'},{ id:13, pId:1, name:'叶子节点 1-3'},{ id:2, pId:0, name:'父节点 2', open:true},{ id:21, pId:2, name:'叶子节点 2-1'},{ id:22, pId:2, name:'叶子节点 2-2'},{ id:23, pId:2, name:'叶子节点 2-3'},{ id:3, pId:0, name:'父节点 3', open:true},{ id:31, pId:3, name:'叶子节点 3-1'},{ id:32, pId:3, name:'叶子节点 3-2'},{ id:33, pId:3, name:'叶子节点 3-3'}]";
-        return  x;
+    	if(id==null){
+    		id=-1;
+    	}
+        //获取当前节点的子节点
+    	List<SysRegion> regionInfoSearch = regionService.regionInfoSearch(id);
+    	List<Integer>  listIds=new ArrayList<Integer>();
+        //获取当前节点下的子节点是否存在子节点 存在则标记 isParent:true  配合上面的方法一起使用
+    	for(SysRegion  s:regionInfoSearch){
+    		listIds.add(s.getId());
+    	}
+    	if(listIds.size()>0){
+    		List<RegionDto> rList = regionService.regionParentSearch(listIds);
+    		for (RegionDto entry : rList) {
+    			for(SysRegion  s:regionInfoSearch){
+    	    		if(s.getId()==entry.getPid() && entry.getCount() > 0){
+    	    			s.setIsParent("true");
+    	    		}
+    	    	}
+    		}
+    	}
+        return  regionInfoSearch;
+    }
+    
+    
+    /**
+     * 添加地区节点
+     *
+     * @return
+     */
+    @RequestMapping("/addRegionInfo")
+    @ResponseBody
+    public Map<String, Object> addRegionInfo(SysRegion sysRegion)
+    {    
+    	 Map<String, Object> resultMap = new HashMap<>();
+    	 if(regionService.addRegionInfo(sysRegion)>0){
+    		 resultMap.put("success", true);
+    	 }else{
+    		 resultMap.put("success", false);
+    	 }
+    	 return resultMap;
+    }
+    
+    /**
+     * 修改节点
+     *
+     * @return
+     */
+    @RequestMapping("/editRegionInfo")
+    @ResponseBody
+    public Map<String, Object> editRegionInfo(SysRegion sysRegion)
+    {    
+    	 Map<String, Object> resultMap = new HashMap<>();
+    	 if(regionService.editRegionInfo(sysRegion)>0){
+    		 resultMap.put("success", true);
+    	 }else{
+    		 resultMap.put("success", false);
+    	 }
+    	 return resultMap;
+    }
+    
+    
+    /**
+     * 删除节点
+     *
+     * @return
+     */
+    @RequestMapping("/delRegionInfo")
+    @ResponseBody
+    public Map<String, Object> delRegionInfo(SysRegion sysRegion)
+    {    
+    	 Map<String, Object> resultMap = new HashMap<>();
+    	 if(regionService.delRegionInfo(sysRegion)>0){
+    		 resultMap.put("success", true);
+    	 }else{
+    		 resultMap.put("success", false);
+    	 }
+    	 return resultMap;
     }
     
     
