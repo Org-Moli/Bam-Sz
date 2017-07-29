@@ -69,6 +69,11 @@
                                     <span class="help-block" id="helpName" style="display: none">请输入名称</span>
                                 </div>
                                 <div class="form-group">
+                                    <label>商品编码</label>
+                                    <input type="text" class="form-control" placeholder="商品编码" id="productNo" name="productNo" th:value="${productInfo.productNo}"/>
+                                    <span class="help-block" id="productNo" style="display: none">请输入商品编码</span>
+                                </div>
+                                <div class="form-group">
                                     <label>产地</label>
                                     <select class="form-control" id="originId" name="originId">
                                         <option th:each="orig,stat : ${sysOriginList}" th:value="${orig.id}"
@@ -145,10 +150,11 @@
                                     <label>价格</label>
                                     <input type="text" class="form-control" placeholder="价格" id="price" name="price" th:value="${productInfo.price}"/>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" style="padding-top: 15px;">
                                     <label>描述</label>
                                     <textarea class="form-control" id="productDesc" name="productDesc" rows="3" placeholder="描述" th:text="${productInfo.productDesc}"></textarea>
                                 </div>
+                                <br/><br/><br/>
                         </div>
                         <!-- /.box-body -->
                         <!-- /.box-body -->

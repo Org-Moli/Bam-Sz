@@ -15,6 +15,8 @@ public class SysProduct {
 
     private String name;
 
+    private String productNo;
+
     private String sku;
 
     private Integer originId;
@@ -69,6 +71,16 @@ public class SysProduct {
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    public String getProductNo()
+    {
+        return productNo;
+    }
+
+    public void setProductNo(String productNo)
+    {
+        this.productNo = productNo;
     }
 
     public String getSku()

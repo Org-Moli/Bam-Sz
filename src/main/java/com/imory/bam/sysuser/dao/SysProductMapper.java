@@ -22,11 +22,11 @@ public interface SysProductMapper {
     List<Map<String,Object>> listSysProduct(Map<String, Object> paramsMap);
 
     @Insert({
-            "insert into sys_product (name, sku,amountUnitId,",
+            "insert into sys_product (name, productNo,sku,amountUnitId,",
             "originId,maozhong,jingzhong,brandName,barCode,",
             "hgbah,hgbm,gjbah,gyscode,gysName,",
             "productGg,price,yhprice,productDesc,state,bgstate)",
-            "values (#{name,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, ",
+            "values (#{name,jdbcType=VARCHAR},#{productNo,jdbcType=VARCHAR}, #{sku,jdbcType=VARCHAR}, ",
             "#{amountUnitId,jdbcType=INTEGER},#{originId,jdbcType=INTEGER},",
             "#{maozhong,jdbcType=DOUBLE},#{jingzhong,jdbcType=DOUBLE},",
             "#{brandName,jdbcType=VARCHAR},#{barCode,jdbcType=VARCHAR},",
@@ -50,6 +50,7 @@ public interface SysProductMapper {
     @Update({
             "update sys_product",
             "set name = #{name,jdbcType=VARCHAR},",
+            "productNo = #{productNo,jdbcType=VARCHAR},",
             "sku = #{sku,jdbcType=VARCHAR},",
             "amountUnitId = #{amountUnitId,jdbcType=INTEGER},",
             "originId = #{originId,jdbcType=INTEGER},",

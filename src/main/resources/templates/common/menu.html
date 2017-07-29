@@ -25,6 +25,19 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
         <li class="header">主菜单</li>
+        <li th:class="${#strings.contains(menuCode,'crkMenu')} ? 'treeview active' : 'treeview'">
+            <a href="#">
+                <i class="fa fa-share"></i> <span>出入库管理</span>
+                <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul th:class="${#strings.contains(menuCode,'crkMenu')} ? 'treeview-menu menu-open' : 'treeview-menu'">
+                <li th:class="${#strings.contains(menuCode,'sysProductCkList')} ? 'active' : ''"><a href="/bam/sysProductCk/sysProductCkList"><i class="fa fa-circle-o"></i> 出库管理</a></li>
+                <!--<li><a href="#"><i class="fa fa-circle-o"></i> 订单导入</a></li>-->
+            </ul>
+        </li>
+
         <li th:class="${#strings.contains(menuCode,'kjmenu')} ? 'treeview active' : 'treeview'">
             <a href="#">
                 <i class="fa fa-share"></i> <span>跨境管理</span>
@@ -71,7 +84,7 @@
                 </li>
             </ul>
         </li>
-        
+
         <li th:class="${#strings.contains(menuCode,'orderMenu')} ? 'treeview active' : 'treeview'">
             <a href="#">
                 <i class="fa fa-share"></i> <span>订单管理</span>
