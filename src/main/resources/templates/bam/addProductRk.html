@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>添加出库</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/css/font-awesome.min.css"/>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/css/ionicons.min.css"/>
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/css/AdminLTE.min.css"/>
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="/css/skins/_all-skins.min.css"/>
+    <link href="/css/jquery-ui-1.10.0.custom.css" rel="stylesheet">
+    <link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all {
+            max-height: 400px;
+            overflow-y: scroll;
+        }
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <header th:include="/common/head"></header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <html th:include="/common/menu" th:with="menuCode='productMenu_sysProductList'"></html>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                <small>添加出库</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li><a href="#">出库管理</a></li>
+                <li class="active">添加出库</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <!-- right column -->
+                <form role="form" id="productForm">
+                    <input type="hidden" id="id" name="id" th:value="${productRk.id}"/>
+                    <div class="col-md-12">
+                        <!-- general form elements disabled -->
+                        <div class="box box-warning">
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                <!-- text input -->
+                                <div class="form-group">
+                                    <label>商品编码</label>
+                                    <input type="text" class="form-control" placeholder="请输入商品编码搜索" id="productNo"
+                                           name="productNo" th:value="${productRk.productNo}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>货物名称</label>
+                                    <input type="text" class="form-control" placeholder="货物名称" id="productName"
+                                           name="productName" th:value="${productRk.productName}" readonly="readonly"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>SKU</label>
+                                    <input type="text" class="form-control" placeholder="sku" id="sku" name="sku"
+                                           th:value="${productRk.sku}" readonly="readonly"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>仓库</label>
+                                    <select class="form-control" id="ckName" name="ckName">
+                                        <option value="仓库1" selected="selected">仓库1</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>客户名称</label>
+                                    <select class="form-control" id="khName" name="khName">
+                                        <option value="客户1" selected="selected">客户1</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>客户入库订单号</label>
+                                    <input type="text" class="form-control" placeholder="客户出库订单号" id="khRkNo"
+                                           name="khRkNo" th:value="${productRk.khRkNo}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>入库时间</label>
+                                    <input type="text" class="form-control" placeholder="出库时间" id="rkDate" name="rkDate"
+                                           th:value="${productRk.rkDate}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>入库操作员</label>
+                                    <input type="text" class="form-control" placeholder="出库操作员" id="rkOperator"
+                                           name="rkOperator" th:value="${productRk.rkOperator}"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>入库数量</label>
+                                    <input type="text" class="form-control" placeholder="出库数量" id="rkNumbers"
+                                           name="rkNumbers" th:value="${productRk.rkNumbers}"/>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                            <!-- /.box-body -->
+                            <div class="box-footer" style="text-align: center;">
+                                <button type="button"
+                                        onclick="saveProduct();"
+                                        class="btn btn-primary">保存
+                                </button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <button type="button"
+                                        onclick="javascript:location.href='/bam/sysProduct/sysProductList';"
+                                        class="btn btn-default">取消
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                    <!--/.col (right) -->
+                </form>
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+    <!-- /.content-wrapper -->
+    <footer th:include="/common/foot"></footer>
+
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.2.3 -->
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="/plugins/fastclick/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="/scripts/app.min.js"></script>
+<script src="/scripts/demo.js"></script>
+<script src="/scripts/toast.js"></script>
+<script type="text/javascript" src="/scripts/jquery-ui-1.10.0.custom.min.js"></script>
+<script type="text/javascript" src="/scripts/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $("#productNo").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: "/bam/sysProductAjax/listSysProductQry.do",
+                dataType: "json",
+                data: {
+                    startPos: 0,
+                    maxRows: 10,
+                    queryVal: request.term
+                },
+                success: function (data) {
+                    if (data != undefined) {
+                        response($.map(data, function (item) {
+                            return {   //lable为下拉列表显示数据源。value为选中放入到文本框的值，这种方式可以自定义显示
+                                label: item.name,
+                                name: item.name,
+                                value: item.productNo,
+                                sku: item.sku
+                            }
+                        }));
+                    }
+                }
+            });
+        },
+        select: function (event, ui) {
+            $("#productName").val(ui.item.name);
+            $("#sku").val(ui.item.sku);
+        }
+    });
+    function saveProduct() {
+        var id = $("#id").val();
+        var dataJson = $("#productForm").serialize();
+        $.ajax({
+            url: "/bam/sysProductRkAjax/saveOrUpdate",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data: dataJson,
+            dataType: "json",
+            type: "POST",
+            success: function (data) {
+                if (data.success) {
+                    Toast.success("编辑成功", '提示', null);
+                    location.href = '/bam/sysProductRk/sysProductRkList';
+                }
+                else {
+                    Toast.error("保存失败");
+                }
+            }
+        });
+    }
+    $.fn.datetimepicker.dates['zh-CN'] = {
+        days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
+        daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+        daysMin:  ["日", "一", "二", "三", "四", "五", "六", "日"],
+        months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+        monthsShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+        today: "今天",
+        suffix: [],
+        meridiem: ["上午", "下午"]
+    };
+    $( '#rkDate' ).datetimepicker(
+        {
+            startView:2,
+            minView:2,
+            autoclose: true,
+            format: "yyyy-mm-dd",
+            language: 'zh-CN',
+            todayBtn: true
+        });
+</script>
+</body>
+</html>

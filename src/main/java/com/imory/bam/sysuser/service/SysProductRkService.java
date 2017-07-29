@@ -25,21 +25,8 @@ public class SysProductRkService {
     @Autowired
     private SysProductRkMapper sysProductRkMapper;
 
-    public List<SysProductRk> listSysOrigin(Integer startPos, Integer maxRows, String productNo,
-                                            String productName, String sku, String ckName, String khName,
-                                            String khCkNo, Date ckDate, String ckOperator)
+    public List<SysProductRk> listSysProductRk(Map<String, Object> paramsMap)
     {
-        Map<String, Object> paramsMap = new HashMap<>();
-        paramsMap.put("startPos", startPos);
-        paramsMap.put("maxRows", maxRows);
-        paramsMap.put("productNo", productNo);
-        paramsMap.put("productName", productName);
-        paramsMap.put("sku", sku);
-        paramsMap.put("ckName", ckName);
-        paramsMap.put("khName", khName);
-        paramsMap.put("khCkNo", khCkNo);
-        paramsMap.put("ckDate", ckDate);
-        paramsMap.put("ckOperator", ckOperator);
         return sysProductRkMapper.listSysProductRk(paramsMap);
     }
 

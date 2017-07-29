@@ -2,8 +2,8 @@ package com.imory.bam.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.imory.bam.sysuser.bean.SysProductCk;
-import com.imory.bam.sysuser.service.SysProductCkService;
+import com.imory.bam.sysuser.bean.SysProductRk;
+import com.imory.bam.sysuser.service.SysProductRkService;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,23 +24,23 @@ import java.util.Map;
  * @Date 2017/7/20
  */
 @RestController
-@RequestMapping("/bam/sysProductCkAjax")
-public class SysProductCkAjaxController {
+@RequestMapping("/bam/sysProductRkAjax")
+public class SysProductRkAjaxController {
 
     @Autowired
-    private SysProductCkService sysProductCkService;
+    private SysProductRkService sysProductRkService;
 
     /**
      * 查询所有产地
      *
      * @return
      */
-    @RequestMapping("/listSysProductCk")
+    @RequestMapping("/listSysProductRk")
     public String listSysProduct(@Param("draw") int draw, @Param("start") int start, @Param("length") int length,
                                  @Param("productNo") String productNo, @Param("productName") String productName,
                                  @Param("sku") String sku, @Param("ckName") String ckName,
-                                 @Param("khName") String khName, @Param("khCkNo") String khCkNo,
-                                 @Param("ckDate") String ckDate, @Param("ckOperator") String ckOperator)
+                                 @Param("khName") String khName, @Param("khRkNo") String khRkNo,
+                                 @Param("rkDate") String rkDate, @Param("rkOperator") String rkOperator)
     {
         Map<String, Object> paramsMap = new HashMap<>();
         paramsMap.put("startPos", start);
@@ -65,24 +65,24 @@ public class SysProductCkAjaxController {
         {
             paramsMap.put("khName", khName);
         }
-        if(StringUtils.isNotBlank(khCkNo))
+        if(StringUtils.isNotBlank(khRkNo))
         {
-            paramsMap.put("khCkNo", khCkNo);
+            paramsMap.put("khCkNo", khRkNo);
         }
-        if(StringUtils.isNotBlank(ckDate))
+        if(StringUtils.isNotBlank(rkDate))
         {
-            paramsMap.put("ckDate", ckDate);
+            paramsMap.put("rkDate", rkDate);
         }
-        if(StringUtils.isNotBlank(ckOperator))
+        if(StringUtils.isNotBlank(rkOperator))
         {
-            paramsMap.put("ckOperator", ckOperator);
+            paramsMap.put("rkOperator", rkOperator);
         }
-        List<SysProductCk> sysProductCkList = sysProductCkService.listSysProductCk(paramsMap);
+        List<SysProductRk> sysProductRkList = sysProductRkService.listSysProductRk(paramsMap);
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("data", JSON.toJSON(sysProductCkList));
+        jsonObject.put("data", JSON.toJSON(sysProductRkList));
         jsonObject.put("draw", draw);
-        jsonObject.put("recordsTotal", sysProductCkService.countSysProductCk(paramsMap)); //:总记录数
-        jsonObject.put("recordsFiltered", sysProductCkService.countSysProductCk(paramsMap)); //过滤后的总记录数
+        jsonObject.put("recordsTotal", sysProductRkService.countSysProductRk(paramsMap)); //:总记录数
+        jsonObject.put("recordsFiltered", sysProductRkService.countSysProductRk(paramsMap)); //过滤后的总记录数
         return jsonObject.toJSONString();
     }
 
@@ -92,25 +92,25 @@ public class SysProductCkAjaxController {
      * @return
      */
     @RequestMapping("/getById")
-    public SysProductCk getById(Integer id)
+    public SysProductRk getById(Integer id)
     {
-        SysProductCk sysProductCk = sysProductCkService.getById(id);
-        return sysProductCk;
+        SysProductRk sysProductRk = sysProductRkService.getById(id);
+        return sysProductRk;
     }
 
     @RequestMapping("/saveOrUpdate")
-    public Map<String, Object> saveOrUpdate(Integer id, SysProductCk sysProductCk)
+    public Map<String, Object> saveOrUpdate(Integer id, SysProductRk sysProductRk)
     {
         Map<String, Object> resultMap = new HashMap<>();
 
         if (id != null)
         {
-            sysProductCkService.updateById(sysProductCk);
+            sysProductRkService.updateById(sysProductRk);
         } else
         {
-            sysProductCkService.insert(sysProductCk);
+            sysProductRkService.insert(sysProductRk);
         }
-        if (sysProductCk.getId() != null)
+        if (sysProductRk.getId() != null)
         {
             resultMap.put("success", true);
         } else
@@ -130,7 +130,7 @@ public class SysProductCkAjaxController {
     public Map<String, Object> deleteById(Integer id)
     {
         Map<String, Object> resultMap = new HashMap<>();
-        sysProductCkService.deleteById(id);
+        sysProductRkService.deleteById(id);
         resultMap.put("success", true);
         return resultMap;
     }
@@ -145,7 +145,7 @@ public class SysProductCkAjaxController {
     public Map<String, Object> deleteByIds(Integer[] ids)
     {
         Map<String, Object> resultMap = new HashMap<>();
-        sysProductCkService.deleteByIds(ids);
+        sysProductRkService.deleteByIds(ids);
         resultMap.put("success", true);
         return resultMap;
     }

@@ -36,7 +36,7 @@ public interface SysProductRkMapper {
     int countSysProductRk(Map<String, Object> paramsMap);
 
     @Select({
-            "select * from sys_productCk where id = #{id}"
+            "select * from sys_productRk where id = #{id}"
     })
     SysProductRk getById(Integer id);
 

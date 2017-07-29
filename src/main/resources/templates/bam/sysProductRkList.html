@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>出库管理</title>
+    <title>入库管理</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
     <!-- Bootstrap 3.3.6 -->
@@ -48,7 +48,7 @@
     <!-- Left side column. contains the logo and sidebar -->
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
-        <html th:include="/common/menu" th:with="menuCode='crkMenu_sysProductCkList'"></html>
+        <html th:include="/common/menu" th:with="menuCode='crkMenu_sysProductRkList'"></html>
         <!-- /.sidebar -->
     </aside>
 
@@ -57,12 +57,12 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                出库管理列表
+                入库管理列表
                 <!--<small>advanced tables</small>-->
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
-                <li><a href="#">出库管理列表</a></li>
+                <li><a href="#">入库管理列表</a></li>
             </ol>
         </section>
 
@@ -108,20 +108,20 @@
                             <br/>
                             <form class="form-inline">
                                 <div class="form-group">
-                                    <label>出库订单号:</label>
-                                    <input type="text" class="form-control" id="search_khCkNo" placeholder="出库订单号"/>
+                                    <label>入库订单号:</label>
+                                    <input type="text" class="form-control" id="search_khRkNo" placeholder="入库订单号"/>
                                 </div>
                                 <div class="form-group">
-                                    <label>出库时间:</label>
-                                    <input type="text" class="form-control" id="search_ckDate" placeholder="出库时间"/>
+                                    <label>入库时间:</label>
+                                    <input type="text" class="form-control" id="search_rkDate" placeholder="入库时间"/>
                                 </div>
                                 <div class="form-group">
-                                    <label>出库操作员:</label>
-                                    <input type="text" class="form-control" id="search_ckOperator" placeholder="出库操作员"/>
+                                    <label>入库操作员:</label>
+                                    <input type="text" class="form-control" id="search_rkOperator" placeholder="入库操作员"/>
                                 </div>
                                 <button class="btn btn-primary" type="button" onclick="doQuery();">查询</button>
                                 <button class="btn btn-danger" type="button" style="float: right;" onclick="deleteByIds();">删除</button>
-                                <button class="btn btn-primary" type="button" style="float: right;margin-right: 20px;" onclick="javascript:location.href='/bam/sysProductCk/addProductCk';">新增</button>
+                                <button class="btn btn-primary" type="button" style="float: right;margin-right: 20px;" onclick="javascript:location.href='/bam/sysProductRk/addProductRk';">新增</button>
                             </form>
                             <table id="example1" class="table table-bordered table-hover" style="text-align: center">
                                 <thead>
@@ -132,10 +132,10 @@
                                     <th>SKU</th>
                                     <th>仓库</th>
                                     <th>客户名称</th>
-                                    <th>出库订单号</th>
-                                    <th>出库时间</th>
-                                    <th>出库操作员</th>
-                                    <th>出库数量</th>
+                                    <th>入库订单号</th>
+                                    <th>入库时间</th>
+                                    <th>入库操作员</th>
+                                    <th>入库数量</th>
                                     <th>操作</th>
                                 </tr>
                                 </thead>
@@ -159,7 +159,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">查看出库单</h4>
+                    <h4 class="modal-title">查看入库单</h4>
                 </div>
                 <div class="modal-body">
                     <div class="box box-primary">
@@ -197,24 +197,24 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>客户出库订单号</label>
-                                    <input type="text" class="form-control" placeholder="客户出库订单号" id="khCkNo"
-                                           name="khCkNo" />
+                                    <label>客户入库订单号</label>
+                                    <input type="text" class="form-control" placeholder="客户入库订单号" id="khRkNo"
+                                           name="khRkNo" />
                                 </div>
                                 <div class="form-group">
-                                    <label>出库时间</label>
-                                    <input type="text" class="form-control" placeholder="出库时间" id="ckDate" name="ckDate"
+                                    <label>入库时间</label>
+                                    <input type="text" class="form-control" placeholder="入库时间" id="rkDate" name="rkDate"
                                     />
                                 </div>
                                 <div class="form-group">
-                                    <label>出库操作员</label>
-                                    <input type="text" class="form-control" placeholder="出库操作员" id="ckOperator"
-                                           name="ckOperator" />
+                                    <label>入库操作员</label>
+                                    <input type="text" class="form-control" placeholder="入库操作员" id="rkOperator"
+                                           name="rkOperator" />
                                 </div>
                                 <div class="form-group">
-                                    <label>出库数量</label>
-                                    <input type="text" class="form-control" placeholder="出库数量" id="ckNumbers"
-                                           name="ckNumbers" />
+                                    <label>入库数量</label>
+                                    <input type="text" class="form-control" placeholder="入库数量" id="rkNumbers"
+                                           name="rkNumbers" />
                                 </div>
                             </div>
                             <!-- /.box-body -->
@@ -263,16 +263,16 @@
             //开启服务器模式
             serverSide: true,
             ajax:{
-                url:'/bam/sysProductCkAjax/listSysProductCk',
+                url:'/bam/sysProductRkAjax/listSysProductRk',
                 data:function (d) {
                     d.productNo = $("#search_productNo").val(),
                     d.productName = $("#search_productName").val(),
                     d.sku = $("#search_sku").val(),
                     d.ckName = $("#search_ckName").val(),
                     d.khName = $("#search_khName").val(),
-                    d.khCkNo = $("#search_khCkNo").val(),
-                    d.ckDate = $("#search_ckDate").val(),
-                    d.ckOperator = $("#search_ckOperator").val()
+                    d.khRkNo = $("#search_khRkNo").val(),
+                    d.rkDate = $("#search_rkDate").val(),
+                    d.rkOperator = $("#search_rkOperator").val()
                 }
             },
             columns: [
@@ -282,10 +282,10 @@
                 { data: "sku" ,defaultContent:"-"},
                 { data: "ckName",defaultContent:"-"},
                 { data: "khName",defaultContent:"-"},
-                { data: "khCkNo" ,defaultContent:"-"},
-                { data: "ckDate" ,defaultContent:"-"},
-                { data: "ckOperator" ,defaultContent:"-"},
-                { data: "ckNumbers" ,defaultContent:"-"},
+                { data: "khRkNo" ,defaultContent:"-"},
+                { data: "rkDate" ,defaultContent:"-"},
+                { data: "rkOperator" ,defaultContent:"-"},
+                { data: "rkNumbers" ,defaultContent:"-"},
             ],
             columnDefs: [
             {
@@ -346,7 +346,7 @@
         suffix: [],
         meridiem: ["上午", "下午"]
     };
-    $( '#search_ckDate' ).datetimepicker(
+    $( '#search_rkDate' ).datetimepicker(
         {
             startView:2,
             minView:2,
@@ -358,12 +358,12 @@
 
 
     function editById(id) {
-        location.href = '/bam/sysProductCk/addProductCk?id=' + id;
+        location.href = '/bam/sysProductRk/addProductRk?id=' + id;
     }
     
     function viewById(id) {
         $.ajax({
-            url: "/bam/sysProductCkAjax/getById",
+            url: "/bam/sysProductRkAjax/getById",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             data:{
                 id:id
@@ -408,41 +408,6 @@
         $($("#chkId").val(_arr));
     }
 
-    function doAudit() {
-        setChkVal();
-        var _ids =  $("#chkId").val();
-        if(_ids.length == 0)
-        {
-            Toast.info("请选择需要审核的商品");
-            return;
-        }
-
-        if(confirm("是否确认审核该商品"))
-        {
-            $.ajax({
-                url: "/bam/sysProductCkAjax/auditProduct",
-                contentType: "application/x-www-form-urlencoded; charset=utf-8",
-                data:{
-                    ids:_ids
-                },
-                dataType: "json",
-                type: "POST",
-                success : function(data)
-                {
-                    if(data.success)
-                    {
-                        Toast.info("审核成功");
-                        table.ajax.reload();
-                    }
-                    else
-                    {
-                        Toast.info("审核失败");
-                    }
-                }
-            });
-        }
-    }
-    
 
     function deleteByIds() {
         setChkVal();
@@ -453,7 +418,7 @@
             return;
         }
         $.ajax({
-            url: "/bam/sysProductCkAjax/deleteByIds",
+            url: "/bam/sysProductRkAjax/deleteByIds",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             data:{
                 ids:_ids
@@ -472,7 +437,7 @@
 
     function deleteById(id) {
         $.ajax({
-            url: "/bam/sysProductCkAjax/deleteById",
+            url: "/bam/sysProductRkAjax/deleteById",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             data:{
                 id:id

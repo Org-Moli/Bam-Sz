@@ -27,7 +27,7 @@ public class SysProductRk {
 
     private String khRkNo;
 
-    private Date rkDate;
+    private String rkDate;
 
     private String rkOperator;
 
@@ -105,12 +105,12 @@ public class SysProductRk {
         this.khRkNo = khRkNo;
     }
 
-    public Date getRkDate()
+    public String getRkDate()
     {
         return rkDate;
     }
 
-    public void setRkDate(Date rkDate)
+    public void setRkDate(String rkDate)
     {
         this.rkDate = rkDate;
     }
