@@ -238,67 +238,87 @@ CREATE TABLE `sys_platform` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-SET FOREIGN_KEY_CHECKS=0;  
-  
--- ----------------------------  
--- Table structure for region  
--- ----------------------------  
-DROP TABLE IF EXISTS `region`;  
-CREATE TABLE `region` (  
-  `Id` int(11) NOT NULL,  
-  `Name` varchar(40) default NULL,  
-  `Pid` int(11) default NULL,  
-  PRIMARY KEY  (`Id`),  
-  KEY `FK_region_REFERENCE_region` (`Pid`),  
-  CONSTRAINT `FK_region_REFERENCE_region` FOREIGN KEY (`Pid`) REFERENCES `region` (`Id`)  
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;  
-  
--- ----------------------------  
--- Records of region  
--- ----------------------------  
-INSERT INTO `region` VALUES ('0', '中国', '0');  
-INSERT INTO `region` VALUES ('110000', '北京市', '0');  
-INSERT INTO `region` VALUES ('110100', '东城区', '110000');  
-INSERT INTO `region` VALUES ('110200', '西城区', '110000');  
-INSERT INTO `region` VALUES ('110500', '朝阳区', '110000');  
-INSERT INTO `region` VALUES ('110600', '丰台区', '110000');  
-INSERT INTO `region` VALUES ('110700', '石景山区', '110000');  
-INSERT INTO `region` VALUES ('110800', '海淀区', '110000');  
-INSERT INTO `region` VALUES ('110900', '门头沟区', '110000');  
-INSERT INTO `region` VALUES ('111100', '房山区', '110000');  
-INSERT INTO `region` VALUES ('111200', '通州区', '110000');  
-INSERT INTO `region` VALUES ('111300', '顺义区', '110000');  
-INSERT INTO `region` VALUES ('111400', '昌平区', '110000');  
-INSERT INTO `region` VALUES ('111500', '大兴区', '110000');  
-INSERT INTO `region` VALUES ('111600', '怀柔区', '110000');  
-INSERT INTO `region` VALUES ('111700', '平谷区', '110000');  
-INSERT INTO `region` VALUES ('112800', '密云县', '110000');  
-INSERT INTO `region` VALUES ('112900', '延庆县', '110000');  
-INSERT INTO `region` VALUES ('120000', '天津市', '0');  
-INSERT INTO `region` VALUES ('120100', '和平区', '120000');  
-INSERT INTO `region` VALUES ('120200', '河东区', '120000');  
-INSERT INTO `region` VALUES ('120300', '河西区', '120000');  
-INSERT INTO `region` VALUES ('120400', '南开区', '120000');  
-INSERT INTO `region` VALUES ('120500', '河北区', '120000');  
-INSERT INTO `region` VALUES ('120600', '红桥区', '120000');  
-INSERT INTO `region` VALUES ('120900', '滨海新区', '120000');  
-INSERT INTO `region` VALUES ('121000', '东丽区', '120000');  
-INSERT INTO `region` VALUES ('121100', '西青区', '120000');  
-INSERT INTO `region` VALUES ('121200', '津南区', '120000');  
-INSERT INTO `region` VALUES ('121300', '北辰区', '120000');  
-INSERT INTO `region` VALUES ('121400', '武清区', '120000');  
-INSERT INTO `region` VALUES ('121500', '宝坻区', '120000');  
-INSERT INTO `region` VALUES ('122100', '宁河县', '120000');  
-INSERT INTO `region` VALUES ('122300', '静海县', '120000');  
-INSERT INTO `region` VALUES ('122500', '蓟县', '120000');  
-INSERT INTO `region` VALUES ('130000', '河北省', '0');  
-INSERT INTO `region` VALUES ('130100', '石家庄市', '130000');  
-INSERT INTO `region` VALUES ('130101', '市辖区', '130100');  
-INSERT INTO `region` VALUES ('130102', '长安区', '130101');  
-INSERT INTO `region` VALUES ('130103', '桥东区', '130101');  
-INSERT INTO `region` VALUES ('130104', '桥西区', '130101');  
-INSERT INTO `region` VALUES ('130105', '新华区', '130101');  
-INSERT INTO `region` VALUES ('130107', '井陉矿区', '130101');  
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `region`
+-- ----------------------------
+DROP TABLE IF EXISTS `region`;
+CREATE TABLE `region` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(40) DEFAULT NULL,
+  `Pid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `FK_region_REFERENCE_region` (`Pid`)
+) ENGINE=InnoDB AUTO_INCREMENT=130135 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of region
+-- ----------------------------
+INSERT INTO `region` VALUES ('1', '中国', '-1');
+INSERT INTO `region` VALUES ('110100', '东城区', '110000');
+INSERT INTO `region` VALUES ('110200', '西城区', '110000');
+INSERT INTO `region` VALUES ('110500', '朝阳区', '110000');
+INSERT INTO `region` VALUES ('110600', '丰台区', '110000');
+INSERT INTO `region` VALUES ('110700', '石景山区', '110000');
+INSERT INTO `region` VALUES ('110800', '海淀区', '110000');
+INSERT INTO `region` VALUES ('110900', '门头沟区', '110000');
+INSERT INTO `region` VALUES ('111100', '房山区', '110000');
+INSERT INTO `region` VALUES ('111200', '通州区', '110000');
+INSERT INTO `region` VALUES ('111300', '顺义区', '110000');
+INSERT INTO `region` VALUES ('111400', '昌平区', '110000');
+INSERT INTO `region` VALUES ('111500', '大兴区', '110000');
+INSERT INTO `region` VALUES ('111600', '怀柔区', '110000');
+INSERT INTO `region` VALUES ('111700', '平谷区', '110000');
+INSERT INTO `region` VALUES ('112800', '密云县', '110000');
+INSERT INTO `region` VALUES ('112900', '延庆县', '110000');
+INSERT INTO `region` VALUES ('120100', '和平区', '120000');
+INSERT INTO `region` VALUES ('120200', '河东区', '120000');
+INSERT INTO `region` VALUES ('120300', '河西区', '120000');
+INSERT INTO `region` VALUES ('120400', '南开区', '120000');
+INSERT INTO `region` VALUES ('120500', '河北区', '120000');
+INSERT INTO `region` VALUES ('120600', '红桥区', '120000');
+INSERT INTO `region` VALUES ('120900', '滨海新区', '120000');
+INSERT INTO `region` VALUES ('121000', '东丽区', '120000');
+INSERT INTO `region` VALUES ('121100', '西青区', '120000');
+INSERT INTO `region` VALUES ('121200', '津南区', '120000');
+INSERT INTO `region` VALUES ('121300', '北辰区', '120000');
+INSERT INTO `region` VALUES ('121400', '武清区', '120000');
+INSERT INTO `region` VALUES ('121500', '宝坻区', '120000');
+INSERT INTO `region` VALUES ('122100', '宁河县', '120000');
+INSERT INTO `region` VALUES ('122300', '静海县', '120000');
+INSERT INTO `region` VALUES ('122500', '蓟县', '120000');
+INSERT INTO `region` VALUES ('130000', '河北省1111', '1');
+INSERT INTO `region` VALUES ('130100', '石家庄市', '130000');
+INSERT INTO `region` VALUES ('130101', '市辖区', '130100');
+INSERT INTO `region` VALUES ('130102', '长安区', '130101');
+INSERT INTO `region` VALUES ('130103', '桥东区', '130101');
+INSERT INTO `region` VALUES ('130104', '桥西区', '130101');
+INSERT INTO `region` VALUES ('130105', '新华区', '130101');
+INSERT INTO `region` VALUES ('130107', '井陉矿区', '130101');
+INSERT INTO `region` VALUES ('130109', '333', '130108');
+INSERT INTO `region` VALUES ('130110', '1231', '1');
+INSERT INTO `region` VALUES ('130111', '3', '130110');
+INSERT INTO `region` VALUES ('130112', '123123', '1');
+INSERT INTO `region` VALUES ('130113', '12312312', '1');
+INSERT INTO `region` VALUES ('130114', '333333333', '130113');
+INSERT INTO `region` VALUES ('130115', '12323123', '130114');
+INSERT INTO `region` VALUES ('130116', '233221', '130115');
+INSERT INTO `region` VALUES ('130117', '33333333', '1');
+INSERT INTO `region` VALUES ('130118', '1', '130117');
+INSERT INTO `region` VALUES ('130119', '22', '130117');
+INSERT INTO `region` VALUES ('130120', 'hhh', '1');
+INSERT INTO `region` VALUES ('130121', '12313', '1');
+INSERT INTO `region` VALUES ('130124', '222222222', '130123');
+INSERT INTO `region` VALUES ('130125', '33333333333', '130123');
+INSERT INTO `region` VALUES ('130126', '3333333', '130122');
+INSERT INTO `region` VALUES ('130127', '312312', '130120');
+INSERT INTO `region` VALUES ('130129', '2222222222', '130128');
+INSERT INTO `region` VALUES ('130130', '33333333333', '130129');
+INSERT INTO `region` VALUES ('130131', '44444444444444', '130130');
+INSERT INTO `region` VALUES ('130132', '555555555555', '130131');
+INSERT INTO `region` VALUES ('130133', '6666666666666', '130132');
+INSERT INTO `region` VALUES ('130134', '22222222222222', '130121');  
 COMMIT;
 
 

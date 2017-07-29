@@ -2,17 +2,14 @@ package com.imory.bam.sysuser.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Lang;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.SelectKey;
-import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.annotations.Update;
 
-import com.imory.bam.searchDto.OrderDto;
-import com.imory.bam.sysuser.bean.SysOrder;
-import com.imory.bam.sysuser.bean.SysOrigin;
+import com.imory.bam.searchDto.RegionDto;
 import com.imory.bam.sysuser.bean.SysRegion;
 import com.imory.bam.utils.SimpleInLangDriver;
 
@@ -25,7 +22,7 @@ import com.imory.bam.utils.SimpleInLangDriver;
 public interface RegionMapper {
 
     /**
-     * 分页查询匹配数据内容
+     * 查询当前节点下的子节点
      * @param startPos
      * @param maxRows
      * @return
@@ -34,5 +31,38 @@ public interface RegionMapper {
         "select * from region where pid = #{pid}"
 	})
     List<SysRegion> regionInfoSearch(Integer  pid);
+	
+	/**
+	 * 查询当前子节点下是否存在子节点
+	 * @param list
+	 * @return
+	 */
+	@Select({
+        "select  pid,count(1) count from region where pid in(#{list}) group by pid"
+	})
+	@Lang(SimpleInLangDriver.class) 
+	List<RegionDto> regionParentSearch(List<Integer>  list);
+	
+	
+
+    @Insert({
+            "insert into region (name, pid) ",
+            "values (#{name,jdbcType=VARCHAR}, #{pid,jdbcType=INTEGER}) ",
+    })
+	int addRegionInfo(SysRegion sysRegion);
+    
+    
+    @Update({
+        "update  region",
+        "set name = #{name,jdbcType=VARCHAR} ",
+        "where id = #{id,jdbcType=INTEGER}"
+    })
+    int editRegionInfo(SysRegion sysRegion);
+    
+    
+    @Delete({
+        "delete from region where id = #{id,jdbcType=INTEGER}"
+    })
+    int delRegionInfo(SysRegion sysRegion);
  
 }
