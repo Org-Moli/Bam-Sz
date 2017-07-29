@@ -78,11 +78,36 @@
                             <form class="form-inline">
                                 <input type="hidden" id="chkId" name="chkId"/>
                                 <div class="form-group">
-                                    <label>模糊查询:</label>
-                                    <input type="text" class="form-control" id="search_area" placeholder="名称|SKU"/>
-                                    <button class="btn btn-primary" type="button" onclick="doQuery();">查询</button>
-                                    <button class="btn btn-info" type="button" onclick="doAudit();">审核</button>
+                                    <label>商品编码:</label>
+                                    <input type="text" class="form-control" id="search_area" placeholder="商品编码"/>
                                 </div>
+                                <div class="form-group">
+                                    <label>商品名称:</label>
+                                    <input type="text" class="form-control" id="search_area" placeholder="商品名称"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>SKU:</label>
+                                    <input type="text" class="form-control" id="search_area" placeholder="SKU"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>客户:</label>
+                                    <select class="form-control">
+                                        <option>客户1</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>入库订单号:</label>
+                                    <input type="text" class="form-control" id="search_area" placeholder="SKU"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>入库时间:</label>
+                                    <input type="text" class="form-control" id="search_area" placeholder="SKU"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>入库操作员:</label>
+                                    <input type="text" class="form-control" id="search_area" placeholder="SKU"/>
+                                </div>
+                                <button class="btn btn-primary" type="button" onclick="doQuery();">查询</button>
                                 <button class="btn btn-danger" type="button" style="float: right;" onclick="deleteByIds();">删除</button>
                                 <button class="btn btn-primary" type="button" style="float: right;margin-right: 20px;" onclick="javascript:location.href='/bam/sysProductCk/addProductCk';">新增</button>
                             </form>
@@ -116,6 +141,87 @@
         <!-- /.content -->
     </div>
         <!-- /.modal -->
+    <div class="modal" id="addModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">配置产地</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box box-primary">
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form role="form" id="productForm">
+                            <div class="col-md-12">
+                                <!-- general form elements disabled -->
+                                <div class="box box-warning">
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                            <label>商品编码</label>
+                                            <input type="text" class="form-control" placeholder="请输入商品编码搜索" id="productNo"
+                                                   name="productNo" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>货物名称</label>
+                                            <input type="text" class="form-control" placeholder="货物名称" id="productName"
+                                                   name="productName" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>SKU</label>
+                                            <input type="text" class="form-control" placeholder="sku" id="sku" name="sku"
+                                                   />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>仓库</label>
+                                            <select class="form-control" id="ckName" name="ckName">
+                                                <option value="仓库1" selected="selected">仓库1</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>客户名称</label>
+                                            <select class="form-control" id="khName" name="khName">
+                                                <option value="客户1" selected="selected">客户1</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>客户出库订单号</label>
+                                            <input type="text" class="form-control" placeholder="客户出库订单号" id="khCkNo"
+                                                   name="khCkNo" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>出库时间</label>
+                                            <input type="text" class="form-control" placeholder="出库时间" id="ckDate" name="ckDate"
+                                                   />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>出库操作员</label>
+                                            <input type="text" class="form-control" placeholder="出库操作员" id="ckOperator"
+                                                   name="ckOperator" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>出库数量</label>
+                                            <input type="text" class="form-control" placeholder="出库数量" id="ckNumbers"
+                                                   name="ckNumbers" />
+                                        </div>
+                                    </div>
+                                    <!-- /.box-body -->
+                                    <!-- /.box-body -->
+                                </div>
+                                <!-- /.box -->
+                            </div>
+                            <!--/.col (right) -->
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 
     <!-- /.content-wrapper -->
     <footer th:include="/common/foot"></footer>
@@ -222,8 +328,12 @@
 
     });
 
+    function addInfo() {
+        $("#addModal").modal("show");
+    }
+
     function editById(id) {
-        location.href = '/bam/sysProduct/addProduct?id=' + id;
+        location.href = '/bam/sysProductCk/addProductCk?id=' + id;
     }
 
     function doQuery() {
@@ -253,7 +363,7 @@
         if(confirm("是否确认审核该商品"))
         {
             $.ajax({
-                url: "/bam/sysProductAjax/auditProduct",
+                url: "/bam/sysProductCkAjax/auditProduct",
                 contentType: "application/x-www-form-urlencoded; charset=utf-8",
                 data:{
                     ids:_ids
@@ -286,7 +396,7 @@
             return;
         }
         $.ajax({
-            url: "/bam/sysProductAjax/deleteByIds",
+            url: "/bam/sysProductCkAjax/deleteByIds",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             data:{
                 ids:_ids
@@ -305,7 +415,7 @@
 
     function deleteById(id) {
         $.ajax({
-            url: "/bam/sysProductAjax/deleteById",
+            url: "/bam/sysProductCkAjax/deleteById",
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             data:{
                 id:id

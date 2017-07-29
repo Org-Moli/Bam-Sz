@@ -27,7 +27,7 @@ public class SysProductCk {
 
     private String khCkNo;
 
-    private Date ckDate;
+    private String ckDate;
 
     private String ckOperator;
 
@@ -105,12 +105,12 @@ public class SysProductCk {
         this.khCkNo = khCkNo;
     }
 
-    public Date getCkDate()
+    public String getCkDate()
     {
         return ckDate;
     }
 
-    public void setCkDate(Date ckDate)
+    public void setCkDate(String ckDate)
     {
         this.ckDate = ckDate;
     }

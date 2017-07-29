@@ -46,6 +46,13 @@ public class SysProductAjaxController {
         return jsonObject.toJSONString();
     }
 
+    @RequestMapping("/listSysProductQry")
+    public List<Map<String, Object>> listSysProductQry(String qryVal)
+    {
+        List<Map<String, Object>> sysProductList = sysProductService.listSysProduct(null, null, qryVal);
+        return sysProductList;
+    }
+
     /**
      * 查询所有产地
      *

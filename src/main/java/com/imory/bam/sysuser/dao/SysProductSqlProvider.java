@@ -27,10 +27,14 @@ public class SysProductSqlProvider {
         sql.append("where 1 = 1 \n");
         if (StringUtils.isNotBlank(qryVal))
         {
+            sql.append("and sp.productNo like CONCAT('%',#{qryVal},'%') \n");
             sql.append("and sp.name like CONCAT('%',#{qryVal},'%') \n");
             sql.append("or sp.sku like CONCAT('%',#{qryVal},'%') \n");
         }
-        sql.append("limit #{startPos},#{maxRows}");
+        if (paramsMap.get("startPos") != null && paramsMap.get("maxRows") != null)
+        {
+            sql.append("limit #{startPos},#{maxRows}");
+        }
         return sql.toString();
     }
 
