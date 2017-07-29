@@ -21,6 +21,7 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="/css/skins/_all-skins.min.css"/>
+    <link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -79,33 +80,44 @@
                                 <input type="hidden" id="chkId" name="chkId"/>
                                 <div class="form-group">
                                     <label>商品编码:</label>
-                                    <input type="text" class="form-control" id="search_area" placeholder="商品编码"/>
+                                    <input type="text" class="form-control" id="search_productNo" placeholder="商品编码"/>
                                 </div>
                                 <div class="form-group">
                                     <label>商品名称:</label>
-                                    <input type="text" class="form-control" id="search_area" placeholder="商品名称"/>
+                                    <input type="text" class="form-control" id="search_productName" placeholder="商品名称"/>
                                 </div>
                                 <div class="form-group">
                                     <label>SKU:</label>
-                                    <input type="text" class="form-control" id="search_area" placeholder="SKU"/>
+                                    <input type="text" class="form-control" id="search_sku" placeholder="SKU"/>
                                 </div>
                                 <div class="form-group">
-                                    <label>客户:</label>
-                                    <select class="form-control">
-                                        <option>客户1</option>
+                                    <label>仓库:</label>
+                                    <select class="form-control" id="search_ckName">
+                                        <option value="">--请选择--</option>
+                                        <option value="仓库1">仓库1</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>入库订单号:</label>
-                                    <input type="text" class="form-control" id="search_area" placeholder="SKU"/>
+                                    <label>客户:</label>
+                                    <select class="form-control" id="search_khName">
+                                        <option value="">--请选择--</option>
+                                        <option value="客户1">客户1</option>
+                                    </select>
+                                </div>
+                            </form>
+                            <br/>
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label>出库订单号:</label>
+                                    <input type="text" class="form-control" id="search_khCkNo" placeholder="出库订单号"/>
                                 </div>
                                 <div class="form-group">
-                                    <label>入库时间:</label>
-                                    <input type="text" class="form-control" id="search_area" placeholder="SKU"/>
+                                    <label>出库时间:</label>
+                                    <input type="text" class="form-control" id="search_ckDate" placeholder="出库时间"/>
                                 </div>
                                 <div class="form-group">
-                                    <label>入库操作员:</label>
-                                    <input type="text" class="form-control" id="search_area" placeholder="SKU"/>
+                                    <label>出库操作员:</label>
+                                    <input type="text" class="form-control" id="search_ckOperator" placeholder="出库操作员"/>
                                 </div>
                                 <button class="btn btn-primary" type="button" onclick="doQuery();">查询</button>
                                 <button class="btn btn-danger" type="button" style="float: right;" onclick="deleteByIds();">删除</button>
@@ -147,7 +159,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">配置产地</h4>
+                    <h4 class="modal-title">查看出库单</h4>
                 </div>
                 <div class="modal-body">
                     <div class="box box-primary">
@@ -249,6 +261,7 @@
 <script src="/scripts/demo.js"></script>
 <!-- page script -->
 <script src="/scripts/toast.js"></script>
+<script type="text/javascript" src="/scripts/bootstrap-datetimepicker.min.js"></script>
 <script>
     var table;
     $(function () {
@@ -258,14 +271,14 @@
             ajax:{
                 url:'/bam/sysProductCkAjax/listSysProductCk',
                 data:function (d) {
-                    d.productNo = $("#search_area").val(),
-                    d.productName = $("#search_area").val(),
-                    d.sku = $("#search_area").val(),
-                    d.ckName = $("#search_area").val(),
-                    d.khName = $("#search_area").val(),
-                    d.khCkNo = $("#search_area").val(),
-                    d.ckDate = $("#search_area").val(),
-                    d.ckOperator = $("#search_area").val()
+                    d.productNo = $("#search_productNo").val(),
+                    d.productName = $("#search_productName").val(),
+                    d.sku = $("#search_sku").val(),
+                    d.ckName = $("#search_ckName").val(),
+                    d.khName = $("#search_khName").val(),
+                    d.khCkNo = $("#search_khCkNo").val(),
+                    d.ckDate = $("#search_ckDate").val(),
+                    d.ckOperator = $("#search_ckOperator").val()
                 }
             },
             columns: [
@@ -327,6 +340,26 @@
         });
 
     });
+
+    $.fn.datetimepicker.dates['zh-CN'] = {
+        days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
+        daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+        daysMin:  ["日", "一", "二", "三", "四", "五", "六", "日"],
+        months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+        monthsShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+        today: "今天",
+        suffix: [],
+        meridiem: ["上午", "下午"]
+    };
+    $( '#search_ckDate' ).datetimepicker(
+        {
+            startView:2,
+            minView:2,
+            autoclose: true,
+            format: "yyyy-mm-dd",
+            language: 'zh-CN',
+            todayBtn: true
+        });
 
     function addInfo() {
         $("#addModal").modal("show");
