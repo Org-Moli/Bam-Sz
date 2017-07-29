@@ -165,69 +165,63 @@
                     <div class="box box-primary">
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form role="form" id="productForm">
-                            <div class="col-md-12">
-                                <!-- general form elements disabled -->
-                                <div class="box box-warning">
-                                    <!-- /.box-header -->
-                                    <div class="box-body">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>商品编码</label>
-                                            <input type="text" class="form-control" placeholder="请输入商品编码搜索" id="productNo"
-                                                   name="productNo" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>货物名称</label>
-                                            <input type="text" class="form-control" placeholder="货物名称" id="productName"
-                                                   name="productName" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>SKU</label>
-                                            <input type="text" class="form-control" placeholder="sku" id="sku" name="sku"
-                                                   />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>仓库</label>
-                                            <select class="form-control" id="ckName" name="ckName">
-                                                <option value="仓库1" selected="selected">仓库1</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>客户名称</label>
-                                            <select class="form-control" id="khName" name="khName">
-                                                <option value="客户1" selected="selected">客户1</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>客户出库订单号</label>
-                                            <input type="text" class="form-control" placeholder="客户出库订单号" id="khCkNo"
-                                                   name="khCkNo" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>出库时间</label>
-                                            <input type="text" class="form-control" placeholder="出库时间" id="ckDate" name="ckDate"
-                                                   />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>出库操作员</label>
-                                            <input type="text" class="form-control" placeholder="出库操作员" id="ckOperator"
-                                                   name="ckOperator" />
-                                        </div>
-                                        <div class="form-group">
-                                            <label>出库数量</label>
-                                            <input type="text" class="form-control" placeholder="出库数量" id="ckNumbers"
-                                                   name="ckNumbers" />
-                                        </div>
-                                    </div>
-                                    <!-- /.box-body -->
-                                    <!-- /.box-body -->
+                        <form role="form" id="clientForm">
+                            <input type="hidden" id="editId" value=""/>
+                            <input type="hidden" id="chkId" value=""/>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label>商品编码</label>
+                                    <input type="text" class="form-control" placeholder="请输入商品编码搜索" id="productNo"
+                                           name="productNo" />
                                 </div>
-                                <!-- /.box -->
+                                <div class="form-group">
+                                    <label>货物名称</label>
+                                    <input type="text" class="form-control" placeholder="货物名称" id="productName"
+                                           name="productName" />
+                                </div>
+                                <div class="form-group">
+                                    <label>SKU</label>
+                                    <input type="text" class="form-control" placeholder="sku" id="sku" name="sku"
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label>仓库</label>
+                                    <select class="form-control" id="ckName" name="ckName">
+                                        <option value="仓库1" selected="selected">仓库1</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>客户名称</label>
+                                    <select class="form-control" id="khName" name="khName">
+                                        <option value="客户1" selected="selected">客户1</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>客户出库订单号</label>
+                                    <input type="text" class="form-control" placeholder="客户出库订单号" id="khCkNo"
+                                           name="khCkNo" />
+                                </div>
+                                <div class="form-group">
+                                    <label>出库时间</label>
+                                    <input type="text" class="form-control" placeholder="出库时间" id="ckDate" name="ckDate"
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label>出库操作员</label>
+                                    <input type="text" class="form-control" placeholder="出库操作员" id="ckOperator"
+                                           name="ckOperator" />
+                                </div>
+                                <div class="form-group">
+                                    <label>出库数量</label>
+                                    <input type="text" class="form-control" placeholder="出库数量" id="ckNumbers"
+                                           name="ckNumbers" />
+                                </div>
                             </div>
-                            <!--/.col (right) -->
+                            <!-- /.box-body -->
                         </form>
                     </div>
+                </div>
+                <div class="modal-footer">
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -304,6 +298,7 @@
                 targets: 10,
                 render: function (data, type, row) {
                     var _html = '';
+                        _html +=    '<button class="btn btn-primary" type="button" onclick="viewById(' + row.id + ');">查看</button>&nbsp;&nbsp;&nbsp;&nbsp;';
                         _html +=    '<button class="btn btn-primary" type="button" onclick="editById(' + row.id + ');">配置</button>&nbsp;&nbsp;&nbsp;&nbsp;' +
                                     '<button class="btn btn-primary" type="button" onclick="deleteById(' + row.id + ');">删除</button>';
                     return  _html;
@@ -361,12 +356,41 @@
             todayBtn: true
         });
 
-    function addInfo() {
-        $("#addModal").modal("show");
-    }
 
     function editById(id) {
         location.href = '/bam/sysProductCk/addProductCk?id=' + id;
+    }
+    
+    function viewById(id) {
+        $.ajax({
+            url: "/bam/sysProductCkAjax/getById",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data:{
+                id:id
+            },
+            dataType: "json",
+            type: "POST",
+            success : function(data)
+            {
+                if(data != undefined)
+                {
+                    $("#productNo").val(data.productNo);
+                    $("#productName").val(data.productName);
+                    $("#sku").val(data.sku);
+                    $("#ckName").val(data.ckName);
+                    $("#khName").val(data.khName);
+                    $("#khCkNo").val(data.khCkNo);
+                    $("#ckDate").val(data.ckDate);
+                    $("#ckOperator").val(data.ckOperator);
+                    $("#ckNumbers").val(data.ckNumbers);
+                    $("#addModal").modal("show");
+                }
+                else
+                {
+                    Toast.error("查询错误");
+                }
+            }
+        });
     }
 
     function doQuery() {
