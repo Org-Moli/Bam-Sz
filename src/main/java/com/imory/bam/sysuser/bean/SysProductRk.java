@@ -33,6 +33,8 @@ public class SysProductRk {
 
     private Integer rkNumbers;
 
+    private Integer productId;
+
     private Date createTime;
 
     public Integer getId()
@@ -133,6 +135,16 @@ public class SysProductRk {
     public void setRkNumbers(Integer rkNumbers)
     {
         this.rkNumbers = rkNumbers;
+    }
+
+    public Integer getProductId()
+    {
+        return productId;
+    }
+
+    public void setProductId(Integer productId)
+    {
+        this.productId = productId;
     }
 
     public Date getCreateTime()

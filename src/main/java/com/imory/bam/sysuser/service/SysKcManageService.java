@@ -63,36 +63,4 @@ public class SysKcManageService {
         return sysKcManageMapper.getById(id);
     }
 
-    /**
-     * 更新
-     *
-     * @param sysKcManage
-     * @return
-     */
-    public int updateById(SysKcManage sysKcManage)
-    {
-        return sysKcManageMapper.updateById(sysKcManage);
-    }
-
-    /**
-     * 删除
-     *
-     * @param id
-     */
-    public void deleteById(Integer id)
-    {
-        sysKcManageMapper.deleteById(id);
-    }
-
-    /**
-     * 删除
-     *
-     * @param ids
-     */
-    public void deleteByIds(Integer[] ids)
-    {
-        Map<String, Object> paramsMap = new HashMap<>();
-        paramsMap.put("ids", ids);
-        sysKcManageMapper.deleteByIds(paramsMap);
-    }
 }

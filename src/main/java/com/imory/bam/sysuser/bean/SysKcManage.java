@@ -15,11 +15,9 @@ public class SysKcManage {
 
     private Integer id;
 
-    private String productNo;
+    private Integer productId;
 
-    private String productName;
-
-    private String sku;
+    private String ckName;
 
     private Integer rkTotal;
 
@@ -39,34 +37,24 @@ public class SysKcManage {
         this.id = id;
     }
 
-    public String getProductNo()
+    public Integer getProductId()
     {
-        return productNo;
+        return productId;
     }
 
-    public void setProductNo(String productNo)
+    public void setProductId(Integer productId)
     {
-        this.productNo = productNo;
+        this.productId = productId;
     }
 
-    public String getProductName()
+    public String getCkName()
     {
-        return productName;
+        return ckName;
     }
 
-    public void setProductName(String productName)
+    public void setCkName(String ckName)
     {
-        this.productName = productName;
-    }
-
-    public String getSku()
-    {
-        return sku;
-    }
-
-    public void setSku(String sku)
-    {
-        this.sku = sku;
+        this.ckName = ckName;
     }
 
     public Integer getRkTotal()

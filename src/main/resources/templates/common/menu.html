@@ -35,6 +35,7 @@
             <ul th:class="${#strings.contains(menuCode,'crkMenu')} ? 'treeview-menu menu-open' : 'treeview-menu'">
                 <li th:class="${#strings.contains(menuCode,'sysProductRkList')} ? 'active' : ''"><a href="/bam/sysProductRk/sysProductRkList"><i class="fa fa-circle-o"></i> 入库管理</a></li>
                 <li th:class="${#strings.contains(menuCode,'sysProductCkList')} ? 'active' : ''"><a href="/bam/sysProductCk/sysProductCkList"><i class="fa fa-circle-o"></i> 出库管理</a></li>
+                <li th:class="${#strings.contains(menuCode,'sysKcManageList')} ? 'active' : ''"><a href="/bam/sysKcManage/sysKcManageList"><i class="fa fa-circle-o"></i> 库存管理</a></li>
                 <!--<li><a href="#"><i class="fa fa-circle-o"></i> 订单导入</a></li>-->
             </ul>
         </li>

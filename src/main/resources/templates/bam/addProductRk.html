@@ -42,7 +42,7 @@
     <!-- Left side column. contains the logo and sidebar -->
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
-        <html th:include="/common/menu" th:with="menuCode='productMenu_sysProductList'"></html>
+        <html th:include="/common/menu" th:with="menuCode='crkMenu_sysProductRkList'"></html>
         <!-- /.sidebar -->
     </aside>
 
@@ -66,6 +66,7 @@
                 <!-- right column -->
                 <form role="form" id="productForm">
                     <input type="hidden" id="id" name="id" th:value="${productRk.id}"/>
+                    <input type="hidden" id="productId" name="productId" th:value="${productRk.productId}"/>
                     <div class="col-md-12">
                         <!-- general form elements disabled -->
                         <div class="box box-warning">
@@ -75,7 +76,7 @@
                                 <div class="form-group">
                                     <label>商品编码</label>
                                     <input type="text" class="form-control" placeholder="请输入商品编码搜索" id="productNo"
-                                           name="productNo" th:value="${productRk.productNo}"/>
+                                           name="productNo" th:value="${productRk.productNo}" th:readonly="${productRk.id != '' ? readonly : ''}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>货物名称</label>
@@ -101,22 +102,22 @@
                                 </div>
                                 <div class="form-group">
                                     <label>客户入库订单号</label>
-                                    <input type="text" class="form-control" placeholder="客户出库订单号" id="khRkNo"
+                                    <input type="text" class="form-control" placeholder="客户入库订单号" id="khRkNo"
                                            name="khRkNo" th:value="${productRk.khRkNo}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>入库时间</label>
-                                    <input type="text" class="form-control" placeholder="出库时间" id="rkDate" name="rkDate"
+                                    <input type="text" class="form-control" placeholder="入库时间" id="rkDate" name="rkDate"
                                            th:value="${productRk.rkDate}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>入库操作员</label>
-                                    <input type="text" class="form-control" placeholder="出库操作员" id="rkOperator"
+                                    <input type="text" class="form-control" placeholder="入库操作员" id="rkOperator"
                                            name="rkOperator" th:value="${productRk.rkOperator}"/>
                                 </div>
                                 <div class="form-group">
                                     <label>入库数量</label>
-                                    <input type="text" class="form-control" placeholder="出库数量" id="rkNumbers"
+                                    <input type="text" class="form-control" placeholder="入库数量" id="rkNumbers"
                                            name="rkNumbers" th:value="${productRk.rkNumbers}"/>
                                 </div>
                             </div>
@@ -184,6 +185,7 @@
                                 label: item.name,
                                 name: item.name,
                                 value: item.productNo,
+                                ids:item.id,
                                 sku: item.sku
                             }
                         }));
@@ -192,6 +194,7 @@
             });
         },
         select: function (event, ui) {
+            $("#productId").val(ui.item.ids);
             $("#productName").val(ui.item.name);
             $("#sku").val(ui.item.sku);
         }

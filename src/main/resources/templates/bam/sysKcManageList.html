@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>入库管理</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"/>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/css/font-awesome.min.css"/>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="/css/ionicons.min.css"/>
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/plugins/datatables/dataTables.bootstrap.css"/>
+    <link rel="stylesheet" href="/plugins/iCheck/square/blue.css"/>
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/css/AdminLTE.min.css"/>
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+         folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="/css/skins/_all-skins.min.css"/>
+    <link href="/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .table>thead:first-child>tr:first-child>th{
+            text-align:center;
+            padding-left: 21px;
+        }
+        th, td { white-space: nowrap; }
+        div.dataTables_wrapper {
+            width: 100%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <header th:include="/common/head"></header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <html th:include="/common/menu" th:with="menuCode='crkMenu_sysKcManageList'"></html>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                入库管理列表
+                <!--<small>advanced tables</small>-->
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li><a href="#">入库管理列表</a></li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="box">
+                        <!--<div class="box-header">
+                            <h3 class="box-title">客户列表</h3>
+                        </div>-->
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <form class="form-inline">
+                                <input type="hidden" id="chkId" name="chkId"/>
+                                <div class="form-group">
+                                    <label>商品编码:</label>
+                                    <input type="text" class="form-control" id="search_productNo" placeholder="商品编码"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>商品名称:</label>
+                                    <input type="text" class="form-control" id="search_productName" placeholder="商品名称"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>SKU:</label>
+                                    <input type="text" class="form-control" id="search_sku" placeholder="SKU"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>仓库:</label>
+                                    <select class="form-control" id="search_ckName">
+                                        <option value="">--请选择--</option>
+                                        <option value="仓库1">仓库1</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>客户:</label>
+                                    <select class="form-control" id="search_khName">
+                                        <option value="">--请选择--</option>
+                                        <option value="客户1">客户1</option>
+                                    </select>
+                                </div>
+                            </form>
+                            <br/>
+                            <form class="form-inline">
+                                <div class="form-group">
+                                    <label>入库订单号:</label>
+                                    <input type="text" class="form-control" id="search_khRkNo" placeholder="入库订单号"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>入库时间:</label>
+                                    <input type="text" class="form-control" id="search_rkDate" placeholder="入库时间"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>入库操作员:</label>
+                                    <input type="text" class="form-control" id="search_rkOperator" placeholder="入库操作员"/>
+                                </div>
+                                <button class="btn btn-primary" type="button" onclick="doQuery();">查询</button>
+                                <button class="btn btn-danger" type="button" style="float: right;" onclick="deleteByIds();">删除</button>
+                                <button class="btn btn-primary" type="button" style="float: right;margin-right: 20px;" onclick="javascript:location.href='/bam/sysProductRk/addProductRk';">新增</button>
+                            </form>
+                            <table id="example1" class="table table-bordered table-hover" style="text-align: center">
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="checkAll"/></th>
+                                    <th>商品编码</th>
+                                    <th>商品名称</th>
+                                    <th>SKU</th>
+                                    <th>仓库</th>
+                                    <th>客户名称</th>
+                                    <th>入库订单号</th>
+                                    <th>入库时间</th>
+                                    <th>入库操作员</th>
+                                    <th>入库数量</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
+        <!-- /.modal -->
+    <div class="modal" id="addModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">查看入库单</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="box box-primary">
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form role="form" id="clientForm">
+                            <input type="hidden" id="editId" value=""/>
+                            <input type="hidden" id="chkId" value=""/>
+                            <div class="box-body">
+                                <div class="form-group">
+                                    <label>商品编码</label>
+                                    <input type="text" class="form-control" placeholder="请输入商品编码搜索" id="productNo"
+                                           name="productNo" />
+                                </div>
+                                <div class="form-group">
+                                    <label>货物名称</label>
+                                    <input type="text" class="form-control" placeholder="货物名称" id="productName"
+                                           name="productName" />
+                                </div>
+                                <div class="form-group">
+                                    <label>SKU</label>
+                                    <input type="text" class="form-control" placeholder="sku" id="sku" name="sku"
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label>仓库</label>
+                                    <select class="form-control" id="ckName" name="ckName">
+                                        <option value="仓库1" selected="selected">仓库1</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>客户名称</label>
+                                    <select class="form-control" id="khName" name="khName">
+                                        <option value="客户1" selected="selected">客户1</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>客户入库订单号</label>
+                                    <input type="text" class="form-control" placeholder="客户入库订单号" id="khRkNo"
+                                           name="khRkNo" />
+                                </div>
+                                <div class="form-group">
+                                    <label>入库时间</label>
+                                    <input type="text" class="form-control" placeholder="入库时间" id="rkDate" name="rkDate"
+                                    />
+                                </div>
+                                <div class="form-group">
+                                    <label>入库操作员</label>
+                                    <input type="text" class="form-control" placeholder="入库操作员" id="rkOperator"
+                                           name="rkOperator" />
+                                </div>
+                                <div class="form-group">
+                                    <label>入库数量</label>
+                                    <input type="text" class="form-control" placeholder="入库数量" id="rkNumbers"
+                                           name="rkNumbers" />
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+    <!-- /.content-wrapper -->
+    <footer th:include="/common/foot"></footer>
+
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 2.2.3 -->
+<script src="/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="/scripts/moment.js"></script>
+<script src="/scripts/datatable-datetime.js"></script>
+<!-- FastClick -->
+<script src="/plugins/fastclick/fastclick.js"></script>
+<script src="/plugins/iCheck/icheck.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/scripts/app.min.js"></script>
+<script src="/scripts/demo.js"></script>
+<!-- page script -->
+<script src="/scripts/toast.js"></script>
+<script type="text/javascript" src="/scripts/bootstrap-datetimepicker.min.js"></script>
+<script>
+    var table;
+    $(function () {
+        table = $('#example1').DataTable({
+            //开启服务器模式
+            serverSide: true,
+            ajax:{
+                url:'/bam/sysProductRkAjax/listSysProductRk',
+                data:function (d) {
+                    d.productNo = $("#search_productNo").val(),
+                    d.productName = $("#search_productName").val(),
+                    d.sku = $("#search_sku").val(),
+                    d.ckName = $("#search_ckName").val(),
+                    d.khName = $("#search_khName").val(),
+                    d.khRkNo = $("#search_khRkNo").val(),
+                    d.rkDate = $("#search_rkDate").val(),
+                    d.rkOperator = $("#search_rkOperator").val()
+                }
+            },
+            columns: [
+                {data:"id"},
+                { data: "productNo" ,defaultContent:"-"},
+                { data: "productName" ,defaultContent:"-"},
+                { data: "sku" ,defaultContent:"-"},
+                { data: "ckName",defaultContent:"-"},
+                { data: "khName",defaultContent:"-"},
+                { data: "khRkNo" ,defaultContent:"-"},
+                { data: "rkDate" ,defaultContent:"-"},
+                { data: "rkOperator" ,defaultContent:"-"},
+                { data: "rkNumbers" ,defaultContent:"-"},
+            ],
+            columnDefs: [
+            {
+                targets: 0,
+                render: function (data, type, row) {
+                    return  '<input type="checkbox" value="' + row.id + '" name="idChk"/>';
+                }
+            },
+            {
+                targets: 10,
+                render: function (data, type, row) {
+                    var _html = '';
+                        _html +=    '<button class="btn btn-primary" type="button" onclick="viewById(' + row.id + ');">查看</button>&nbsp;&nbsp;&nbsp;&nbsp;';
+                        _html +=    '<button class="btn btn-primary" type="button" onclick="editById(' + row.id + ');">配置</button>&nbsp;&nbsp;&nbsp;&nbsp;' +
+                                    '<button class="btn btn-primary" type="button" onclick="deleteById(' + row.id + ');">删除</button>';
+                    return  _html;
+                }
+            }],
+            language: {
+                url: "/plugins/datatables/cn.json"
+            },
+            paging: true,
+            lengthChange: false,
+            searching: false,
+            ordering: false,
+            info: true,
+            autoWidth: false,
+            paging: true,
+            scrollX:true,
+            fnDrawCallback: function (oSettings) {
+                $('input').iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    increaseArea: '10%' // optional
+                });
+            }
+        });
+
+        $("#checkAll").on('ifChanged', function(event){
+            if($(this).is(":checked"))
+            {
+                $("input[type='checkbox'][name='idChk']").iCheck('check');
+            }
+            else
+            {
+                $("input[type='checkbox'][name='idChk']").iCheck('uncheck');
+            }
+        });
+
+    });
+
+    $.fn.datetimepicker.dates['zh-CN'] = {
+        days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
+        daysShort: ["周日", "周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+        daysMin:  ["日", "一", "二", "三", "四", "五", "六", "日"],
+        months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+        monthsShort: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+        today: "今天",
+        suffix: [],
+        meridiem: ["上午", "下午"]
+    };
+    $( '#search_rkDate' ).datetimepicker(
+        {
+            startView:2,
+            minView:2,
+            autoclose: true,
+            format: "yyyy-mm-dd",
+            language: 'zh-CN',
+            todayBtn: true
+        });
+
+
+    function editById(id) {
+        location.href = '/bam/sysProductRk/addProductRk?id=' + id;
+    }
+    
+    function viewById(id) {
+        $.ajax({
+            url: "/bam/sysProductRkAjax/getById",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data:{
+                id:id
+            },
+            dataType: "json",
+            type: "POST",
+            success : function(data)
+            {
+                if(data != undefined)
+                {
+                    $("#productNo").val(data.productNo);
+                    $("#productName").val(data.productName);
+                    $("#sku").val(data.sku);
+                    $("#ckName").val(data.ckName);
+                    $("#khName").val(data.khName);
+                    $("#khCkNo").val(data.khCkNo);
+                    $("#ckDate").val(data.ckDate);
+                    $("#ckOperator").val(data.ckOperator);
+                    $("#ckNumbers").val(data.ckNumbers);
+                    $("#addModal").modal("show");
+                }
+                else
+                {
+                    Toast.error("查询错误");
+                }
+            }
+        });
+    }
+
+    function doQuery() {
+        table.ajax.reload();
+    }
+
+    function setChkVal() {
+        var _arr = [];
+        $("input[type='checkbox'][name='idChk']").each(function () {
+            if($(this).is(":checked"))
+            {
+                _arr.push($(this).val());
+            }
+        });
+        $($("#chkId").val(_arr));
+    }
+
+
+    function deleteByIds() {
+        setChkVal();
+        var _ids =  $("#chkId").val();
+        if(_ids.length == 0)
+        {
+            Toast.info("请选择需要删除的货币");
+            return;
+        }
+        $.ajax({
+            url: "/bam/sysProductRkAjax/deleteByIds",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data:{
+                ids:_ids
+            },
+            dataType: "json",
+            type: "POST",
+            success : function(data)
+            {
+                if(data.success)
+                {
+                    table.ajax.reload();
+                }
+            }
+        });
+    }
+
+    function deleteById(id) {
+        $.ajax({
+            url: "/bam/sysProductRkAjax/deleteById",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            data:{
+                id:id
+            },
+            dataType: "json",
+            type: "POST",
+            success : function(data)
+            {
+                if(data.success)
+                {
+                    table.ajax.reload();
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

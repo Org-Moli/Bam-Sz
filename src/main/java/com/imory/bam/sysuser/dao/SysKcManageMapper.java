@@ -19,19 +19,21 @@ import java.util.Map;
 public interface SysKcManageMapper {
 
     @Insert({
-            "insert into sys_kcManage (productNo, productName,sku,",
+            "insert into sys_kcManage (productId,ckName,",
             "rkTotal,ckTotal,syNums,createTime)",
-            "values (#{productNo,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, ",
-            "#{sku,jdbcType=VARCHAR},#{rkTotal,jdbcType=INTEGER},#{ckTotal,jdbcType=INTEGER},",
+            "values (#{productId,jdbcType=INTEGER}, ",
+            "#{ckName,jdbcType=VARCHAR},",
+            "#{rkTotal,jdbcType=INTEGER},",
+            "#{ckTotal,jdbcType=INTEGER},",
             "#{syNums,jdbcType=INTEGER}, now())"
     })
     @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", before = false, resultType = Integer.class)
     int insert(SysKcManage sysKcManage);
 
-    @SelectProvider(type = SysKcManageSqlProvider.class,method = "listSysKcManage")
+    @SelectProvider(type = SysKcManageSqlProvider.class, method = "listSysKcManage")
     List<SysKcManage> listSysKcManage(Map<String, Object> paramsMap);
 
-    @SelectProvider(type = SysKcManageSqlProvider.class,method = "countSysKcManage")
+    @SelectProvider(type = SysKcManageSqlProvider.class, method = "countSysKcManage")
     int countSysKcManage(Map<String, Object> paramsMap);
 
     @Select({
@@ -41,21 +43,16 @@ public interface SysKcManageMapper {
 
     @Update({
             "update sys_kcManage",
-            "set productNo = #{productNo,jdbcType=VARCHAR},",
-            "productName = #{productName,jdbcType=VARCHAR},",
-            "sku = #{sku,jdbcType=VARCHAR},",
-            "rkTotal = #{rkTotal,jdbcType=INTEGER},",
+            "set rkTotal = #{rkTotal,jdbcType=INTEGER},",
             "ckTotal = #{ckTotal,jdbcType=INTEGER},",
             "syNums = #{syNums,jdbcType=INTEGER}",
             "where id = #{id,jdbcType=INTEGER}"
     })
     int updateById(SysKcManage sysKcManage);
 
-    @Delete({
-            "delete from sys_kcManage where id = #{id}"
+    @Select({
+            "select * from sys_kcManage where productId = #{productId} and ckName = #{ckName}"
     })
-    void deleteById(@Param("id") Integer id);
+    List<SysKcManage> listSysKcManageByProductAndCk(@Param("productId") Integer productId, @Param("ckName") String ckName);
 
-    @DeleteProvider(type = SysKcManageSqlProvider.class, method = "deleteByIds")
-    void deleteByIds(Map<String, Object> paramsMap);
 }

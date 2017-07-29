@@ -21,10 +21,10 @@ public interface SysProductRkMapper {
     @Insert({
             "insert into sys_productRk (productNo, productName,sku,",
             "ckName,khName,khRkNo,rkDate,",
-            "rkOperator,rkNumbers, createTime) ",
+            "rkOperator,rkNumbers, productId,createTime) ",
             "values (#{productNo,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, ",
             "#{sku,jdbcType=VARCHAR},#{ckName,jdbcType=VARCHAR},#{khName,jdbcType=VARCHAR},",
-            "#{khRkNo,jdbcType=VARCHAR}, #{rkDate},#{rkOperator},#{rkNumbers},now())"
+            "#{khRkNo,jdbcType=VARCHAR}, #{rkDate},#{rkOperator},#{rkNumbers},#{productId},now())"
     })
     @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", before = false, resultType = Integer.class)
     int insert(SysProductRk sysProductRk);

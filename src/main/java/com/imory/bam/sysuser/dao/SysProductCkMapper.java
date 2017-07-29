@@ -21,10 +21,10 @@ public interface SysProductCkMapper {
     @Insert({
             "insert into sys_productCk (productNo, productName,sku,",
             "ckName,khName,khCkNo,ckDate,",
-            "ckOperator,ckNumbers, createTime) ",
+            "ckOperator,ckNumbers, productId,createTime) ",
             "values (#{productNo,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, ",
             "#{sku,jdbcType=VARCHAR},#{ckName,jdbcType=VARCHAR},#{khName,jdbcType=VARCHAR},",
-            "#{khCkNo,jdbcType=VARCHAR}, #{ckDate},#{ckOperator},#{ckNumbers},now())"
+            "#{khCkNo,jdbcType=VARCHAR}, #{ckDate},#{ckOperator},#{ckNumbers},#{productId},now())"
     })
     @SelectKey(statement = "SELECT LAST_INSERT_ID()", keyProperty = "id", before = false, resultType = Integer.class)
     int insert(SysProductCk sysProductCk);
