@@ -28,7 +28,7 @@ public class SysProductSqlProvider {
         if (StringUtils.isNotBlank(qryVal))
         {
             sql.append("and sp.productNo like CONCAT('%',#{qryVal},'%') \n");
-            sql.append("and sp.name like CONCAT('%',#{qryVal},'%') \n");
+            sql.append("or sp.name like CONCAT('%',#{qryVal},'%') \n");
             sql.append("or sp.sku like CONCAT('%',#{qryVal},'%') \n");
         }
         if (paramsMap.get("startPos") != null && paramsMap.get("maxRows") != null)

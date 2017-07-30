@@ -129,7 +129,7 @@
                                 </button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <button type="button"
-                                        onclick="javascript:location.href='/bam/sysProduct/sysProductList';"
+                                        onclick="javascript:location.href='/bam/sysProductCk/sysProductCkList';"
                                         class="btn btn-default">取消
                                 </button>
                             </div>
@@ -175,7 +175,7 @@
                 data: {
                     startPos: 0,
                     maxRows: 10,
-                    queryVal: request.term
+                    qryVal: request.term
                 },
                 success: function (data) {
                     if (data != undefined) {

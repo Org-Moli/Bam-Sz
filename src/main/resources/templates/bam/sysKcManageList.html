@@ -86,9 +86,6 @@
                                     <label>商品名称:</label>
                                     <input type="text" class="form-control" id="search_productName" placeholder="商品名称"/>
                                 </div>
-                            </form>
-                            <br/>
-                            <form class="form-inline">
                                 <div class="form-group">
                                     <label>SKU:</label>
                                     <input type="text" class="form-control" id="search_sku" placeholder="SKU"/>
@@ -102,8 +99,8 @@
                                 </div>
                                 <button class="btn btn-primary" type="button" onclick="doQuery();">查询</button>
                                 <button class="btn btn-danger" type="button" style="float: right;" onclick="deleteByIds();">删除</button>
-                                <button class="btn btn-primary" type="button" style="float: right;margin-right: 20px;" onclick="javascript:location.href='/bam/sysProductRk/addProductRk';">新增</button>
                             </form>
+                            <br/>
                             <table id="example1" class="table table-bordered table-hover" style="text-align: center">
                                 <thead>
                                 <tr>
